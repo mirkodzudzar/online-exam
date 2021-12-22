@@ -25,6 +25,13 @@
     </nav>
   </div>
   <div>
+    <div>
+      @if (session('status'))
+        <div>
+          {{ session('status') }}
+        </div>
+      @endif
+    </div>
     @yield('content')
   </div>
 </body>

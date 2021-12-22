@@ -89,6 +89,8 @@ class RegisterController extends Controller
         $candidate->user_id = $user->id;
         $candidate->save();
 
+        session()->flash('status', 'Your registration have been completed successfully.');
+
         return $user;
     }
 }
