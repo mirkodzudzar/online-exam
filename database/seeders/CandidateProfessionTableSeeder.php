@@ -24,7 +24,7 @@ class CandidateProfessionTableSeeder extends Seeder
         );
 
         if ($min_professions > $max_professions) {
-            $this->command->info('Minimum nubmer could not be greater then maximum, default one will be used.');
+            $this->command->info("Minimum is {$min_default}, maximum is {$max_default}, default values will be used.");
             $min_professions = $min_default;
             $max_professions = $max_default;
         }
