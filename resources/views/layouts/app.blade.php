@@ -20,14 +20,6 @@
             <a class="nav-link p-2 text-dark" href="{{ route('home.index') }}">Home</a>
             <a class="nav-link p-2 text-dark" href="{{ route('register') }}">Register</a>
             <a class="nav-link p-2 text-dark" href="{{ route('login') }}">Login</a>
-          @else
-            <a class="nav-link p-2 text-dark" href="{{ route('logout') }}"
-              onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-              Logout
-            </a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none">
-              @csrf
-            </form>
           @endguest
         </div>
       </div>
