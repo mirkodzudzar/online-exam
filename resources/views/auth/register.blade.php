@@ -61,7 +61,7 @@
     </div>
     
     <div>
-      <input class="btn btn-primary mt-5" type="submit" value="Submit">
+      <input class="btn btn-primary mt-5" type="submit" value="Register">
     </div>
   </form>
 @endsection
