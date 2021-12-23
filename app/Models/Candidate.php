@@ -15,4 +15,9 @@ class Candidate extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function works()
+    {
+        return $this->belongsToMany(Work::class);
+    }
 }
