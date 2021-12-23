@@ -16,8 +16,13 @@
     <div class="container-fluid">
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-          @auth
-            <a class="nav-link p-2 text-dark" href="{{ route('users.professions.index') }}">Home</a>
+          @guest
+            <a class="nav-link p-2 text-dark" href="{{ route('home.index') }}">Home</a>
+            <a class="nav-link p-2 text-dark" href="{{ route('register') }}">Register</a>
+            <a class="nav-link p-2 text-dark" href="{{ route('login') }}">Login</a>
+          @else
+            <a class="nav-link p-2 text-dark" href="{{ route('home.index') }}">Home</a>
+            <a class="nav-link p-2 text-dark" href="{{ route('users.professions.index') }}">Professions</a>
             <a class="nav-link p-2 text-dark" href="{{ route('logout') }}"
               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
               Logout
@@ -25,7 +30,7 @@
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none">
               @csrf
             </form>
-          @endauth
+          @endguest
         </div>
       </div>
     </div>
