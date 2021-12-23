@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Database\Seeders\UsersTableSeeder;
+use Database\Seeders\WorksTableSeeder;
 use Database\Seeders\CandidatesTableSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,6 +25,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UsersTableSeeder::class,
             CandidatesTableSeeder::class,
+            WorksTableSeeder::class,
         ]);
     }
 }
