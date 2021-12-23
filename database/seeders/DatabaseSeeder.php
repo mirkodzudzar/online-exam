@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Database\Seeders\UsersTableSeeder;
 use Database\Seeders\CandidatesTableSeeder;
+use Database\Seeders\ProfessionTableSeeder;
+use Database\Seeders\CandidateProfessionTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,6 +26,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UsersTableSeeder::class,
             CandidatesTableSeeder::class,
+            ProfessionTableSeeder::class,
+            CandidateProfessionTableSeeder::class,
         ]);
     }
 }
