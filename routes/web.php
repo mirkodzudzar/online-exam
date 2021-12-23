@@ -1,9 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admins\AdminProfessionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\ProfessionController;
+use App\Http\Controllers\Users\ProfessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,22 +22,21 @@ use App\Http\Controllers\ProfessionController;
 // });
 
 Route::group([
-    'prefix' => 'user',
-    'as' => 'user.',
-    'namespace' => 'User',
+    'prefix' => 'users',
+    'as' => 'users.',
     'middleware' => ['auth'],
 ], function() {
     // for authenticated users
-    Route::resource('professions', ProfessionController::class)->only('index');
+    Route::resource('professions', ProfessionController::class)->only(['index']);
 });
 
 Route::group([
-    'prefix' => 'admin',
-    'as' => 'admin.',
-    'namespace' => 'Admin',
-    'middleware' => ['auth', 'admin'],
+    'prefix' => 'admins',
+    'as' => 'admins.',
+    'middleware' => ['auth'],
 ], function() {
-    // for authenticated admin users
+    /// for authenticated admin users
+    Route::resource('professions', AdminProfessionController::class)->only(['index']);
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
