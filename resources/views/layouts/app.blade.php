@@ -40,6 +40,9 @@
         {{ session('status') }}
       </div>
     @endif
+    <h1>
+      @yield('page_title')
+    </h1>
     @yield('content')
   </div>
 </body>
