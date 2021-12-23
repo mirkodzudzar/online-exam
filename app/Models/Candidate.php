@@ -16,8 +16,8 @@ class Candidate extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function works()
+    public function professions()
     {
-        return $this->belongsToMany(Work::class);
+        return $this->belongsToMany(Profession::class);
     }
 }
