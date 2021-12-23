@@ -22,10 +22,10 @@ class CreateCandidateProfessionTable extends Migration
                   ->on('candidates')
                   ->onDelete('cascade');
 
-            $table->unsignedBigInteger('work_id')->index();
-            $table->foreign('work_id')
+            $table->unsignedBigInteger('profession_id')->index();
+            $table->foreign('profession_id')
                   ->references('id')
-                  ->on('works')
+                  ->on('professions')
                   ->onDelete('cascade');
 
             $table->timestamps();
