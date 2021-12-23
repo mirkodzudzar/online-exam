@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use App\Models\Candidate;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
@@ -92,5 +93,10 @@ class RegisterController extends Controller
         session()->flash('status', 'Your registration have been completed successfully.');
 
         return $user;
+    }
+
+    public function redirectPath()
+    {
+        return route('users.professions.index');
     }
 }
