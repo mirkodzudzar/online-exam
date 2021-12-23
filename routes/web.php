@@ -24,7 +24,6 @@ use App\Http\Controllers\Users\ProfessionController;
 Route::group([
     'prefix' => 'users',
     'as' => 'users.',
-    'middleware' => ['auth'],
 ], function() {
     // for authenticated users
     Route::resource('professions', ProfessionController::class)->only(['index']);
@@ -33,7 +32,6 @@ Route::group([
 Route::group([
     'prefix' => 'admins',
     'as' => 'admins.',
-    'middleware' => ['auth'],
 ], function() {
     /// for authenticated admin users
     Route::resource('professions', AdminProfessionController::class)->only(['index']);
