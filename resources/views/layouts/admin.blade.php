@@ -12,14 +12,15 @@
   <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white 
     border-bottom shadow-sm mb-3">
     <h5 class="my-0 mr-md-auto font-weight-normal">Online Exam</h5>
-    <nav class="navbar navbar-expand-lg navbar-light">
+    <nav class="navbar navbar-expand navbar-light">
     <div class="container-fluid">
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           @auth
+            <a class="nav-link p-2 text-dark" href="{{ route('admins.professions.index') }}">Admin panel</a>
             <a class="nav-link p-2 text-dark" href="{{ route('logout') }}"
               onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-              Logout FOR ADMINS
+              Logout
             </a>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none">
               @csrf
