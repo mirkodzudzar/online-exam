@@ -45,7 +45,7 @@ class LoginController extends Controller
             return route('admins.professions.index');
         }
 
-        return route('users.candidate.professions.index', [
+        return route('users.candidates.professions.index', [
             'candidate' => Auth::user()->candidate->id
         ]);
     }
