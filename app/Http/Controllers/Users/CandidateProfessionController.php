@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers\Users;
 
-use App\Models\Profession;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Candidate;
+use App\Models\Profession;
 
-class ProfessionController extends Controller
+class CandidateProfessionController extends Controller
 {
     public function __construct()
     {
@@ -19,9 +19,11 @@ class ProfessionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Candidate $candidate)
     {
-        //
+        return view('users.candidates.professions.index', [
+            'professions' => $candidate->professions,
+        ]);
     }
 
     /**
@@ -40,31 +42,34 @@ class ProfessionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Candidate $candidate, Request $request)
     {
-        //
+        // 'profession' is additional parameter on form action (maybe there is better way?)
+        $profession_id = $request->input('profession');
+        $candidate->professions()->syncWithoutDetaching([$profession_id]);
+        $profession = Profession::findOrFail($profession_id);
+        
+        return redirect()->back()->withStatus("You have successfully applied for '{$profession->title}' profession");
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Profession  $profession
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Profession $profession)
+    public function show($id)
     {
-        return view('users.professions.show', [
-            'profession' => $profession,
-        ]);
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Profession  $profession
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Profession $profession)
+    public function edit($id)
     {
         //
     }
@@ -73,10 +78,10 @@ class ProfessionController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Profession  $profession
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Profession $profession)
+    public function update(Request $request, $id)
     {
         //
     }
@@ -84,10 +89,10 @@ class ProfessionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Profession  $profession
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Profession $profession)
+    public function destroy($id)
     {
         //
     }

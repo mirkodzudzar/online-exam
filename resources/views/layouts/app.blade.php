@@ -17,9 +17,7 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           @guest
-            <a class="nav-link p-2 text-dark" href="{{ route('home.index') }}">Home</a>
-            <a class="nav-link p-2 text-dark" href="{{ route('register') }}">Register</a>
-            <a class="nav-link p-2 text-dark" href="{{ route('login') }}">Login</a>
+            @include('includes._guest-navbar')
           @endguest
         </div>
       </div>

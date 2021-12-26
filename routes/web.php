@@ -4,6 +4,7 @@ use App\Http\Controllers\Admins\AdminProfessionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\Users\CandidateProfessionController;
 use App\Http\Controllers\Users\ProfessionController;
 
 /*
@@ -26,7 +27,8 @@ Route::group([
     'as' => 'users.',
 ], function() {
     // for authenticated users
-    Route::resource('professions', ProfessionController::class)->only(['index']);
+    Route::resource('professions', ProfessionController::class)->only(['show']);
+    Route::resource('candidates.professions', CandidateProfessionController::class)->only(['index', 'store']);
 });
 
 Route::group([
