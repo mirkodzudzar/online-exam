@@ -11,6 +11,9 @@ class Profession extends Model
 
     protected $fillable = ['title', 'description', 'open_date', 'close_date'];
 
+    // This array provides abbility to show different formats of timestamp fiels in blades.
+    protected $dates = ['open_date', 'close_date'];
+
     public function candidates()
     {
         return $this->belongsToMany(Candidate::class);
