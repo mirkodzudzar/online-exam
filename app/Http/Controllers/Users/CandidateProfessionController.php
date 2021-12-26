@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Candidate;
 use App\Models\Profession;
-use Illuminate\Support\Facades\Auth;
 
 class CandidateProfessionController extends Controller
 {
@@ -43,9 +42,14 @@ class CandidateProfessionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Candidate $candidate, Request $request)
     {
-        //
+        // 'profession' is additional parameter on form action (maybe there is better way?)
+        $profession_id = $request->input('profession');
+        $candidate->professions()->syncWithoutDetaching([$profession_id]);
+        $profession = Profession::findOrFail($profession_id);
+        
+        return redirect()->back()->withStatus("You have successfully applied for '{$profession->title}' profession");
     }
 
     /**

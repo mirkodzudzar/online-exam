@@ -28,7 +28,7 @@ Route::group([
 ], function() {
     // for authenticated users
     Route::resource('professions', ProfessionController::class)->only(['show']);
-    Route::resource('candidates.professions', CandidateProfessionController::class)->only(['index']);
+    Route::resource('candidates.professions', CandidateProfessionController::class)->only(['index', 'store']);
 });
 
 Route::group([
