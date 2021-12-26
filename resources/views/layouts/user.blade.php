@@ -17,19 +17,13 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           @guest
-            <a class="nav-link p-2 text-dark" href="{{ route('home.index') }}">Home</a>
-            <a class="nav-link p-2 text-dark" href="{{ route('register') }}">Register</a>
-            <a class="nav-link p-2 text-dark" href="{{ route('login') }}">Login</a>
+            @include('includes._guest-navbar')
           @else
-            <a class="nav-link p-2 text-dark" href="{{ route('home.index') }}">Home</a>
-            <a class="nav-link p-2 text-dark" href="{{ route('users.professions.index') }}">Professions</a>
-            <a class="nav-link p-2 text-dark" href="{{ route('logout') }}"
-              onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-              Logout
-            </a>
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none">
-              @csrf
-            </form>
+            @if (Auth::user()->is_admin)
+              @include('includes._admin-navbar')
+            @else
+              @include('includes._user-navbar')
+            @endif
           @endguest
         </div>
       </div>
