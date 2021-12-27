@@ -18,6 +18,6 @@ class Candidate extends Model
 
     public function professions()
     {
-        return $this->belongsToMany(Profession::class);
+        return $this->belongsToMany(Profession::class)->withPivot('created_at')->orderByPivot('created_at', 'desc');
     }
 }
