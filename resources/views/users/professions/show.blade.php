@@ -11,6 +11,8 @@
     @elsecan('apply', $profession)
       <x-apply-button :profession="$profession"></x-apply-button>
     @else
-      <a href="{{ route('login') }}" class="btn btn-primary">Login to apply</a>
+      @guest
+        <a href="{{ route('login') }}" class="btn btn-primary">Login to apply</a>
+      @endguest
     @endcan
 @endsection

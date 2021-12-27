@@ -15,7 +15,7 @@
       @endcan
     </div>
     <div class="card-footer text-muted">
-      {{ $profession->open_date->format('d.m.Y') }} - {{ $profession->close_date->format('d.m.Y') }}
+      {{ $profession->open_date->format('d.m.Y.') }} - {{ $profession->close_date->format('d.m.Y.') }}
     </div>
   </div>
 @empty
