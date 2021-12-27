@@ -16,6 +16,9 @@
     </div>
     <div class="card-footer text-muted">
       {{ $profession->open_date->format('d.m.Y.') }} - {{ $profession->close_date->format('d.m.Y.') }}
+      @if ($profession->close_date < Carbon\Carbon::now())
+        <span class="badge bg-danger">Expired</span>
+      @endif
     </div>
   </div>
 @empty
