@@ -2,8 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use App\Scopes\WithExpiredProfessionsAdminScope;
+use App\Scopes\WithoutExpiredProfessionsUserScope;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Profession extends Model
 {
@@ -17,5 +21,23 @@ class Profession extends Model
     public function candidates()
     {
         return $this->belongsToMany(Candidate::class);
+    }
+
+    public function scopeWithoutExpiredProfessions(Builder $builder)
+    {
+        return $builder->where('close_date', '>=', Carbon::now()->toDateTimeString());
+    }
+
+    public function scopeWithExpiredProfessions(Builder $builder)
+    {
+        return $builder->where('close_date', '<', Carbon::now()->toDateTimeString());
+    }
+
+    public static function boot()
+    {
+        // static::addGlobalScope(new WithExpiredProfessionsAdminScope);
+        static::addGlobalScope(new WithoutExpiredProfessionsUserScope);
+        
+        parent::boot();
     }
 }
