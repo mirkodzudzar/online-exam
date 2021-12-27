@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Users;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use App\Models\Candidate;
 use App\Models\Profession;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CandidateProfessionController extends Controller
 {
@@ -44,12 +44,7 @@ class CandidateProfessionController extends Controller
      */
     public function store(Candidate $candidate, Request $request)
     {
-        // 'profession' is additional parameter on form action (maybe there is better way?)
-        $profession_id = $request->input('profession');
-        $candidate->professions()->syncWithoutDetaching([$profession_id]);
-        $profession = Profession::findOrFail($profession_id);
-        
-        return redirect()->back()->withStatus("You have successfully applied for '{$profession->title}' profession");
+        //
     }
 
     /**
@@ -81,7 +76,7 @@ class CandidateProfessionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Candidate $candidate, Profession $profession, Request $request)
     {
         //
     }
@@ -95,5 +90,23 @@ class CandidateProfessionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function apply(Candidate $candidate, Profession $profession, Request $request)
+    {
+        $this->authorize($profession);
+
+        $candidate->professions()->syncWithoutDetaching([$profession->id]);
+        
+        return redirect()->back()->withStatus("You have successfully applied for '{$profession->title}' profession");
+    }
+
+    public function unapply(Candidate $candidate, Profession $profession, Request $request)
+    {
+        // dd([$candidate->id, $profession->id]);
+        $this->authorize($profession);
+        $candidate->professions()->detach([$profession->id]);
+
+        return redirect()->back()->withStatus("You have successfully unapplied '{$profession->title}' profession");
     }
 }

@@ -6,12 +6,10 @@
   <h1>{{ $profession->title }}</h1>
   <p>{{ $profession->description }}</p>
   <p>{{ $profession->open_date->format('d.m.Y') }} - {{ $profession->close_date->format('d.m.Y') }}</p>
-  <form action="{{ route('users.candidates.professions.store', [
-    'candidate' => Auth::user()->candidate->id,
-    // this is additional parameter, not sure is this the right way to do it
-    'profession' => $profession->id
-    ]) }}" method="POST">
-    @csrf
-    <input class="btn btn-primary" type="submit" value="Apply">
-  </form>
+    @can('unapply', $profession)
+      <x-unapply-button :profession="$profession"></x-unapply-button>
+    @endcan
+    @can('apply', $profession)
+      <x-apply-button :profession="$profession"></x-apply-button>
+    @endcan
 @endsection
