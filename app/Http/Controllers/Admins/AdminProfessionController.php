@@ -90,4 +90,13 @@ class AdminProfessionController extends Controller
     {
         //
     }
+
+    public function expiredProfessions()
+    {
+        $professions = Profession::onlyExpiredProfessions()->get();
+
+        return view('admins.professions.expired', [
+            'professions' => $professions,
+        ]);
+    }
 }
