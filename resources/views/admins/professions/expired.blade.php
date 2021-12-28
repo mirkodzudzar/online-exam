@@ -1,8 +1,8 @@
 @extends('layouts.user')
 
-@section('title', 'Home page')
+@section('title', 'Expired Professions')
 
-@section('page_title', 'List of professions')
+@section('page_title', 'Expired Professions')
     
 @section('content')
   <x-profession-card :professions="$professions"></x-profession-card>
