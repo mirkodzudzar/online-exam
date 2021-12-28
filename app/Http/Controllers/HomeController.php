@@ -9,7 +9,7 @@ class HomeController extends Controller
     public function index()
     {
         return view('home.index', [
-            'professions' => Profession::all(),
+            'professions' => Profession::withoutExpiredProfessions()->get(),
         ]);
     }
 }

@@ -6,6 +6,8 @@ use App\Models\Candidate;
 use App\Models\Profession;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Database\Eloquent\Builder;
+use App\Scopes\WithoutExpiredProfessionsUserScope;
 
 class CandidateProfessionController extends Controller
 {
@@ -21,6 +23,11 @@ class CandidateProfessionController extends Controller
      */
     public function index(Candidate $candidate)
     {
+        // Example code
+        // $professions = Profession::whereHas('candidates', function(Builder $builder) use ($candidate) {
+        //     $builder->whereIn('candidate_id', [$candidate->id]);
+        // })->withoutGlobalScope(WithoutExpiredProfessionsUserScope::class)->get();
+
         return view('users.candidates.professions.index', [
             'professions' => $candidate->professions,
         ]);

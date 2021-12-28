@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 use App\Models\Profession;
+use Carbon\Carbon;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ProfessionPolicy
@@ -13,6 +14,10 @@ class ProfessionPolicy
     // Check if user already applied for some profession
     public function apply(User $user, Profession $profession)
     {
+        // If profession is expired - close_date is older than current date/time
+        if ($profession->close_date < Carbon::now()) {
+            return false;
+        }
         // If user is not candidate - admin
         if (is_null($user->candidate)) {
             return false;
@@ -31,6 +36,10 @@ class ProfessionPolicy
     // Check if user applied for some profession so it can be unapplied
     public function unapply(User $user, Profession $profession)
     {
+        // If profession is expired - close_date is older than current date/time
+        if ($profession->close_date < Carbon::now()) {
+            return false;
+        }
         // If user is not candidate - admin
         if (is_null($user->candidate)) {
             return false;
