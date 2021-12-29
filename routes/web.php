@@ -41,7 +41,7 @@ Route::group([
 ], function() {
     /// for authenticated admin users
     Route::get('/professions/expired', [AdminProfessionController::class, 'expiredProfessions'])->name('professions.expired');
-    Route::resource('professions', AdminProfessionController::class)->only(['index', 'create', 'store', 'show']);
+    Route::resource('professions', AdminProfessionController::class)->except(['destroy']);
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');

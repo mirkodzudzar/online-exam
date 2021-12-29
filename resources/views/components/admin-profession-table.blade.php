@@ -6,6 +6,7 @@
       <th scope="col">Open date</th>
       <th scope="col">Close date</th>
       <th scope="col">Note</th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
@@ -17,6 +18,9 @@
         <td>{{ $profession->close_date->format('m/d/Y') }}</td>
         <td>
           <x-expired-badge :profession="$profession"></x-expired-badge>
+        </td>
+        <td>
+          <a href="{{ route('admins.professions.edit', ['profession' => $profession->id]) }}" class="btn btn-success">Edit</a>
         </td>
       </tr>
     @empty

@@ -73,7 +73,11 @@ class AdminProfessionController extends Controller
      */
     public function edit($id)
     {
-        //
+        $profession = Profession::findOrFail($id);
+
+        return view('admins.professions.edit', [
+            'profession' => $profession,
+        ]);
     }
 
     /**
@@ -83,9 +87,13 @@ class AdminProfessionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreProfession $request, $id)
     {
-        //
+        $profession = Profession::findOrFail($id);
+        $validated = $request->validated();
+        $profession->update($validated);
+
+        return redirect()->back()->withStatus("Profession '{$profession->title}' has been updated successfully.");
     }
 
     /**
