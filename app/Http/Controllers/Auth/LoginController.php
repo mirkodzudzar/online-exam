@@ -44,9 +44,5 @@ class LoginController extends Controller
         if (Auth::user()->is_admin) {
             return route('admins.professions.index');
         }
-
-        return route('users.candidates.professions.index', [
-            'candidate' => Auth::user()->candidate->id
-        ]);
     }
 }

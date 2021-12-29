@@ -6,7 +6,7 @@
     
 @section('content')
   <p>{{ $profession->description }}</p>
-  <p>{{ $profession->open_date->format('d.m.Y') }} - {{ $profession->close_date->format('d.m.Y') }}</p>
+  <p>{{ $profession->open_date }} - {{ $profession->close_date }}</p>
     @can('unapply', $profession)
       <x-unapply-button :profession="$profession"></x-unapply-button>
     @elsecan('apply', $profession)
