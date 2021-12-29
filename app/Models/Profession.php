@@ -36,12 +36,13 @@ class Profession extends Model
 
     public function scopeWithoutExpiredProfessions(Builder $builder)
     {
-        return $builder->where('close_date', '>=', Carbon::now());
+        // Comparing two dates with default format
+        return $builder->whereDate('close_date', '>=', Carbon::today());
     }
 
     public function scopeOnlyExpiredProfessions(Builder $builder)
     {
-        return $builder->where('close_date', '<', Carbon::now());
+        return $builder->whereDate('close_date', '<', Carbon::today());
     }
 
     public static function boot()
