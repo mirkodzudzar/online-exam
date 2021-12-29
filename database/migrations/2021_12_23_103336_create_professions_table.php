@@ -17,8 +17,9 @@ class CreateProfessionsTable extends Migration
             $table->id();
             $table->string('title');
             $table->text('description');
-            $table->timestamp('open_date');
-            $table->timestamp('close_date');
+            // We are not creating new migration for changing field type, timestamp is unknown type
+            $table->date('open_date');
+            $table->date('close_date');
             $table->timestamps();
         });
     }
