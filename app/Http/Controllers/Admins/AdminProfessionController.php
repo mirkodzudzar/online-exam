@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admins;
 use App\Models\Profession;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreProfession;
 
 class AdminProfessionController extends Controller
 {
@@ -32,7 +33,7 @@ class AdminProfessionController extends Controller
      */
     public function create()
     {
-        //
+        return view('admins.professions.create');
     }
 
     /**
@@ -41,9 +42,14 @@ class AdminProfessionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProfession $request)
     {
-        //
+        $validated = $request->validated();
+        $profession = Profession::create($validated);
+
+        return redirect()->route('admins.professions.show', [
+            'profession' => $profession->id,
+        ])->withStatus("Profession '{$profession->title}' has been created successfully.");
     }
 
     /**
@@ -54,7 +60,9 @@ class AdminProfessionController extends Controller
      */
     public function show($id)
     {
-        //
+        return view('admins.professions.show', [
+            'profession' => Profession::findOrFail($id),
+        ]);
     }
 
     /**
