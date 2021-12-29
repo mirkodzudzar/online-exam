@@ -90,13 +90,8 @@ class RegisterController extends Controller
         $candidate->user_id = $user->id;
         $candidate->save();
 
-        session()->flash('status', 'Your registration have been completed successfully.');
+        session()->flash('status', 'Welcome! Your registration have been completed successfully.');
 
         return $user;
-    }
-
-    public function redirectPath()
-    {
-        return route('users.professions.index');
     }
 }
