@@ -13,8 +13,8 @@
       <tr>
         <th scope="row">{{ $profession->id }}</th>
         <td>{{ $profession->title }}</td>
-        <td>{{ $profession->open_date }}</td>
-        <td>{{ $profession->close_date }}</td>
+        <td>{{ $profession->open_date->format('m/d/Y') }}</td>
+        <td>{{ $profession->close_date->format('m/d/Y') }}</td>
         <td>
           <x-expired-badge :profession="$profession"></x-expired-badge>
         </td>

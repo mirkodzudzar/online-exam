@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Scopes\NewestScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -15,7 +16,7 @@ class Profession extends Model
     protected $fillable = ['title', 'description', 'open_date', 'close_date'];
 
     // This array provides abbility to show different formats of timestamp fiels in blades.
-    // protected $dates = ['open_date', 'close_date'];
+    protected $dates = ['open_date', 'close_date'];
 
     public function candidates()
     {
@@ -35,6 +36,7 @@ class Profession extends Model
     public static function boot()
     {
         // static::addGlobalScope(new WithoutExpiredProfessionsUserScope);
+        static::addGlobalScope(new NewestScope);
         
         parent::boot();
     }

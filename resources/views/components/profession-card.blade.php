@@ -15,7 +15,7 @@
       @endcan
     </div>
     <div class="card-footer text-muted">
-      {{ $profession->open_date }} - {{ $profession->close_date }}
+      {{ $profession->open_date->format('m/d/Y') }} - {{ $profession->close_date->format('m/d/Y') }}
       <x-expired-badge :profession="$profession"></x-expired-badge>
     </div>
   </div>
