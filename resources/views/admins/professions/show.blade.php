@@ -6,5 +6,5 @@
     
 @section('content')
   <p>{{ $profession->description }}</p>
-  <p>{{ $profession->open_date->format('m/d/Y') }} - {{ $profession->close_date->format('m/d/Y') }}</p>
+  <p>{{ $profession->open_date }} - {{ $profession->close_date }}</p>
 @endsection

@@ -18,6 +18,17 @@ class Profession extends Model
     // This array provides abbility to show different formats of timestamp fiels in blades.
     protected $dates = ['open_date', 'close_date'];
 
+    // Change date format of open_date field.
+    public function getOpenDateAttribute($value) {
+        return Carbon::parse($value)->format('d.m.Y.');
+    }
+    
+    // Change date format of close_date field.
+    public function getCloseDateAttribute($value)
+    {
+        return Carbon::parse($value)->format('d.m.Y.');
+    }
+
     public function candidates()
     {
         return $this->belongsToMany(Candidate::class);
