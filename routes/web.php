@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Users\CandidateProfessionController;
 use App\Http\Controllers\Users\ProfessionController;
-use App\Models\CandidateProfession;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,10 +28,11 @@ Route::group([
 ], function() {
     // for authenticated users
     Route::resource('professions', ProfessionController::class)->only(['show']);
-    Route::resource('candidates.professions', CandidateProfessionController::class)->only(['index']);
+
     // Additional routes for resource controller
     Route::post('/candidates/{candidate}/professions/{profession}', [CandidateProfessionController::class, 'apply'])->name('candidates.professions.apply');
     Route::put('/candidates/{candidate}/professions/{profession}', [CandidateProfessionController::class, 'unapply'])->name('candidates.professions.unapply');
+    Route::resource('candidates.professions', CandidateProfessionController::class)->only(['index']);
 });
 
 Route::group([
@@ -40,8 +40,8 @@ Route::group([
     'as' => 'admins.',
 ], function() {
     /// for authenticated admin users
-    Route::resource('professions', AdminProfessionController::class)->only(['index']);
     Route::get('/professions/expired', [AdminProfessionController::class, 'expiredProfessions'])->name('professions.expired');
+    Route::resource('professions', AdminProfessionController::class)->except(['destroy']);
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');

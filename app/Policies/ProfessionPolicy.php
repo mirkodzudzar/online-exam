@@ -15,7 +15,7 @@ class ProfessionPolicy
     public function apply(User $user, Profession $profession)
     {
         // If profession is expired - close_date is older than current date/time
-        if ($profession->close_date < Carbon::now()) {
+        if (Carbon::parse($profession->close_date) < Carbon::today()) {
             return false;
         }
         // If user is not candidate - admin
@@ -37,7 +37,7 @@ class ProfessionPolicy
     public function unapply(User $user, Profession $profession)
     {
         // If profession is expired - close_date is older than current date/time
-        if ($profession->close_date < Carbon::now()) {
+        if (Carbon::parse($profession->close_date) < Carbon::today()) {
             return false;
         }
         // If user is not candidate - admin
