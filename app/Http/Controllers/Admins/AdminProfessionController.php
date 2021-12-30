@@ -10,6 +10,8 @@ class AdminProfessionController extends Controller
 {
     public function __construct()
     {
+        // We have this middleware included so authorization with policy is not required.
+        // But it will be included
         $this->middleware(['auth', 'admin']);
     }
 
@@ -72,6 +74,7 @@ class AdminProfessionController extends Controller
      */
     public function edit(Profession $profession)
     {
+        $this->authorize($profession);
         return view('admins.professions.edit', [
             'profession' => $profession,
         ]);
