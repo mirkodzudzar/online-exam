@@ -37,6 +37,11 @@ class Profession extends Model
                     ->withPivot(['total', 'attempted', 'correct', 'wrong', 'status']);
     }
 
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
+
     public function scopeWithoutExpiredProfessions(Builder $builder)
     {
         // Comparing two dates with default format
