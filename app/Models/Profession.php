@@ -33,7 +33,8 @@ class Profession extends Model
 
     public function candidates()
     {
-        return $this->belongsToMany(Candidate::class);
+        return $this->belongsToMany(Candidate::class)
+                    ->withPivot(['total', 'attempted', 'correct', 'wrong', 'status']);
     }
 
     public function scopeWithoutExpiredProfessions(Builder $builder)

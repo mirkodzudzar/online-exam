@@ -103,9 +103,13 @@ class CandidateProfessionController extends Controller
     {
         $this->authorize($profession);
 
-        $candidate->professions()->syncWithoutDetaching([$profession->id]);
-        
-        return redirect()->back()->withStatus("You have successfully applied for '{$profession->title}' profession");
+        // We don't need this anymore since we are using policy for apply-unapply functionality (not possible to duplicate results).
+        // $candidate->professions()->syncWithoutDetaching([$profession->id]);
+        $candidate->professions()->attach([$profession->id], ['status' => 'applied']);
+
+        return redirect()->route('users.professions.show', [
+            'profession' => $profession->id,
+        ])->withStatus("You have successfully applied for '{$profession->title}' profession");
     }
 
     public function unapply(Candidate $candidate, Profession $profession, Request $request)
