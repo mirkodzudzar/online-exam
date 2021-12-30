@@ -119,6 +119,19 @@ class AdminProfessionController extends Controller
     }
 
     /**
+     * Restore all the resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function restoreAll()
+    {
+        Profession::onlyTrashed()->restore();
+
+        return redirect()->back()->withStatus("All professions has been restored successfully.");
+    }
+
+    /**
      * Force remove the specified resource from storage permanently.
      *
      * @param  int  $id
