@@ -128,7 +128,7 @@ class AdminProfessionController extends Controller
     {
         Profession::onlyTrashed()->restore();
 
-        return redirect()->back()->withStatus("All professions has been restored successfully.");
+        return redirect()->back()->withStatus("All professions have been restored successfully.");
     }
 
     /**
