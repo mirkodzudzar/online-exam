@@ -104,7 +104,10 @@ class AdminProfessionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $profession = Profession::findOrFail($id);
+        $profession->delete();
+
+        return redirect()->back()->withStatus("Profession '{$profession->title}' has been deleted successfully.");
     }
 
     public function expiredProfessions()

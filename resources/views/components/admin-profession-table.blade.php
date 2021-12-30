@@ -7,6 +7,7 @@
       <th scope="col">Close date</th>
       <th scope="col">Note</th>
       <th scope="col"></th>
+      <th scope="col"></th>
     </tr>
   </thead>
   <tbody>
@@ -21,6 +22,13 @@
         </td>
         <td>
           <a href="{{ route('admins.professions.edit', ['profession' => $profession->id]) }}" class="btn btn-success">Edit</a>
+        </td>
+        <td>
+          <form action="{{ route('admins.professions.destroy', ['profession' => $profession->id]) }}" method="POST">
+            @csrf
+            @method('DELETE')
+            <input type="submit" value="Delete" class="btn btn-danger">
+          </form>
         </td>
       </tr>
     @empty
