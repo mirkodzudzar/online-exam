@@ -18,7 +18,7 @@
         <td>{{ $profession->open_date }}</td>
         <td>{{ $profession->close_date }}</td>
         <td>
-          <x-expired-badge :profession="$profession"></x-expired-badge>
+          @include('includes._expired-badge')
         </td>
         <td>
           <a href="{{ route('admins.professions.edit', ['profession' => $profession->id]) }}" class="btn btn-success">Edit</a>
@@ -27,7 +27,7 @@
           <form action="{{ route('admins.professions.destroy', ['profession' => $profession->id]) }}" method="POST">
             @csrf
             @method('DELETE')
-            <input type="submit" value="Delete" class="btn btn-danger">
+            <input type="submit" value="Delete" class="btn btn-danger" onclick='return confirm("Are you sure you want to delete {{ $profession->title }}?")'>
           </form>
         </td>
       </tr>

@@ -5,5 +5,5 @@
 @section('page_title', 'List of all professions')
     
 @section('content')
-  <x-admin-profession-table :professions="$professions"></x-admin-profession-table>
+  @include('includes._admin-profession-table')
 @endsection

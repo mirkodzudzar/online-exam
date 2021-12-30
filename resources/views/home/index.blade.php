@@ -5,5 +5,5 @@
 @section('page_title', 'List of professions')
     
 @section('content')
-  <x-profession-card :professions="$professions"></x-profession-card>
+  @include('includes._profession-card')
 @endsection
