@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Scopes\DestroyedAdminScope;
 use App\Scopes\NewestScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -50,6 +51,7 @@ class Profession extends Model
     {
         // static::addGlobalScope(new WithoutExpiredProfessionsUserScope);
         static::addGlobalScope(new NewestScope);
+        static::addGlobalScope(new DestroyedAdminScope);
         
         parent::boot();
     }

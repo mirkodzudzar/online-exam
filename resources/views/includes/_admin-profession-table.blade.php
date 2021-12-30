@@ -9,6 +9,7 @@
         <th scope="col">Note</th>
         <th scope="col"></th>
         <th scope="col"></th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
@@ -27,9 +28,12 @@
           @if ($profession->trashed())
             <td>
               <a href="" class="btn btn-warning">Restore</a>
+            </td>
+            <td>
               <a href="" class="btn btn-danger">Delete permanently</a>
             </td>
           @else
+            <td></td>
             <td>
               <form action="{{ route('admins.professions.destroy', ['profession' => $profession->id]) }}" method="POST">
                 @csrf
