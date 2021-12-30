@@ -8,6 +8,9 @@
   <p>{{ $profession->description }}</p>
   <p>{{ $profession->open_date }} - {{ $profession->close_date }}</p>
   @can('unapply', $profession)
+    @if (Auth::user()->candidate->professions()->first()->pivot->status === 'applied')
+      @include('includes._profession-questions')
+    @endif
     @include('includes._unapply-button')
   @elsecan('apply', $profession)
     @include('includes._apply-button')

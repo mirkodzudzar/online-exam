@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             CandidatesTableSeeder::class,
             ProfessionTableSeeder::class,
             CandidateProfessionTableSeeder::class,
+            QuestionsTableSeeder::class,
         ]);
     }
 }
