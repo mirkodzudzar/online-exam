@@ -27,7 +27,10 @@
           </td>
           @if ($profession->trashed())
             <td>
-              <a href="" class="btn btn-warning">Restore</a>
+              <form action="{{ route('admins.professions.restore', ['profession' => $profession->id]) }}" method="POST">
+                @csrf
+                <input type="submit" value="Restore" class="btn btn-warning">
+              </form>
             </td>
             <td>
               <a href="" class="btn btn-danger">Delete permanently</a>

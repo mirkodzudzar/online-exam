@@ -40,6 +40,7 @@ Route::group([
     'as' => 'admins.',
 ], function() {
     /// for authenticated admin users
+    Route::post('/professions/{profession}/restore', [AdminProfessionController::class, 'restore'])->name('professions.restore');
     Route::get('/professions/expired', [AdminProfessionController::class, 'expired'])->name('professions.expired');
     Route::get('/professions/destroyed', [AdminProfessionController::class, 'destroyed'])->name('professions.destroyed');
     Route::resource('professions', AdminProfessionController::class);

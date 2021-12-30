@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admins;
 
 use App\Models\Profession;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProfession;
 
@@ -58,10 +57,10 @@ class AdminProfessionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Profession $profession)
     {
         return view('admins.professions.show', [
-            'profession' => Profession::findOrFail($id),
+            'profession' => $profession,
         ]);
     }
 
@@ -71,10 +70,8 @@ class AdminProfessionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Profession $profession)
     {
-        $profession = Profession::findOrFail($id);
-
         return view('admins.professions.edit', [
             'profession' => $profession,
         ]);
@@ -87,9 +84,8 @@ class AdminProfessionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreProfession $request, $id)
+    public function update(StoreProfession $request, Profession $profession)
     {
-        $profession = Profession::findOrFail($id);
         $validated = $request->validated();
         $profession->update($validated);
 
@@ -102,12 +98,24 @@ class AdminProfessionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Profession $profession)
     {
-        $profession = Profession::findOrFail($id);
         $profession->delete();
 
         return redirect()->back()->withStatus("Profession '{$profession->title}' has been deleted successfully.");
+    }
+
+    /**
+     * Restore the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function restore(Profession $profession)
+    {
+        $profession->restore();
+
+        return redirect()->back()->withStatus("Profession '{$profession->title}' has been restored successfully.");
     }
 
     /**
