@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Users;
 use App\Models\Profession;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 
 class ProfessionController extends Controller
 {
@@ -21,7 +20,9 @@ class ProfessionController extends Controller
      */
     public function index()
     {
-        //
+        return view('users.professions.index', [
+            'professions' => Profession::withoutExpiredProfessions()->get(),
+        ]);
     }
 
     /**
