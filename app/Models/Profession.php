@@ -36,6 +36,11 @@ class Profession extends Model
         return $this->belongsToMany(Candidate::class);
     }
 
+    public function exam()
+    {
+        return $this->belongsTo(Exam::class);
+    }
+
     public function scopeWithoutExpiredProfessions(Builder $builder)
     {
         // Comparing two dates with default format
