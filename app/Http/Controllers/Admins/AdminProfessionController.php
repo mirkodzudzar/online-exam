@@ -10,6 +10,8 @@ class AdminProfessionController extends Controller
 {
     public function __construct()
     {
+        // We have this middleware included so authorization with policy is not required.
+        // Policy will be used in blades for now.
         $this->middleware(['auth', 'admin']);
     }
 
@@ -59,9 +61,7 @@ class AdminProfessionController extends Controller
      */
     public function show(Profession $profession)
     {
-        return view('admins.professions.show', [
-            'profession' => $profession,
-        ]);
+        //
     }
 
     /**
@@ -128,7 +128,7 @@ class AdminProfessionController extends Controller
     {
         Profession::onlyTrashed()->restore();
 
-        return redirect()->back()->withStatus("All professions has been restored successfully.");
+        return redirect()->back()->withStatus("All professions have been restored successfully.");
     }
 
     /**

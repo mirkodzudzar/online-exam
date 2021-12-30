@@ -19,10 +19,9 @@ class IsAdmin
     {
         if (Auth::user() && Auth()->user()->is_admin) {
             return $next($request);
-        } elseif (Auth::user()) {
-            return redirect()->route('users.professions.index');
         }
 
-        return redirect()->route('home.index');
+        return redirect()->route('users.professions.index')
+                         ->withStatus('You are not authorized to visit this page.');
     }
 }

@@ -21,7 +21,11 @@
       @foreach ($professions as $profession)
         <tr>
           <th scope="row">{{ $profession->id }}</th>
-          <td>{{ $profession->title }}</td>
+          <td>
+            <a href="{{ route('users.professions.show', ['profession' => $profession]) }}">
+              {{ $profession->title }}
+            </a>
+          </td>
           <td>{{ $profession->open_date }}</td>
           <td>{{ $profession->close_date }}</td>
           <td>

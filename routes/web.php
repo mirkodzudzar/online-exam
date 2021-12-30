@@ -3,7 +3,6 @@
 use App\Http\Controllers\Admins\AdminProfessionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Users\CandidateProfessionController;
 use App\Http\Controllers\Users\ProfessionController;
 
@@ -48,5 +47,5 @@ Route::group([
     Route::resource('professions', AdminProfessionController::class);
 });
 
-Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::get('/', [ProfessionController::class, 'index'])->name('users.professions.index');
 Auth::routes();
