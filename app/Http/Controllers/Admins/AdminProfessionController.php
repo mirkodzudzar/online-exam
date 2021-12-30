@@ -110,7 +110,26 @@ class AdminProfessionController extends Controller
         return redirect()->back()->withStatus("Profession '{$profession->title}' has been deleted successfully.");
     }
 
-    public function expiredProfessions()
+    /**
+     * Display a listing of the destroyed resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyed()
+    {
+        $professions = Profession::onlyTrashed()->get();
+
+        return view('admins.professions.destroyed', [
+            'professions' => $professions,
+        ]);
+    }
+
+    /**
+     * Display a listing of the expired resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function expired()
     {
         $professions = Profession::onlyExpiredProfessions()->get();
 
