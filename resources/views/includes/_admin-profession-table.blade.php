@@ -33,7 +33,11 @@
               </form>
             </td>
             <td>
-              <a href="" class="btn btn-danger">Delete permanently</a>
+              <form action="{{ route('admins.professions.force-delete', ['profession' => $profession->id]) }}" method="POST">
+                @csrf
+                <input type="submit" value="Delete Permanently" class="btn btn-danger" 
+                  onclick="return confirm('Are you sure you want to delete {{ $profession->title }} permanently? This action can not be undone!')">
+              </form>
             </td>
           @else
             <td></td>

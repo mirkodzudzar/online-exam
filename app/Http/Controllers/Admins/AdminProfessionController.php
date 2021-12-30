@@ -119,6 +119,19 @@ class AdminProfessionController extends Controller
     }
 
     /**
+     * Force remove the specified resource from storage permanently.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function forceDelete(Profession $profession)
+    {
+        $profession->forceDelete();
+
+        return redirect()->back()->withStatus("Profession '{$profession->title}' has been deleted permanently.");
+    }
+
+    /**
      * Display a listing of the destroyed resource.
      *
      * @return \Illuminate\Http\Response
