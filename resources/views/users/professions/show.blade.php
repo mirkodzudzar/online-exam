@@ -8,9 +8,9 @@
   <p>{{ $profession->description }}</p>
   <p>{{ $profession->open_date }} - {{ $profession->close_date }}</p>
     @can('unapply', $profession)
-      <x-unapply-button :profession="$profession"></x-unapply-button>
+      @include('includes._unapply-button')
     @elsecan('apply', $profession)
-      <x-apply-button :profession="$profession"></x-apply-button>
+      @include('includes._apply-button')
     @else
       @guest
         <a href="{{ route('login') }}" class="btn btn-primary">Login to apply</a>

@@ -40,8 +40,12 @@ Route::group([
     'as' => 'admins.',
 ], function() {
     /// for authenticated admin users
-    Route::get('/professions/expired', [AdminProfessionController::class, 'expiredProfessions'])->name('professions.expired');
-    Route::resource('professions', AdminProfessionController::class)->except(['destroy']);
+    Route::get('/professions/expired', [AdminProfessionController::class, 'expired'])->name('professions.expired');
+    Route::post('/professions/restore-all', [AdminProfessionController::class, 'restoreAll'])->name('professions.restore-all');
+    Route::post('/professions/{profession}/restore', [AdminProfessionController::class, 'restore'])->name('professions.restore');
+    Route::post('/professions/{profession}/force-delete', [AdminProfessionController::class, 'forceDelete'])->name('professions.force-delete');
+    Route::get('/professions/destroyed', [AdminProfessionController::class, 'destroyed'])->name('professions.destroyed');
+    Route::resource('professions', AdminProfessionController::class);
 });
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');

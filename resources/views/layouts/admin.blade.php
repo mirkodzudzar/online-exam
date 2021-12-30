@@ -72,6 +72,7 @@
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                 <li><a class="dropdown-item" href="{{ route('admins.professions.index') }}">All</a></li>
                 <li><a class="dropdown-item" href="{{ route('admins.professions.expired') }}">Expired</a></li>
+                <li><a class="dropdown-item" href="{{ route('admins.professions.destroyed') }}">Destroyed</a></li>
                 <li><a class="dropdown-item" href="{{ route('admins.professions.create') }}">Add new</a></li>
               </ul>
             </div>

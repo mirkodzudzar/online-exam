@@ -8,15 +8,15 @@
       </h5>
       <p class="card-text">{{ $profession->description }}</p>
       @can('unapply', $profession)
-        <x-unapply-button :profession="$profession"></x-unapply-button>
+        @include('includes._unapply-button')
       @endcan
       @can('apply', $profession)
-        <x-apply-button :profession="$profession"></x-apply-button>
+        @include('includes._apply-button')
       @endcan
     </div>
     <div class="card-footer text-muted">
       {{ $profession->open_date }} - {{ $profession->close_date }}
-      <x-expired-badge :profession="$profession"></x-expired-badge>
+      @include('includes._expired-badge')
     </div>
   </div>
 @empty

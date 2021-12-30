@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
-@section('title', 'Professions')
+@section('title', 'Destroyed Professions')
 
-@section('page_title', 'List of all professions')
+@section('page_title', 'Destroyed Professions')
     
 @section('content')
   @include('includes._admin-profession-table')
