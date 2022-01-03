@@ -18,6 +18,7 @@ class AddFieldsToCandidateProfessionTable extends Migration
             $table->integer('attempted')->default(0);
             $table->integer('correct')->default(0);
             $table->integer('wrong')->default(0);
+            // Valid values for status are - applied, passed, failed.
             $table->string('status')->default('applied');
         });
     }

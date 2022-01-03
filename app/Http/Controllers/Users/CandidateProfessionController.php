@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Users;
 use App\Models\Candidate;
 use App\Models\Profession;
 use Illuminate\Http\Request;
+use App\Models\CandidateProfession;
 use App\Http\Controllers\Controller;
 use Illuminate\Database\Eloquent\Builder;
 use App\Scopes\WithoutExpiredProfessionsUserScope;
@@ -85,7 +86,55 @@ class CandidateProfessionController extends Controller
      */
     public function update(Candidate $candidate, Profession $profession, Request $request)
     {
-        //
+        $candidate_profession = CandidateProfession::where('candidate_id', $candidate->id)
+                                                   ->where('profession_id', $profession->id)
+                                                   ->where('status', 'applied')
+                                                   ->first();
+
+        $this->authorize($candidate_profession);
+
+        $total = count($profession->questions);
+        $attempted = [];
+        $correct = [];
+        $wrong = [];
+
+        foreach ($profession->questions as $question) {
+            $answer = $request->input("answers{$question->id}");
+            if ($answer) {
+                // Counting how many answers user provided.
+                $attempted[] = $request->input("answers{$question->id}");
+                // Is the answer correct?
+                if ($answer[0] === $question->answer_correct) {
+                    $correct[] = $answer;
+                // Or is it wrong?
+                } else {
+                    $wrong[] = $answer;
+                }
+            }
+        }
+
+        $attempted = count($attempted);
+        $correct = count($correct);
+        $wrong = count($wrong);
+
+        $candidate_profession->total = $total;
+        $candidate_profession->attempted = $attempted;
+        $candidate_profession->correct = $correct;
+        $candidate_profession->wrong = $wrong;
+
+        // Failed if we did not answered correctly at least half of the total number of questions.
+        if ($total / 2 > $correct) {
+            $candidate_profession->status = "failed";
+        // Passed
+        } else {
+            $candidate_profession->status = "passed";
+        }
+
+        $candidate_profession->save();
+
+        return redirect()->route('users.candidates.professions.index', [
+            'candidate' => $candidate->id,
+        ])->withStatus('You have finished process of applying for this job. Check your results.');
     }
 
     /**
