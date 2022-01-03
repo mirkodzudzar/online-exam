@@ -29,9 +29,9 @@ Route::group([
     Route::resource('professions', ProfessionController::class)->only(['show']);
 
     // Additional routes for resource controller
-    Route::post('/candidates/{candidate}/professions/{profession}', [CandidateProfessionController::class, 'apply'])->name('candidates.professions.apply');
-    Route::put('/candidates/{candidate}/professions/{profession}', [CandidateProfessionController::class, 'unapply'])->name('candidates.professions.unapply');
-    Route::resource('candidates.professions', CandidateProfessionController::class)->only(['index']);
+    Route::post('/candidates/{candidate}/professions/{profession}/apply', [CandidateProfessionController::class, 'apply'])->name('candidates.professions.apply');
+    Route::post('/candidates/{candidate}/professions/{profession}/unapply', [CandidateProfessionController::class, 'unapply'])->name('candidates.professions.unapply');
+    Route::resource('candidates.professions', CandidateProfessionController::class)->only(['index', 'update']);
 });
 
 Route::group([

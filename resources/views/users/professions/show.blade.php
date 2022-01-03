@@ -7,10 +7,12 @@
 @section('content')
   <p>{{ $profession->description }}</p>
   <p>{{ $profession->open_date }} - {{ $profession->close_date }}</p>
-  @can('unapply', $profession)
-    @if (Auth::user()->candidate->professions()->first()->pivot->status === 'applied')
+  @if (count($profession->questions) > 0)
+    @can('update', $candidate_profession)
       @include('includes._profession-questions')
-    @endif
+    @endcan
+  @endif
+  @can('unapply', $profession)
     @include('includes._unapply-button')
   @elsecan('apply', $profession)
     @include('includes._apply-button')
