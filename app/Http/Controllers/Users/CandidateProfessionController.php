@@ -7,8 +7,6 @@ use App\Models\Profession;
 use Illuminate\Http\Request;
 use App\Models\CandidateProfession;
 use App\Http\Controllers\Controller;
-use Illuminate\Database\Eloquent\Builder;
-use App\Scopes\WithoutExpiredProfessionsUserScope;
 
 class CandidateProfessionController extends Controller
 {
@@ -61,9 +59,16 @@ class CandidateProfessionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Candidate $candidate, Profession $profession)
     {
-        //
+        $candidate_profession = CandidateProfession::where('candidate_id', $candidate->id)
+                                                   ->where('profession_id', $profession->id)
+                                                   ->first();
+
+        return view('users.candidates.professions.show', [
+            'profession' => $profession,
+            'candidate_profession' => $candidate_profession,
+        ]);
     }
 
     /**
@@ -132,8 +137,9 @@ class CandidateProfessionController extends Controller
 
         $candidate_profession->save();
 
-        return redirect()->route('users.candidates.professions.index', [
+        return redirect()->route('users.candidates.professions.show', [
             'candidate' => $candidate->id,
+            'profession' => $profession->id,
         ])->withStatus('You have finished process of applying for this job. Check your results.');
     }
 

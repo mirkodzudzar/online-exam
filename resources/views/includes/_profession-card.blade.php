@@ -9,9 +9,12 @@
       <p class="card-text">{{ $profession->description }}</p>
       @can('unapply', $profession)
         @include('includes._unapply-button')
-      @endcan
-      @can('apply', $profession)
+      @elsecan('apply', $profession)
         @include('includes._apply-button')
+      @else
+        @auth
+          <a href="{{ route('users.candidates.professions.show', ['candidate' => Auth::user()->candidate->id, 'profession' => $profession->id]) }}" class="btn btn-outline-info">Exam</a>
+        @endauth
       @endcan
     </div>
     <div class="card-footer text-muted">

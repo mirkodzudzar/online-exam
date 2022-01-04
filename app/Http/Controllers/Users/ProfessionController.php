@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Users;
 
 use App\Models\Profession;
 use Illuminate\Http\Request;
-use App\Models\CandidateProfession;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 
 class ProfessionController extends Controller
 {
@@ -56,14 +54,8 @@ class ProfessionController extends Controller
      */
     public function show(Profession $profession)
     {
-        $candidate = Auth::user()->candidate;
-        $candidate_profession = CandidateProfession::where('candidate_id', $candidate->id)
-                                                   ->where('profession_id', $profession->id)->first();
-
         return view('users.professions.show', [
             'profession' => $profession,
-            // CandidateProfession will be passed because of abbility to update it's record when we finish the process of applying.
-            'candidate_profession' => $candidate_profession,
         ]);
     }
 
