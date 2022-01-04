@@ -65,6 +65,8 @@ class CandidateProfessionController extends Controller
                                                    ->where('profession_id', $profession->id)
                                                    ->first();
 
+        $this->authorize($candidate_profession);
+
         return view('users.candidates.professions.show', [
             'profession' => $profession,
             'candidate_profession' => $candidate_profession,
@@ -162,9 +164,10 @@ class CandidateProfessionController extends Controller
         // $candidate->professions()->syncWithoutDetaching([$profession->id]);
         $candidate->professions()->attach([$profession->id], ['status' => 'applied']);
 
-        return redirect()->route('users.professions.show', [
+        return redirect()->route('users.candidates.professions.show', [
+            'candidate' => $candidate->id,
             'profession' => $profession->id,
-        ])->withStatus("You have successfully applied for '{$profession->title}' profession");
+        ])->withStatus("You have successfully applied for '{$profession->title}' profession.");
     }
 
     public function unapply(Candidate $candidate, Profession $profession, Request $request)
@@ -173,6 +176,8 @@ class CandidateProfessionController extends Controller
         $this->authorize($profession);
         $candidate->professions()->detach([$profession->id]);
 
-        return redirect()->back()->withStatus("You have successfully unapplied '{$profession->title}' profession");
+        return redirect()->route('users.professions.show', [
+            'profession' => $profession->id,
+        ])->withStatus("You have successfully unapplied '{$profession->title}' profession.");
     }
 }

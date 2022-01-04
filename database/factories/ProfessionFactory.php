@@ -16,7 +16,7 @@ class ProfessionFactory extends Factory
     {
         return [
             'title' => $this->faker->jobTitle,
-            'description' => $this->faker->text,
+            'description' => $this->faker->text(2500),
             'open_date' => Carbon::now(),
             'close_date' => $this->faker->dateTimeBetween('now', '+10 days'),
         ];

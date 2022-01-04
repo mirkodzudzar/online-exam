@@ -30,7 +30,12 @@ class CandidateProfessionPolicy
      */
     public function view(User $user, CandidateProfession $candidateProfession)
     {
-        //
+        // Only if status is present, we can visit questions or results.
+        if ($candidateProfession->status) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

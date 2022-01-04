@@ -6,14 +6,16 @@
           {{ $profession->title }}
         </a>
       </h5>
-      <p class="card-text">{{ $profession->description }}</p>
+      <p class="card-text">{{ Str::limit($profession->description, 250) }}</p>
       @can('unapply', $profession)
         @include('includes._unapply-button')
       @elsecan('apply', $profession)
         @include('includes._apply-button')
       @else
         @auth
-          <a href="{{ route('users.candidates.professions.show', ['candidate' => Auth::user()->candidate->id, 'profession' => $profession->id]) }}" class="btn btn-outline-info">Exam</a>
+          @if (!Auth::user()->is_admin)
+            <a href="{{ route('users.candidates.professions.show', ['candidate' => Auth::user()->candidate->id, 'profession' => $profession->id]) }}" class="btn btn-outline-info">Exam</a>
+          @endif
         @endauth
       @endcan
     </div>
