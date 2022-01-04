@@ -34,6 +34,8 @@ class CandidateController extends Controller
      */
     public function edit(Candidate $candidate)
     {
+        $this->authorize($candidate);
+
         return view('users.candidates.edit', [
             'candidate' => $candidate,
         ]);
@@ -61,6 +63,8 @@ class CandidateController extends Controller
         $candidate->state = $validated['state'];
         $candidate->city = $validated['city'];
         $candidate->address = $validated['address'];
+
+        $this->authorize($candidate);
 
         $user->save();
         $candidate->save();
