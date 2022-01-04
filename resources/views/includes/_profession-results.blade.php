@@ -1,5 +1,5 @@
 <div class="card">
-  <div class="card-header">
+  <div class="card-header fs-3">
     Result
   </div>
   <div class="card-body">
