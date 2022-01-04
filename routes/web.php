@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Users\CandidateController;
+use App\Http\Controllers\Admins\AdminUserController;
 use App\Http\Controllers\Users\ProfessionController;
 use App\Http\Controllers\Admins\AdminProfessionController;
 use App\Http\Controllers\Users\CandidateProfessionController;
@@ -47,6 +48,7 @@ Route::group([
     Route::post('/professions/{profession}/force-delete', [AdminProfessionController::class, 'forceDelete'])->name('professions.force-delete');
     Route::get('/professions/destroyed', [AdminProfessionController::class, 'destroyed'])->name('professions.destroyed');
     Route::resource('professions', AdminProfessionController::class);
+    Route::resource('users', AdminUserController::class)->only(['edit', 'update']);
 });
 
 Route::get('/', [ProfessionController::class, 'index'])->name('users.professions.index');
