@@ -26,5 +26,5 @@
       </div>
     </div>
   @endforeach
-  <input type="submit" value="Finish" class="btn btn-primary">
+  <input type="submit" value="Finish" class="btn btn-primary" onclick="return confirm('Are you sure you want to finish applying for this profession? You can not improve your results later!')">
 </form>

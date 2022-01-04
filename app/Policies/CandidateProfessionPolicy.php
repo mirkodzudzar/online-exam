@@ -53,9 +53,12 @@ class CandidateProfessionPolicy
      */
     public function update(User $user, CandidateProfession $candidateProfession)
     {
-        if ($candidateProfession->status == 'applied') {
+        // Only if status is applied, we can proceed with the profession questions.
+        if ($candidateProfession->status === 'applied') {
             return true;
         }
+
+        return false;
     }
 
     /**
