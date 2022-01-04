@@ -21,4 +21,14 @@ class ProfessionFactory extends Factory
             'close_date' => $this->faker->dateTimeBetween('now', '+10 days'),
         ];
     }
+
+    public function expiredProfession()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'open_date' => $this->faker->dateTimeBetween('-10 days', '-5 days'),
+                'close_date' => $this->faker->dateTimeBetween('-5 days', '-1 days'),
+            ];
+        });
+    }
 }
