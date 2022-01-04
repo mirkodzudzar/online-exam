@@ -1,10 +1,15 @@
 @extends('layouts.user')
 
 @section('title', $profession->title)
-
-@section('page_title', $profession->title)
     
 @section('content')
+  @if ($profession->trashed())
+    <del>
+  @endif
+  <h1 class="card-title {{ $profession->trashed() ? 'text-muted' : '' }}">{{ $profession->title }}</h1>
+  @if ($profession->trashed())
+    </del>
+  @endif
   <p>{{ $profession->description }}</p>
   <p>{{ $profession->open_date }} - {{ $profession->close_date }}</p>
   @can('unapply', $profession)
