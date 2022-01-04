@@ -1,10 +1,13 @@
 @forelse ($professions as $profession)
-  <div class="card text-center mb-3">
-    <div class="card-body">
+  <div class="card mb-3">
+    <div class="card-header bg-secondary text-light">
+      <i>Posted {{ $profession->updated_at->diffForHumans() }}.</i>
+    </div>
+    <div class="card-body text-center">
       @if ($profession->trashed())
         <del>
       @endif
-      <h5 class="card-title">
+      <h5 class="card-title fs-2">
         <a href="{{ route('users.professions.show', ['profession' => $profession->id]) }}" class="{{ $profession->trashed() ? 'text-muted' : '' }}">
           {{ $profession->title }}
         </a>
@@ -26,8 +29,12 @@
         @endauth
       @endcan
     </div>
-    <div class="card-footer text-muted">
-      {{ $profession->open_date }} - {{ $profession->close_date }}
+    <div class="card-footer text-center">
+      <p>
+        <x-date-badge :date="$profession->open_date" type="dark"></x-date-badge>
+        <b> - </b>
+        <x-date-badge :date="$profession->close_date" type="danger"></x-date-badge>
+      </p>
       @include('includes._expired-badge')
     </div>
   </div>

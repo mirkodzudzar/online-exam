@@ -3,6 +3,14 @@
 @section('title', $profession->title)
     
 @section('content')
+  @auth
+    @if (Auth::user()->is_admin)
+      <a href="{{ url()->previous() }}" class="btn btn-primary">Back</a>
+    @endif
+  @endauth
+
+  <p class="text-muted"><i>Posted {{ $profession->updated_at->diffForHumans() }}.</i></p>
+
   @if ($profession->trashed())
     <del>
   @endif
@@ -11,7 +19,11 @@
     </del>
   @endif
   <p>{{ $profession->description }}</p>
-  <p>{{ $profession->open_date }} - {{ $profession->close_date }}</p>
+  <p>
+    <x-date-badge :date="$profession->open_date" type="dark"></x-date-badge>
+    <b> - </b>
+    <x-date-badge :date="$profession->close_date" type="danger"></x-date-badge>
+  </p>
   @can('unapply', $profession)
     <a href="{{ route('users.candidates.professions.show', ['candidate' => Auth::user()->candidate->id, 'profession' => $profession->id]) }}" class="btn btn-outline-info">Exam</a>
     @include('includes._unapply-button')
