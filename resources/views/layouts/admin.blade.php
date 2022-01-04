@@ -99,7 +99,7 @@
                     Profile
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="#">TEST</a>
+                  <a class="dropdown-item" href="{{ route('admins.users.edit', ['user' => Auth::user()->id]) }}">Edit</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="{{ route('logout') }}"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">

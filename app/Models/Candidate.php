@@ -19,7 +19,7 @@ class Candidate extends Model
     public function professions()
     {
         return $this->belongsToMany(Profession::class)
-                    ->withPivot('created_at')
+                    ->withPivot(['total', 'attempted', 'correct', 'wrong', 'status', 'created_at'])
                     ->orderByPivot('created_at', 'desc');
     }
 }

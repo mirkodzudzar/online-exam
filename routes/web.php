@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\Admins\AdminProfessionController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Users\CandidateProfessionController;
+use App\Http\Controllers\Users\CandidateController;
+use App\Http\Controllers\Admins\AdminUserController;
 use App\Http\Controllers\Users\ProfessionController;
+use App\Http\Controllers\Admins\AdminProfessionController;
+use App\Http\Controllers\Users\CandidateProfessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,9 +31,10 @@ Route::group([
     Route::resource('professions', ProfessionController::class)->only(['show']);
 
     // Additional routes for resource controller
-    Route::post('/candidates/{candidate}/professions/{profession}', [CandidateProfessionController::class, 'apply'])->name('candidates.professions.apply');
-    Route::put('/candidates/{candidate}/professions/{profession}', [CandidateProfessionController::class, 'unapply'])->name('candidates.professions.unapply');
-    Route::resource('candidates.professions', CandidateProfessionController::class)->only(['index']);
+    Route::post('/candidates/{candidate}/professions/{profession}/apply', [CandidateProfessionController::class, 'apply'])->name('candidates.professions.apply');
+    Route::post('/candidates/{candidate}/professions/{profession}/unapply', [CandidateProfessionController::class, 'unapply'])->name('candidates.professions.unapply');
+    Route::resource('candidates.professions', CandidateProfessionController::class)->only(['index', 'show', 'update']);
+    Route::resource('candidates', CandidateController::class)->only(['edit', 'update']);
 });
 
 Route::group([
@@ -45,6 +48,7 @@ Route::group([
     Route::post('/professions/{profession}/force-delete', [AdminProfessionController::class, 'forceDelete'])->name('professions.force-delete');
     Route::get('/professions/destroyed', [AdminProfessionController::class, 'destroyed'])->name('professions.destroyed');
     Route::resource('professions', AdminProfessionController::class);
+    Route::resource('users', AdminUserController::class)->only(['edit', 'update']);
 });
 
 Route::get('/', [ProfessionController::class, 'index'])->name('users.professions.index');

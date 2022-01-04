@@ -48,6 +48,10 @@ class ProfessionPolicy
         $user_professions = $user->candidate->professions()->get();
         foreach ($user_professions as $user_profession) {
             if ($user_profession->id === $profession->id) {
+                // If status is passed or failed, we can not do anything with this profession (only see the results).
+                if ($user_profession->pivot->status !== 'applied') {
+                    return false;
+                }
                 return true;
             }
         }
