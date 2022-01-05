@@ -8,6 +8,7 @@ use App\Http\Controllers\Users\ProfessionController;
 use App\Http\Controllers\Admins\CandidateController as AdminCandidateController;
 use App\Http\Controllers\Admins\ProfessionController as AdminProfessionController;
 use App\Http\Controllers\Users\CandidateProfessionController;
+use App\Http\Controllers\Admins\QuestionController as AdminQuestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,6 +52,7 @@ Route::group([
     Route::resource('professions', AdminProfessionController::class);
     Route::resource('users', AdminUserController::class)->except(['show', 'destroy']);
     Route::resource('candidates', AdminCandidateController::class)->only(['index']);
+    Route::resource('questions', AdminQuestionController::class)->except(['show']);
 });
 
 Route::get('/', [ProfessionController::class, 'index'])->name('users.professions.index');

@@ -99,6 +99,16 @@
                 <li><a class="dropdown-item" href="{{ route('admins.professions.create') }}">Add new</a></li>
               </ul>
             </div>
+            <div class="dropdown">
+              <a href="#" class="dropdown-toggle list-group-item list-group-item-action bg-light" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Questions</a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="{{ route('admins.questions.index') }}">
+                  All
+                  <x-badge :value="$questions_count" type="primary"></x-badge>
+                </a></li>
+                <li><a class="dropdown-item" href="{{ route('admins.questions.create') }}">Add new</a></li>
+              </ul>
+            </div>
         </div>
       </div>
       <!-- /#sidebar-wrapper -->
