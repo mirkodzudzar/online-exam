@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Users\CandidateController;
 use App\Http\Controllers\Admins\AdminUserController;
 use App\Http\Controllers\Users\ProfessionController;
+use App\Http\Controllers\Admins\AdminCandidateController;
 use App\Http\Controllers\Admins\AdminProfessionController;
 use App\Http\Controllers\Users\CandidateProfessionController;
 
@@ -49,6 +50,7 @@ Route::group([
     Route::get('/professions/destroyed', [AdminProfessionController::class, 'destroyed'])->name('professions.destroyed');
     Route::resource('professions', AdminProfessionController::class);
     Route::resource('users', AdminUserController::class)->only(['edit', 'update']);
+    Route::resource('candidates', AdminCandidateController::class)->only(['index']);
 });
 
 Route::get('/', [ProfessionController::class, 'index'])->name('users.professions.index');

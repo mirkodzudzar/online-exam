@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Scopes\NewestScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Candidate extends Model
 {
@@ -21,5 +22,12 @@ class Candidate extends Model
         return $this->belongsToMany(Profession::class)
                     ->withPivot(['total', 'attempted', 'correct', 'wrong', 'status', 'created_at'])
                     ->orderByPivot('created_at', 'desc');
+    }
+
+    public static function boot()
+    {
+        static::addGlobalScope(new NewestScope);
+
+        parent::boot();
     }
 }

@@ -67,6 +67,7 @@
         <div class="sidebar-heading">Admin panel</div>
         <div class="list-group list-group-flush">
             <a href="{{ route('users.professions.index') }}" class="list-group-item list-group-item-action bg-light">Home</a>
+            <a href="{{ route('admins.candidates.index') }}" class="list-group-item list-group-item-action bg-light">Candidates</a>
             <div class="dropdown">
               <a href="#" class="dropdown-toggle list-group-item list-group-item-action bg-light" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Professions</a>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
