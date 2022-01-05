@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admins;
 
-use App\Http\Controllers\Controller;
 use App\Models\Question;
+use App\Models\Profession;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateQuestion;
 
 class QuestionController extends Controller
 {
@@ -32,7 +34,9 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        //
+        return view('admins.questions.create', [
+            'professions' => Profession::all(),
+        ]);
     }
 
     /**
@@ -41,9 +45,9 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateQuestion $request)
     {
-        //
+        
     }
 
     /**
@@ -63,9 +67,12 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Question $question)
     {
-        //
+        return view('admins.questions.edit', [
+            'professions' => Profession::all(),
+            'question' => $question,
+        ]);
     }
 
     /**
@@ -75,7 +82,7 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateQuestion $request, Question $question)
     {
         //
     }
