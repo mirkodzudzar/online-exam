@@ -49,7 +49,7 @@ Route::group([
     Route::post('/professions/{profession}/force-delete', [AdminProfessionController::class, 'forceDelete'])->name('professions.force-delete');
     Route::get('/professions/destroyed', [AdminProfessionController::class, 'destroyed'])->name('professions.destroyed');
     Route::resource('professions', AdminProfessionController::class);
-    Route::resource('users', AdminUserController::class)->only(['edit', 'update']);
+    Route::resource('users', AdminUserController::class)->except(['show', 'destroy']);
     Route::resource('candidates', AdminCandidateController::class)->only(['index']);
 });
 

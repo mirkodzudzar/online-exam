@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admins;
 
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Http\Requests\CreateUser;
 use App\Http\Requests\UpdateUser;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -12,7 +12,7 @@ class AdminUserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['admin']);
+        $this->middleware(['auth', 'admin']);
     }
 
     /**
@@ -22,7 +22,9 @@ class AdminUserController extends Controller
      */
     public function index()
     {
-        //
+        return view('admins.users.index', [
+            'users' => User::where('is_admin', true)->get(),
+        ]);
     }
 
     /**
@@ -32,7 +34,7 @@ class AdminUserController extends Controller
      */
     public function create()
     {
-        //
+        return view('admins.users.create');
     }
 
     /**
@@ -41,9 +43,19 @@ class AdminUserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateUser $request)
     {
-        //
+        $validated = $request->validated();
+
+        $user = new User();
+        $user->name = $validated['name'];
+        $user->email = $validated['email'];
+        $user->password = Hash::make($validated['email']);
+        $user->is_admin = true;
+        $user->save();
+
+        return redirect()->route('admins.users.index')
+                         ->withStatus("User {$user->name} has been created successfully.");
     }
 
     /**
@@ -65,8 +77,6 @@ class AdminUserController extends Controller
      */
     public function edit(User $user)
     {
-        $this->authorize($user);
-
         return view('admins.users.edit', [
             'user' => $user,
         ]);
@@ -86,11 +96,9 @@ class AdminUserController extends Controller
         $user->email = $validated['email'];
         $user->password = Hash::make($validated['password']);
 
-        $this->authorize($user);
-
         $user->save();
 
-        return redirect()->back()->withStatus('You have updated your profile successfully.');
+        return redirect()->back()->withStatus("You have updated {$user->name} user successfully.");
     }
 
     /**
