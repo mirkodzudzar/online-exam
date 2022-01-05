@@ -6,7 +6,7 @@ use App\Models\Profession;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProfession;
 
-class AdminProfessionController extends Controller
+class ProfessionController extends Controller
 {
     public function __construct()
     {

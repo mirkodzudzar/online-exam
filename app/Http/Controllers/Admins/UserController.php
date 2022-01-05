@@ -8,7 +8,7 @@ use App\Http\Requests\UpdateUser;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
-class AdminUserController extends Controller
+class UserController extends Controller
 {
     public function __construct()
     {

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Candidate;
 use Illuminate\Http\Request;
 
-class AdminCandidateController extends Controller
+class CandidateController extends Controller
 {
     public function __construct()
     {

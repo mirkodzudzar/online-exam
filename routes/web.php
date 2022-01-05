@@ -3,10 +3,10 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Users\CandidateController;
-use App\Http\Controllers\Admins\AdminUserController;
+use App\Http\Controllers\Admins\UserController as AdminUserController;
 use App\Http\Controllers\Users\ProfessionController;
-use App\Http\Controllers\Admins\AdminCandidateController;
-use App\Http\Controllers\Admins\AdminProfessionController;
+use App\Http\Controllers\Admins\CandidateController as AdminCandidateController;
+use App\Http\Controllers\Admins\ProfessionController as AdminProfessionController;
 use App\Http\Controllers\Users\CandidateProfessionController;
 
 /*
