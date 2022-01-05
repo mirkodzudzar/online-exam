@@ -20,9 +20,9 @@
   @endif
   <p>{{ $profession->description }}</p>
   <p>
-    <x-date-badge :date="$profession->open_date" type="dark"></x-date-badge>
+    <x-badge :value="$profession->open_date" type="dark"></x-badge>
     <b> - </b>
-    <x-date-badge :date="$profession->close_date" type="danger"></x-date-badge>
+    <x-badge :value="$profession->close_date" type="danger"></x-badge>
   </p>
   @can('unapply', $profession)
     <a href="{{ route('users.candidates.professions.show', ['candidate' => Auth::user()->candidate->id, 'profession' => $profession->id]) }}" class="btn btn-outline-info">Exam</a>
