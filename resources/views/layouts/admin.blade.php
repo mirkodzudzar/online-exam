@@ -68,12 +68,45 @@
         <div class="list-group list-group-flush">
             <a href="{{ route('users.professions.index') }}" class="list-group-item list-group-item-action bg-light">Home</a>
             <div class="dropdown">
+              <a href="#" class="dropdown-toggle list-group-item list-group-item-action bg-light" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Admin users</a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="{{ route('admins.users.index') }}">
+                  All
+                  <x-badge :value="$users_count" type="primary"></x-badge>
+                </a></li>
+                <li><a class="dropdown-item" href="{{ route('admins.users.create') }}">Add new</a></li>
+              </ul>
+            </div>
+            <a href="{{ route('admins.candidates.index') }}" class="list-group-item list-group-item-action bg-light">
+              Candidates
+              <x-badge :value="$candidates_count" type="primary"></x-badge>
+            </a>
+            <div class="dropdown">
               <a href="#" class="dropdown-toggle list-group-item list-group-item-action bg-light" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Professions</a>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                <li><a class="dropdown-item" href="{{ route('admins.professions.index') }}">All</a></li>
-                <li><a class="dropdown-item" href="{{ route('admins.professions.expired') }}">Expired</a></li>
-                <li><a class="dropdown-item" href="{{ route('admins.professions.destroyed') }}">Destroyed</a></li>
+                <li><a class="dropdown-item" href="{{ route('admins.professions.index') }}">
+                  All
+                  <x-badge :value="$professions_count" type="primary"></x-badge>
+                </a></li>
+                <li><a class="dropdown-item" href="{{ route('admins.professions.expired') }}">
+                  Expired
+                  <x-badge :value="$professions_expired_count" type="primary"></x-badge>
+                </a></li>
+                <li><a class="dropdown-item" href="{{ route('admins.professions.destroyed') }}">
+                  Destroyed
+                  <x-badge :value="$professions_destroyed_count" type="primary"></x-badge>
+                </a></li>
                 <li><a class="dropdown-item" href="{{ route('admins.professions.create') }}">Add new</a></li>
+              </ul>
+            </div>
+            <div class="dropdown">
+              <a href="#" class="dropdown-toggle list-group-item list-group-item-action bg-light" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">Questions</a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="{{ route('admins.questions.index') }}">
+                  All
+                  <x-badge :value="$questions_count" type="primary"></x-badge>
+                </a></li>
+                <li><a class="dropdown-item" href="{{ route('admins.questions.create') }}">Add new</a></li>
               </ul>
             </div>
         </div>
@@ -96,14 +129,14 @@
               </li>  --}}
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Profile
+                    {{ Auth::user()->email }}
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="{{ route('admins.users.edit', ['user' => Auth::user()->id]) }}">Edit</a>
+                  <a class="dropdown-item" href="{{ route('admins.users.edit', ['user' => Auth::user()->id]) }}">Edit profile</a>
                   <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="{{ route('logout') }}"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    Logout ADMIN
+                    Logout
                   </a>
                   <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none">
                     @csrf

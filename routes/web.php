@@ -3,10 +3,12 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Users\CandidateController;
-use App\Http\Controllers\Admins\AdminUserController;
+use App\Http\Controllers\Admins\UserController as AdminUserController;
 use App\Http\Controllers\Users\ProfessionController;
-use App\Http\Controllers\Admins\AdminProfessionController;
+use App\Http\Controllers\Admins\CandidateController as AdminCandidateController;
+use App\Http\Controllers\Admins\ProfessionController as AdminProfessionController;
 use App\Http\Controllers\Users\CandidateProfessionController;
+use App\Http\Controllers\Admins\QuestionController as AdminQuestionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,7 +50,9 @@ Route::group([
     Route::post('/professions/{profession}/force-delete', [AdminProfessionController::class, 'forceDelete'])->name('professions.force-delete');
     Route::get('/professions/destroyed', [AdminProfessionController::class, 'destroyed'])->name('professions.destroyed');
     Route::resource('professions', AdminProfessionController::class);
-    Route::resource('users', AdminUserController::class)->only(['edit', 'update']);
+    Route::resource('users', AdminUserController::class)->except(['show', 'destroy']);
+    Route::resource('candidates', AdminCandidateController::class)->only(['index']);
+    Route::resource('questions', AdminQuestionController::class)->except(['show']);
 });
 
 Route::get('/', [ProfessionController::class, 'index'])->name('users.professions.index');

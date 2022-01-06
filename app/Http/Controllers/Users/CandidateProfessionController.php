@@ -106,12 +106,12 @@ class CandidateProfessionController extends Controller
         $wrong = [];
 
         foreach ($profession->questions as $question) {
-            $answer = $request->input("answers{$question->id}");
-            if ($answer) {
+            if (isset($request->input("answers")[$question->id])) {
+                $answer = $request->input("answers")[$question->id];
                 // Counting how many answers user provided.
-                $attempted[] = $request->input("answers{$question->id}");
+                $attempted[] = $answer;
                 // Is the answer correct?
-                if ($answer[0] === $question->answer_correct) {
+                if ($answer === $question->answer_correct) {
                     $correct[] = $answer;
                 // Or is it wrong?
                 } else {
