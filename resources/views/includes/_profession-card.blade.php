@@ -3,12 +3,12 @@
     <div class="card-header bg-secondary text-light">
       <i>Posted {{ $profession->updated_at->diffForHumans() }}.</i>
     </div>
-    <div class="card-body text-center">
+    <div class="card-body">
       @if ($profession->trashed())
         <del>
       @endif
       <h5 class="card-title fs-2">
-        <a href="{{ route('users.professions.show', ['profession' => $profession->id]) }}" class="{{ $profession->trashed() ? 'text-muted' : '' }}">
+        <a href="{{ route('users.professions.show', ['profession' => $profession->id]) }}" class="text-decoration-none {{ $profession->trashed() ? 'text-muted' : '' }}">
           {{ $profession->title }}
         </a>
       </h5>
@@ -16,6 +16,14 @@
         </del>
       @endif
       <p class="card-text">{{ Str::limit($profession->description, 250) }}</p>
+      <p>
+        <x-badge :value="$profession->open_date" type="dark"></x-badge>
+        <b> - </b>
+        <x-badge :value="$profession->close_date" type="danger"></x-badge>
+      </p>
+      @include('includes._expired-badge')
+    </div>
+    {{-- <div class="card-footer">
       @can('unapply', $profession)
         @include('includes._unapply-button')
       @elsecan('apply', $profession)
@@ -28,15 +36,7 @@
           @endif
         @endauth
       @endcan
-    </div>
-    <div class="card-footer text-center">
-      <p>
-        <x-badge :value="$profession->open_date" type="dark"></x-badge>
-        <b> - </b>
-        <x-badge :value="$profession->close_date" type="danger"></x-badge>
-      </p>
-      @include('includes._expired-badge')
-    </div>
+    </div> --}}
   </div>
 @empty
   <p>There are no professions!</p>
