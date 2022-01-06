@@ -90,7 +90,13 @@ class QuestionController extends Controller
      */
     public function update(CreateQuestion $request, Question $question)
     {
-        //
+        $validated = $request->validated();
+        $question->fill($validated);
+        $question->profession_id = $validated['profession'];
+        $question->save();
+
+        return redirect()->back()
+                         ->withStatus('You have edited question successfully.');
     }
 
     /**
