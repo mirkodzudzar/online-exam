@@ -24,10 +24,10 @@
             <th>{{ $question->id }}</th>
             <td>{{ $question->question }}</td>
             <th>{{ $question->profession->title }}</th>
-            <td class="{{ $question->answer_a === $question->answer_correct ? 'text-success' : '' }}">{{ $question->answer_a }}</td>
-            <td class="{{ $question->answer_b === $question->answer_correct ? 'text-success' : '' }}">{{ $question->answer_b }}</td>
-            <td class="{{ $question->answer_c === $question->answer_correct ? 'text-success' : '' }}">{{ $question->answer_c }}</td>
-            <td class="{{ $question->answer_d === $question->answer_correct ? 'text-success' : '' }}">{{ $question->answer_d }}</td>
+            <td class="{{ $question->answer_correct === 'answer_a' ? 'text-success' : '' }}">{{ $question->answer_a }}</td>
+            <td class="{{ $question->answer_correct === 'answer_b' ? 'text-success' : '' }}">{{ $question->answer_b }}</td>
+            <td class="{{ $question->answer_correct === 'answer_c' ? 'text-success' : '' }}">{{ $question->answer_c }}</td>
+            <td class="{{ $question->answer_correct === 'answer_d' ? 'text-success' : '' }}">{{ $question->answer_d }}</td>
             <td><a href="{{ route('admins.questions.edit', ['question' => $question->id]) }}" class="btn btn-success">Edit</a></td>
           </tr>
         @endforeach

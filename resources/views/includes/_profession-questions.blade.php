@@ -9,19 +9,19 @@
     <div class="card mb-3 p-2">
       <b>{{ $loop->iteration }}. {{ $question->question }}</b>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="answers{{ $question->id }}[]" id="answer_a_{{ $question->id }}" value="{{ $question->answer_a }}">
+        <input class="form-check-input" type="radio" name="answers{{ $question->id }}[]" id="answer_a_{{ $question->id }}" value="answer_a">
         <label class="form-check-label" for="answer_a_{{ $question->id }}">{{ $question->answer_a }}</label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="answers{{ $question->id }}[]" id="answer_b_{{ $question->id }}" value="{{ $question->answer_b }}">
+        <input class="form-check-input" type="radio" name="answers{{ $question->id }}[]" id="answer_b_{{ $question->id }}" value="answer_b">
         <label class="form-check-label" for="answer_b_{{ $question->id }}">{{ $question->answer_b }}</label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="answers{{ $question->id }}[]" id="answer_c_{{ $question->id }}" value="{{ $question->answer_c }}">
+        <input class="form-check-input" type="radio" name="answers{{ $question->id }}[]" id="answer_c_{{ $question->id }}" value="answer_c">
         <label class="form-check-label" for="answer_c_{{ $question->id }}">{{ $question->answer_c }}</label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="answers{{ $question->id }}[]" id="answer_d_{{ $question->id }}" value="{{ $question->answer_d }}">
+        <input class="form-check-input" type="radio" name="answers{{ $question->id }}[]" id="answer_d_{{ $question->id }}" value="answer_d">
         <label class="form-check-label" for="answer_d_{{ $question->id }}">{{ $question->answer_d }}</label>
       </div>
     </div>

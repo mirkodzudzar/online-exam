@@ -47,7 +47,13 @@ class QuestionController extends Controller
      */
     public function store(CreateQuestion $request)
     {
-        
+        $validated = $request->validated();
+        $question = Question::make($validated);
+        $question->profession_id = $validated['profession'];
+        $question->save();
+
+        return redirect()->route('admins.questions.index')
+                         ->withStatus('You have created new question successfully.');
     }
 
     /**
