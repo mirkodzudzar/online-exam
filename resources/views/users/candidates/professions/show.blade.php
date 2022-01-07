@@ -22,7 +22,7 @@
     @elsecan('apply', $profession)
       @include('includes._apply-button')
     @else
-      @include('includes._profession-results')
+      <x-profession-results :value="$candidate_profession"></x-profession-results>
     @endcan
   </div>
 @endsection
