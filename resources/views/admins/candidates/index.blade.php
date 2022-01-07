@@ -13,9 +13,10 @@
           <th scope="col">Email</th>
           <th scope="col">Username</th>
           <th scope="col">Phone number</th>
-          <th scope="col">State</th>
+          <th scope="col">Professions</th>
+          {{-- <th scope="col">State</th>
           <th scope="col">City</th>
-          <th scope="col">Address</th>
+          <th scope="col">Address</th> --}}
           <th scope="col">Created at</th>
           <th scope="col">Updated at</th>
         </tr>
@@ -24,13 +25,14 @@
         @foreach ($candidates as $candidate)
           <tr>
             <th scope="row">{{ $candidate->id }}</th>
-            <td>{{ $candidate->user->name }}</td>
+            <td><a href="{{ route('admins.candidates.show', ['candidate' => $candidate->id]) }}" class="text-decoration-none">{{ $candidate->user->name }}</a></td>
             <td>{{ $candidate->user->email }}</td>
             <td>{{ $candidate->username }}</td>
             <td>{{ $candidate->phone_number }}</td>
-            <td>{{ $candidate->state }}</td>
+            <td>{{ $candidate->professions_count }}</td>
+            {{-- <td>{{ $candidate->state }}</td>
             <td>{{ $candidate->city }}</td>
-            <td>{{ $candidate->address }}</td>
+            <td>{{ $candidate->address }}</td> --}}
             <td>{{ $candidate->created_at }}</td>
             <td>{{ $candidate->updated_at }}</td>
           </tr>
