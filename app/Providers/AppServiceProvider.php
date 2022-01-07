@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Http\ViewComposers\CountComposer;
+use App\Models\Profession;
+use App\Observers\ProfessionObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,6 +26,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // CountComposer variables will be available in all blatde tamplates
         view()->composer(['*'], CountComposer::class);
+        
+        // Registering new Observer for Profession model class
+        Profession::observe(ProfessionObserver::class);
     }
 }
