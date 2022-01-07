@@ -4,6 +4,8 @@
       <tr>
         <th scope="col">Id</th>
         <th scope="col">Title</th>
+        <th scope="col">Candidates</th>
+        <th scope="col">Questions</th>
         <th scope="col">Open date</th>
         <th scope="col">Close date</th>
         <th scope="col">Note</th>
@@ -22,10 +24,12 @@
         <tr>
           <th scope="row">{{ $profession->id }}</th>
           <td>
-            <a href="{{ route('users.professions.show', ['profession' => $profession]) }}">
+            <a href="{{ route('admins.professions.show', ['profession' => $profession]) }}" class="text-decoration-none">
               {{ $profession->title }}
             </a>
           </td>
+          <td>{{ $profession->candidates_count }}</td>
+          <td>{{ $profession->questions_count }}</td>
           <td>{{ $profession->open_date }}</td>
           <td>{{ $profession->close_date }}</td>
           <td>

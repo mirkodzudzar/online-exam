@@ -23,7 +23,7 @@ class ProfessionController extends Controller
     public function index()
     {
         return view('admins.professions.index', [
-            'professions' => Profession::all(),
+            'professions' => Profession::withCount('candidates')->withCount('questions')->get(),
         ]);
     }
 
@@ -61,7 +61,9 @@ class ProfessionController extends Controller
      */
     public function show(Profession $profession)
     {
-        //
+        return view('admins.professions.show', [
+            'profession' => $profession,
+        ]);
     }
 
     /**

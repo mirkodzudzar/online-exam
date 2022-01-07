@@ -53,7 +53,9 @@ Route::group([
     Route::resource('professions', AdminProfessionController::class);
     Route::resource('users', AdminUserController::class)->except(['show', 'destroy']);
     Route::resource('candidates', AdminCandidateController::class)->only(['index', 'show']);
-    Route::resource('questions', AdminQuestionController::class)->except(['show']);
+    // Custom route for resource controller because we needed additional parameter
+    Route::get('/questions/create/{profession?}', [AdminQuestionController::class, 'create'])->name('questions.create');
+    Route::resource('questions', AdminQuestionController::class)->except(['create', 'show']);
 });
 
 Route::get('/', [ProfessionController::class, 'index'])->name('users.professions.index');

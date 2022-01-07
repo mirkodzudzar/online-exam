@@ -3,13 +3,7 @@
 @section('title', $profession->title)
     
 @section('content')
-  @auth
-    @if (Auth::user()->is_admin)
-      <a href="{{ url()->previous() }}" class="btn btn-primary">Back</a>
-    @endif
-  @endauth
-
-  <p class="text-muted"><i>Posted {{ $profession->updated_at->diffForHumans() }}.</i></p>
+  <p class="text-muted"><i>Posted {{ $profession->created_at->diffForHumans() }}.</i></p>
 
   @if ($profession->trashed())
     <del>
