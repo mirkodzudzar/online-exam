@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
-@section('title', "Candidate - $candidate->username")
+@section('title', "Candidate - {$candidate->user->email}")
 
-@section('page_title', "Candidate - $candidate->username")
+@section('page_title', "Candidate - {$candidate->user->email}")
     
 @section('content')
   <table class="table table-striped text-center">

@@ -1,4 +1,4 @@
-  <div>
+<div>
     <label for="question" class="form-label">Question</label>
     <input class="form-control" type="text" name="question" value="{{ old('question', optional($question ?? null)->question) }}" id="question" required>
     <x-error field="question"></x-error>
@@ -10,7 +10,8 @@
       @if ($professions->count() > 1)
         @foreach ($professions as $profession)
           <option value="{{ $profession->id }}" 
-            @if(old('profession') == $profession->id || $profession->id == optional($question->profession ?? null)->id) selected @endif>{{ $profession->title }}
+            {{-- $profession_url is optional parameter value if we came form specific profession to create new question --}}
+            @if(old('profession') === $profession->id || optional($profession_url ?? null)->id ===  $profession->id || $profession->id === optional($question->profession ?? null)->id) selected @endif>{{ $profession->title }}
           </option>
         @endforeach
       @endif

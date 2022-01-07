@@ -32,11 +32,17 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Profession $profession = null)
     {
-        return view('admins.questions.create', [
-            'professions' => Profession::all(),
-        ]);
+        // if (empty($profession)) {
+        //     return redirect()->route('admins.questions.create');
+        // } else {
+            return view('admins.questions.create', [
+                'professions' => Profession::all(),
+                // Additional optional parameter - used when we arive from specific profession admin page to create new question
+                'profession_url' => $profession,
+            ]);
+        // }
     }
 
     /**
@@ -52,8 +58,9 @@ class QuestionController extends Controller
         $question->profession_id = $validated['profession'];
         $question->save();
 
-        return redirect()->route('admins.questions.index')
-                         ->withStatus('You have created new question successfully.');
+        return redirect()->route('admins.professions.show', [
+            'profession' => $question->profession->id,
+        ])->withStatus('You have created new question successfully.');
     }
 
     /**

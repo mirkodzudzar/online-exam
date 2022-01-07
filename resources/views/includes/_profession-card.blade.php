@@ -1,7 +1,7 @@
 @forelse ($professions as $profession)
   <div class="card mb-3">
     <div class="card-header bg-secondary text-light">
-      <i>Posted {{ $profession->updated_at->diffForHumans() }}.</i>
+      <i>Posted {{ $profession->created_at->diffForHumans() }}.</i>
     </div>
     <div class="card-body">
       @if ($profession->trashed())
