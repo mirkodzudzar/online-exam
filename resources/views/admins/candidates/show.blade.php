@@ -53,6 +53,7 @@
       <h3>Attempted</h3>
       @forelse ($candidate_professions as $candidate_profession)
         @if ($candidate_profession->status !== 'applied')
+          {{-- Profession table with the results --}}
           <x-profession-results :value="$candidate_profession"></x-profession-results>
         @endif
       @empty
@@ -63,6 +64,7 @@
       <h3>Applied</h3>
       @forelse ($candidate_professions as $candidate_profession)
         @if ($candidate_profession->status === 'applied')
+          {{-- Profession table with the applied professions --}}
           <x-applied-profession-card
             :route="route('admins.professions.show', ['profession' => $candidate_profession->profession->id])"
             :title="$candidate_profession->profession->title"
