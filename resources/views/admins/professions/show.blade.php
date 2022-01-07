@@ -38,7 +38,7 @@
       @forelse ($profession->questions as $question)
         <div class="card mb-3">
           <div class="card-body bg-light">
-            <b>{{ $loop->iteration }}. {{ $question->question }}</b>
+            <b>{{ $question->id }}. {{ $question->question }}</b>
             <ol type="a">
               <li class="{{ $question->answer_correct === 'answer_a' ? 'text-success border border-success' : '' }}">{{ $question->answer_a }}</li>
               <li class="{{ $question->answer_correct === 'answer_b' ? 'text-success border border-success' : '' }}">{{ $question->answer_b }}</li>

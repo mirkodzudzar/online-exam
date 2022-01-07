@@ -112,8 +112,50 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Question $question)
     {
-        //
+        $question->delete();
+
+        return redirect()->back()->withStatus("Question by id '{$question->id}' has been deleted successfully.");
+    }
+
+    /**
+     * Restore the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function restore(Question $question)
+    {
+        $question->restore();
+
+        return redirect()->back()->withStatus("Question by id '{$question->id}' has been restored successfully.");
+    }
+
+    /**
+     * Force remove the specified resource from storage permanently.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function forceDelete(Question $question)
+    {
+        $question->forceDelete();
+
+        return redirect()->back()->withStatus("Question by id '{$question->id}' has been deleted permanently.");
+    }
+
+    /**
+     * Display a listing of the destroyed resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function destroyed()
+    {
+        $questions = Question::onlyTrashed()->get();
+
+        return view('admins.questions.destroyed', [
+            'questions' => $questions,
+        ]);
     }
 }
