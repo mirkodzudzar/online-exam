@@ -4,7 +4,7 @@
     
 @section('content')
   <h1>
-    <a href="{{ route('users.professions.show', ['profession' => $profession->id]) }}">{{ $profession->title }}</a>
+    <a href="{{ route('users.professions.show', ['profession' => $profession->id]) }}" class="text-decoration-none">{{ $profession->title }}</a>
   </h1>
   <div class="mb-5">
     <p>
@@ -22,7 +22,7 @@
     @elsecan('apply', $profession)
       @include('includes._apply-button')
     @else
-      @include('includes._profession-results')
+      <x-profession-results :value="$candidate_profession"></x-profession-results>
     @endcan
   </div>
 @endsection

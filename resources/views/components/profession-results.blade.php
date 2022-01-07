@@ -1,6 +1,9 @@
-<div class="card">
+<div class="card mb-3">
   <div class="card-header fs-3">
-    Result
+    <p>
+      <a href="{{ route('users.professions.show', ['profession' => $value->profession->id]) }}" class="text-decoration-none">{{ $value->profession->title }}</a>
+      result
+    </p>
   </div>
   <div class="card-body">
     <table class="table table-striped">
@@ -14,10 +17,10 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{ $candidate_profession->total }}</td>
-          <td>{{ $candidate_profession->attempted }}</td>
-          <td>{{ $candidate_profession->correct }}</td>
-          <td>{{ $candidate_profession->wrong }}</td>
+          <td>{{ $value->total }}</td>
+          <td>{{ $value->attempted }}</td>
+          <td>{{ $value->correct }}</td>
+          <td>{{ $value->wrong }}</td>
         </tr>
       </tbody>
       <tfoot>
@@ -26,7 +29,7 @@
           <td>Percentage</td>
           <td>
             @php
-              $percentage = ($candidate_profession->correct / $candidate_profession->total) * 100;
+              $percentage = ($value->correct / $value->total) * 100;
             @endphp
             {{ round($percentage, 2) }} %
           </td>
@@ -34,10 +37,10 @@
         <tr>
           <td colspan="2"></td>
           <td>Status</td>
-          @if ($candidate_profession->status === 'passed')
-            <td class="table-success">{{ $candidate_profession->status }}</td>
+          @if ($value->status === 'passed')
+            <td class="table-success">{{ $value->status }}</td>
           @else
-            <td class="table-danger">{{ $candidate_profession->status }}</td>
+            <td class="table-danger">{{ $value->status }}</td>
           @endif
         </tr>
       </tfoot>

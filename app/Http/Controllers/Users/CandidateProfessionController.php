@@ -180,4 +180,17 @@ class CandidateProfessionController extends Controller
             'profession' => $profession->id,
         ])->withStatus("You have successfully unapplied '{$profession->title}' profession.");
     }
+
+    public function results(Candidate $candidate)
+    {
+        $candidate_professions = CandidateProfession::where('candidate_id', $candidate->id)->get();
+
+        foreach ($candidate_professions as $candidate_profession) {
+            $this->authorize($candidate_profession);
+        }
+
+        return view('users.candidates.professions.results', [
+            'candidate_professions' => $candidate_professions,
+        ]);
+    }
 }

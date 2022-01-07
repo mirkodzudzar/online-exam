@@ -101,4 +101,13 @@ class CandidateProfessionPolicy
     {
         //
     }
+
+    public function results(User $user, CandidateProfession $candidateProfession)
+    {
+        if (is_null($user->candidate)) {
+            return false;
+        }
+
+        return $user->candidate->id === $candidateProfession->candidate->id;
+    }
 }

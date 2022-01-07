@@ -34,7 +34,7 @@
       <a href="{{ route('login') }}" class="btn btn-primary">Login to apply</a>
     @else
       @if (!Auth::user()->is_admin)
-        <a href="{{ route('users.candidates.professions.show', ['candidate' => Auth::user()->candidate->id, 'profession' => $profession->id]) }}" class="btn btn-outline-info">Exam</a>
+        <a href="{{ route('users.candidates.professions.show', ['candidate' => Auth::user()->candidate->id, 'profession' => $profession->id]) }}" class="btn btn-outline-info">Result</a>
       @endif
     @endguest
   @endcan
