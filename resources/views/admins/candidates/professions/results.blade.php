@@ -40,7 +40,6 @@
             <h3>Attempted</h3>
             @forelse ($candidate_professions as $candidate_profession)
               @if ($candidate_profession->status !== 'applied')
-                {{-- @include('includes._profession-results') --}}
                 <x-profession-results :value="$candidate_profession"></x-profession-results>
               @endif
             @empty
@@ -51,17 +50,11 @@
             <h3>Applied</h3>
             @forelse ($candidate_professions as $candidate_profession)
               @if ($candidate_profession->status === 'applied')
-                <div class="card">
-                  <div class="card-body">
-                    <p class="fs-5">
-                      Candidate 
-                      <a href="{{ route('admins.candidates.show', ['candidate' => $candidate_profession->candidate->id ]) }}" class="text-decoration-none">
-                        {{ $candidate_profession->candidate->user->email }}
-                      </a>
-                      have applied for this profession.
-                    </p>
-                  </div>
-                </div>
+                <x-applied-profession-card
+                  :route="route('admins.candidates.show', ['candidate' => $candidate_profession->candidate->id ])"
+                  :title="$candidate_profession->candidate->user->email"
+                  text=", applied {{ $candidate_profession->created_at->diffForHumans() }}.">
+                </x-applied-profession-card>
               @endif
             @empty
               <p>No results.</p>
