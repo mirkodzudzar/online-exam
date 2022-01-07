@@ -63,15 +63,11 @@
       <h3>Applied</h3>
       @forelse ($candidate_professions as $candidate_profession)
         @if ($candidate_profession->status === 'applied')
-          <div class="card">
-            <div class="card-body">
-              <p class="fs-5">
-                Exam not finished yet for
-                <a href="{{ route('admins.professions.show', ['profession' => $candidate_profession->profession->id]) }}" class="text-decoration-none">{{ $candidate_profession->profession->title }}</a>
-                profession.
-              </p>
-            </div>
-          </div>
+          <x-applied-profession-card
+            :route="route('admins.professions.show', ['profession' => $candidate_profession->profession->id])"
+            :title="$candidate_profession->profession->title"
+            text="profession, applied {{ $candidate_profession->created_at->diffForHumans() }}.">
+          </x-applied-profession-card>
         @endif
       @empty
         <p>No results.</p>

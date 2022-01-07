@@ -8,7 +8,7 @@
       @else
         <a href="{{ route('users.professions.show', ['profession' => $value->profession->id]) }}" class="text-decoration-none">{{ $value->profession->title }}</a>
       @endif
-      result
+      result, attempted {{ $value->updated_at->diffForHumans() }}.
     </p>
   </div>
   <div class="card-body">
