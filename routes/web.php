@@ -9,6 +9,7 @@ use App\Http\Controllers\Admins\CandidateController as AdminCandidateController;
 use App\Http\Controllers\Admins\ProfessionController as AdminProfessionController;
 use App\Http\Controllers\Users\CandidateProfessionController;
 use App\Http\Controllers\Admins\QuestionController as AdminQuestionController;
+use App\Http\Controllers\Admins\CandidateProfessionController as AdminCandidateProfessionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,7 @@ Route::group([
     // Custom route for resource controller because we needed additional parameter
     Route::get('/questions/create/{profession?}', [AdminQuestionController::class, 'create'])->name('questions.create');
     Route::resource('questions', AdminQuestionController::class)->except(['create', 'show']);
+    Route::get('/candidates/professions/{profession}/results', [AdminCandidateProfessionController::class, 'results'])->name('candidates.professions.results');
 });
 
 Route::get('/', [ProfessionController::class, 'index'])->name('users.professions.index');

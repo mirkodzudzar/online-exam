@@ -29,7 +29,7 @@
           <a class="nav-link active" aria-current="true" href="{{ route('admins.professions.show', ['profession' => $profession->id]) }}">Questions</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Results</a>
+          <a class="nav-link" href="{{ route('admins.candidates.professions.results', ['profession' => $profession->id]) }}">Results</a>
         </li>
       </ul>
     </div>
