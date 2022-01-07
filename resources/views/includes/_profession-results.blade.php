@@ -1,8 +1,12 @@
 <div class="card mb-3">
   <div class="card-header fs-3">
     <p>
-      <a href="{{ route('users.professions.show', ['profession' => $candidate_profession->profession->id]) }}" class="text-decoration-none">{{ $candidate_profession->profession->title }}</a>
-      result
+      @if (Route::is('users.candidates.professions.show'))
+        Result
+      @else
+        <a href="{{ route('users.professions.show', ['profession' => $candidate_profession->profession->id]) }}" class="text-decoration-none">{{ $candidate_profession->profession->title }}</a>
+        result
+      @endif
     </p>
   </div>
   <div class="card-body">

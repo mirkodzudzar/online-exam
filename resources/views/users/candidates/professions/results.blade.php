@@ -9,28 +9,35 @@
     <div class="row">
       <div class="col-md-6">
         <h3>Attempted</h3>
-        @foreach ($candidate_professions as $candidate_profession)
+        @forelse ($candidate_professions as $candidate_profession)
           @if ($candidate_profession->status !== 'applied')
             {{-- @include('includes._profession-results') --}}
             <x-profession-results :value="$candidate_profession"></x-profession-results>
           @endif
-        @endforeach
+        @empty
+          <p>No results.</p>
+        @endforelse
       </div>
       <div class="col-md-6">
         <h3>Applied</h3>
-        @foreach ($candidate_professions as $candidate_profession)
+        @forelse ($candidate_professions as $candidate_profession)
           @if ($candidate_profession->status === 'applied')
             <div class="card">
               <div class="card-body">
-                Finish the exam {{ $candidate_profession->profession }}
-                {{-- <a href="{{ route('users.candidates.professions.update', [
-                  'candidate' => $candidate_profession->candidate->id,
-                  'profession' => $candidate_profession->profession->id,
-                ]) }}"></a>  --}}
+                <p class="fs-5">
+                  Finish the exam for
+                  <a href="{{ route('users.candidates.professions.update', [
+                    'candidate' => $candidate_profession->candidate->id,
+                    'profession' => $candidate_profession->profession->id,
+                  ]) }}" class="text-decoration-none">{{ $candidate_profession->profession->title }}</a>
+                  profession.
+                </p>
               </div>
             </div>
           @endif
-        @endforeach
+        @empty
+          <p>No results.</p>
+        @endforelse
       </div>
     </div>
   @else
