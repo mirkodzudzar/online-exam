@@ -106,6 +106,10 @@
                   All
                   <x-badge :value="$questions_count" type="primary"></x-badge>
                 </a></li>
+                <li><a class="dropdown-item" href="{{ route('admins.questions.destroyed') }}">
+                  Destroyed
+                  <x-badge :value="$questions_destroyed_count" type="primary"></x-badge>
+                </a></li>
                 <li><a class="dropdown-item" href="{{ route('admins.questions.create') }}">Add new</a></li>
               </ul>
             </div>

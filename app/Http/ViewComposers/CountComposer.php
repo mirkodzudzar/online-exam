@@ -18,6 +18,7 @@ class CountComposer
     $professions_expired_count = Profession::onlyExpiredProfessions()->count();
     $professions_destroyed_count = Profession::onlyTrashed()->count();
     $questions_count = Question::count();
+    $questions_destroyed_count = Question::onlyTrashed()->count();
     
     $view->with('candidates_count', $candidates_count);
     $view->with('users_count', $users_count);
@@ -25,5 +26,6 @@ class CountComposer
     $view->with('professions_expired_count', $professions_expired_count);
     $view->with('professions_destroyed_count', $professions_destroyed_count);
     $view->with('questions_count', $questions_count);
+    $view->with('questions_destroyed_count', $questions_destroyed_count);
   }
 }
