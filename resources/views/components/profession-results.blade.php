@@ -1,7 +1,11 @@
 <div class="card mb-3">
   <div class="card-header fs-3">
     <p>
-      <a href="{{ route('users.professions.show', ['profession' => $value->profession->id]) }}" class="text-decoration-none">{{ $value->profession->title }}</a>
+      @if (Route::is('admins.candidates.show'))
+        <a href="{{ route('admins.professions.show', ['profession' => $value->profession->id]) }}" class="text-decoration-none">{{ $value->profession->title }}</a>
+      @else
+        <a href="{{ route('users.professions.show', ['profession' => $value->profession->id]) }}" class="text-decoration-none">{{ $value->profession->title }}</a>
+      @endif
       result
     </p>
   </div>

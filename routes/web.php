@@ -52,7 +52,7 @@ Route::group([
     Route::get('/professions/destroyed', [AdminProfessionController::class, 'destroyed'])->name('professions.destroyed');
     Route::resource('professions', AdminProfessionController::class);
     Route::resource('users', AdminUserController::class)->except(['show', 'destroy']);
-    Route::resource('candidates', AdminCandidateController::class)->only(['index']);
+    Route::resource('candidates', AdminCandidateController::class)->only(['index', 'show']);
     Route::resource('questions', AdminQuestionController::class)->except(['show']);
 });
 

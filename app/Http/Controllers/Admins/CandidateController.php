@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admins;
 
 use App\Http\Controllers\Controller;
 use App\Models\Candidate;
+use App\Models\CandidateProfession;
 use Illuminate\Http\Request;
 
 class CandidateController extends Controller
@@ -20,7 +21,7 @@ class CandidateController extends Controller
     public function index()
     {
         return view('admins.candidates.index', [
-            'candidates' => Candidate::all(),
+            'candidates' => Candidate::withCount('professions')->get(),
         ]);
     }
 
@@ -51,9 +52,14 @@ class CandidateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Candidate $candidate)
     {
-        //
+        $candidate_professions = CandidateProfession::where('candidate_id', $candidate->id)->get();
+
+        return view('admins.candidates.show', [
+            'candidate' => $candidate,
+            'candidate_professions' => $candidate_professions,
+        ]);
     }
 
     /**
