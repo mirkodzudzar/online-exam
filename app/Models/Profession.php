@@ -55,7 +55,7 @@ class Profession extends Model
 
     public static function boot()
     {
-        // static::addGlobalScope(new WithoutExpiredProfessionsUserScope);
+        static::addGlobalScope(new WithoutExpiredProfessionsUserScope);
         static::addGlobalScope(new NewestScope);
         static::addGlobalScope(new DestroyedAdminScope);
         

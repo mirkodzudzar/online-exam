@@ -21,7 +21,7 @@ class ProfessionController extends Controller
     public function index()
     {
         return view('users.professions.index', [
-            'professions' => Profession::withoutExpiredProfessions()->get(),
+            'professions' => Profession::all(),
         ]);
     }
 
