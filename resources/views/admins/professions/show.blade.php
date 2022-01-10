@@ -10,7 +10,7 @@
   @endif
   <h1 class="card-title {{ $profession->trashed() ? 'text-muted' : '' }}">{{ $profession->title }}</h1>
   <div class="mb-3">
-    @include('includes._expired-badge')
+    <x-expired-badge :profession="$profession"></x-expired-badge>
   </div>
   @if ($profession->trashed())
     </del>

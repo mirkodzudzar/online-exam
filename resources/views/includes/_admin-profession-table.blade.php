@@ -32,7 +32,7 @@
           <td>{{ $profession->open_date }}</td>
           <td>{{ $profession->close_date }}</td>
           <td>
-            @include('includes._expired-badge')
+            <x-expired-badge :profession="$profession"></x-expired-badge>
           </td>
           <td>
             <a href="{{ route('admins.professions.edit', ['profession' => $profession->id]) }}" class="btn btn-success">Edit</a>
