@@ -21,7 +21,7 @@
         <b> - </b>
         <x-badge :value="$profession->close_date" type="danger"></x-badge>
       </p>
-      @include('includes._expired-badge')
+      <x-expired-badge :profession="$profession"></x-expired-badge>
     </div>
     {{-- <div class="card-footer">
       @can('unapply', $profession)

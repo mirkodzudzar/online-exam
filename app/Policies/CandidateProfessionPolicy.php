@@ -2,8 +2,9 @@
 
 namespace App\Policies;
 
-use App\Models\CandidateProfession;
+use Carbon\Carbon;
 use App\Models\User;
+use App\Models\CandidateProfession;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class CandidateProfessionPolicy
@@ -30,12 +31,24 @@ class CandidateProfessionPolicy
      */
     public function view(User $user, CandidateProfession $candidateProfession)
     {
+        // If there are no questions.
+        if ($candidateProfession->profession->questions->count() === 0) {
+            return false;
+        }
+        
         // Only if status is present, we can visit questions or results.
-        if ($candidateProfession->status) {
-            return true;
+        if (!isset($candidateProfession->status)) {
+            return false;
         }
 
-        return false;
+        // If profession is expired - close_date is older than current date/time,
+        // or if status is just applied then we can not visit the page.
+        if (Carbon::parse($candidateProfession->profession->close_date) < Carbon::today() &&
+            $candidateProfession->status === 'applied') {
+            return false;
+        }
+
+        return true;
     }
 
     /**
@@ -58,12 +71,22 @@ class CandidateProfessionPolicy
      */
     public function update(User $user, CandidateProfession $candidateProfession)
     {
+        // If there are no question.
+        if ($candidateProfession->profession->questions->count() === 0) {
+            return false;
+        }
         // Only if status is applied, we can proceed with the profession questions.
-        if ($candidateProfession->status === 'applied') {
-            return true;
+        if ($candidateProfession->status !== 'applied') {
+            return false;
+        }
+        // If profession is expired - close_date is older than current date/time,
+        // or if status is just applied then we can not update candidate_profession table record.
+        if (Carbon::parse($candidateProfession->profession->close_date) < Carbon::today() &&
+            $candidateProfession->status === 'applied') {
+            return false;
         }
 
-        return false;
+        return true;
     }
 
     /**

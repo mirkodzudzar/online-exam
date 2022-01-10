@@ -48,7 +48,8 @@ Route::group([
 ], function() {
     /// for authenticated admin users
     Route::get('/professions/expired', [AdminProfessionController::class, 'expired'])->name('professions.expired');
-    Route::post('/professions/restore-all', [AdminProfessionController::class, 'restoreAll'])->name('professions.restore-all');
+    // This route is not in use right now, find a way how to also restore all related questons that have been soft deleted (observer method or similar solution).
+    // Route::post('/professions/restore-all', [AdminProfessionController::class, 'restoreAll'])->name('professions.restore-all');
     Route::post('/professions/{profession}/restore', [AdminProfessionController::class, 'restore'])->name('professions.restore');
     Route::post('/professions/{profession}/force-delete', [AdminProfessionController::class, 'forceDelete'])->name('professions.force-delete');
     Route::get('/professions/destroyed', [AdminProfessionController::class, 'destroyed'])->name('professions.destroyed');

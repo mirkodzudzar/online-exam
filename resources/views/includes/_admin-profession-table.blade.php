@@ -9,14 +9,13 @@
         <th scope="col">Open date</th>
         <th scope="col">Close date</th>
         <th scope="col">Note</th>
-        <th scope="col"></th>
-        <th scope="col">
+        <th scope="col" colspan="3"></th>
+        {{--  <th scope="col">
           <form action="{{ route('admins.professions.restore-all') }}" method="POST">
             @csrf
             <input type="submit" value="Restore all" class="btn btn-info" onclick='return confirm("Are you sure you want to restore all professions?")'>
           </form>
-        </th>
-        <th scope="col"></th>
+        </th>  --}}
       </tr>
     </thead>
     <tbody>
@@ -33,7 +32,7 @@
           <td>{{ $profession->open_date }}</td>
           <td>{{ $profession->close_date }}</td>
           <td>
-            @include('includes._expired-badge')
+            <x-expired-badge :profession="$profession"></x-expired-badge>
           </td>
           <td>
             <a href="{{ route('admins.professions.edit', ['profession' => $profession->id]) }}" class="btn btn-success">Edit</a>
