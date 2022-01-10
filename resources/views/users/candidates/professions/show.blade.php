@@ -21,8 +21,9 @@
       @include('includes._unapply-button')
     @elsecan('apply', $profession)
       @include('includes._apply-button')
-    @else
-      <x-profession-results :value="$candidate_profession"></x-profession-results>
     @endcan
+    @if ($candidate_profession->status !== 'applied')
+      <x-profession-results :value="$candidate_profession"></x-profession-results>
+    @endif
   </div>
 @endsection

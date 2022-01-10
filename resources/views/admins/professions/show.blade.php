@@ -3,24 +3,8 @@
 @section('title', $profession->title)
     
 @section('content')
-  <p class="text-muted"><i>Posted {{ $profession->created_at->diffForHumans() }}.</i></p>
 
-  @if ($profession->trashed())
-    <del>
-  @endif
-  <h1 class="card-title {{ $profession->trashed() ? 'text-muted' : '' }}">{{ $profession->title }}</h1>
-  <div class="mb-3">
-    <x-expired-badge :profession="$profession"></x-expired-badge>
-  </div>
-  @if ($profession->trashed())
-    </del>
-  @endif
-  <p>{{ $profession->description }}</p>
-  <p>
-    <x-badge :value="$profession->open_date" type="dark"></x-badge>
-    <b> - </b>
-    <x-badge :value="$profession->close_date" type="danger"></x-badge>
-  </p>
+  @include('includes._profession-show')
 
   <div class="card">
     <div class="card-header">
