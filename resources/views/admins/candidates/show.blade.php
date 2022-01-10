@@ -67,7 +67,7 @@
           {{-- Profession table with the applied professions --}}
           <x-applied-profession-card
             :route="route('admins.professions.show', ['profession' => $candidate_profession->profession->id])"
-            :title="$candidate_profession->profession->title"
+            :profession="$candidate_profession->profession"
             text=" profession, applied {{ $candidate_profession->created_at->diffForHumans() }}.">
           </x-applied-profession-card>
         @endif

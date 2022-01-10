@@ -1,6 +1,6 @@
-<div class="card mb-3">
-  <div class="card-header fs-3">
-    <p>
+<div class="card mb-3 {{ Carbon\Carbon::parse($value->profession->close_date) < Carbon\Carbon::today() ? 'bg-warning' : '' }}">
+  <div class="card-header">
+    <p class="fs-5">
       @if (Route::is('admins.candidates.show'))
         <a href="{{ route('admins.professions.show', ['profession' => $value->profession->id]) }}" class="text-decoration-none">{{ $value->profession->title }}</a>
       @elseif (Route::is('admins.candidates.professions.results'))
@@ -10,6 +10,7 @@
       @endif
       result, attempted {{ $value->updated_at->diffForHumans() }}.
     </p>
+    <x-expired-badge :profession="$value->profession"></x-expired-badge>
   </div>
   <div class="card-body">
     <table class="table table-striped">

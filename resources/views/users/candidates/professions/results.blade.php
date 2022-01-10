@@ -25,10 +25,9 @@
             {{-- Profession table with the applied professions --}}
             <x-applied-profession-card
               :route="route('users.professions.show', [
-                // 'candidate' => $candidate_profession->candidate->id,
                 'profession' => $candidate_profession->profession->id,
               ])"
-              :title="$candidate_profession->profession->title"
+              :profession="$candidate_profession->profession"
               text=" profession exam, applied {{ $candidate_profession->created_at->diffForHumans() }}.">
             </x-applied-profession-card>
           @endif
