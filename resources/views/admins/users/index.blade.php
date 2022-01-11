@@ -3,7 +3,7 @@
 @section('title', 'Admin users')
     
 @section('content')
-  <h1>List of all admin users <x-badge :value="$users_count" type="primary"></x-badge></h1>
+  <h1>List of all admin users <x-badge :value="$users->count()" type="primary"></x-badge></h1>
   <table class="table table-striped">
     <thead class="table-dark">
       <tr>

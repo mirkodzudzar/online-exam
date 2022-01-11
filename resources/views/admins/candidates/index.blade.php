@@ -3,7 +3,7 @@
 @section('title', 'Candidates')
     
 @section('content')
-  <h1>List of all candidates <x-badge :value="$candidates_count" type="primary"></x-badge></h1>
+  <h1>List of all candidates <x-badge :value="$candidates->count()" type="primary"></x-badge></h1>
   @if ($candidates->count() > 0)
     <table class="table table-striped">
       <thead class="table-dark">
