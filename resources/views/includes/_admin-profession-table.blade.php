@@ -23,9 +23,15 @@
         <tr>
           <th scope="row">{{ $profession->id }}</th>
           <td>
-            <a href="{{ route('admins.candidates.professions.results', ['profession' => $profession]) }}" class="text-decoration-none">
+            @if ($profession->trashed())
+              <del>
+            @endif
+            <a href="{{ route('admins.candidates.professions.results', ['profession' => $profession]) }}" class="text-decoration-none {{ $profession->trashed() ? 'text-muted' : '' }}">
               {{ $profession->title }}
             </a>
+            @if ($profession->trashed())
+              </del>
+            @endif
           </td>
           <td>{{ $profession->candidates_count }}</td>
           <td>{{ $profession->questions_count }}</td>

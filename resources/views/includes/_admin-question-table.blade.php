@@ -16,7 +16,15 @@
       @foreach ($questions as $question)
         <tr>
           <th>{{ $question->id }}</th>
-          <td>{{ Str::limit($question->question, 50) }}</td>
+          <th>
+            @if ($question->trashed())
+              <del>
+            @endif
+            <p class="{{ $question->trashed() ? 'text-muted' : '' }}">{{ Str::limit($question->question, 50) }}</p>
+            @if ($question->trashed())
+              </del>
+            @endif
+          </th>
           <th>
             <a href="{{ route('admins.professions.show', ['profession' => $question->profession]) }}" class="text-decoration-none">{{ $question->profession->title }}</a>
           </th>
