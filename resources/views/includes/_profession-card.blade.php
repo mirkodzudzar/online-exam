@@ -3,7 +3,7 @@
     <div class="card-header bg-secondary text-light">
       <i>Posted {{ $profession->created_at->diffForHumans() }}.</i>
     </div>
-    <div class="card-body  {{ Carbon\Carbon::parse($profession->close_date) < Carbon\Carbon::today() ? 'bg-warning' : '' }}">
+    <div class="card-body  {{ $profession->isExpired() ? 'bg-warning' : '' }}">
       @if ($profession->trashed())
         <del>
       @endif

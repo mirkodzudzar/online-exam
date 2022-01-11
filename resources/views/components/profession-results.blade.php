@@ -1,4 +1,4 @@
-<div class="card mb-3 {{ Carbon\Carbon::parse($value->profession->close_date) < Carbon\Carbon::today() ? 'bg-warning' : '' }}">
+<div class="card mb-3 {{ $value->profession->isExpired() ? 'bg-warning' : '' }}">
   <div class="card-header">
     <p class="fs-5">
       @if ($value->trashed())
