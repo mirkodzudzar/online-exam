@@ -7,16 +7,9 @@
   @include('includes._profession-show')
 
   <div class="card">
-    <div class="card-header">
-      <ul class="nav nav-tabs card-header-tabs">
-        <li class="nav-item">
-          <a class="nav-link" href="{{ route('admins.professions.show', ['profession' => $profession->id]) }}">Questions</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="true" href="{{ route('admins.candidates.professions.results', ['profession' => $profession->id]) }}">Results</a>
-        </li>
-      </ul>
-    </div>
+    
+    @include('includes._admin-profession-card-header')
+
     <div class="card-body">
       @if ($candidate_professions->count() > 0)
         <div class="row">
@@ -39,6 +32,7 @@
                 <x-applied-profession-card
                   :route="route('admins.candidates.show', ['candidate' => $candidate_profession->candidate->id ])"
                   :title="$candidate_profession->candidate->user->email"
+                  :profession="$candidate_profession->profession"
                   text=", applied {{ $candidate_profession->created_at->diffForHumans() }}.">
                 </x-applied-profession-card>
               @endif
