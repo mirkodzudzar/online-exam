@@ -15,6 +15,11 @@
   <b> - </b>
   <x-badge :value="$profession->close_date" type="danger"></x-badge>
 </p>
+
+<div class="mb-3">
+  @include('includes._admin-profession-options')
+</div>
+
 @can('unapply', $profession)
   @can('view', $candidate_profession)
     @if ($candidate_profession->status === 'applied')
