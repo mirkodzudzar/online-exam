@@ -27,7 +27,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // CountComposer variables will be available in all blatde tamplates
-        view()->composer(['*'], CountComposer::class);
+        view()->composer(['layouts.admin'], CountComposer::class);
         
         // Registering new Observer for Profession model class
         Profession::observe(ProfessionObserver::class);
