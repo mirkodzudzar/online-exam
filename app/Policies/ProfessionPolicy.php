@@ -18,9 +18,16 @@ class ProfessionPolicy
      * @param  \App\Models\Profession  $profession
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Profession $profession)
+    public function view(?User $user, Profession $profession)
     {
-        // If user is not candidate - admin
+        // If we are not authenticated, we will be able to see all professions except expired ones.
+        if (is_null($user)) {
+            if (Carbon::parse($profession->close_date) < Carbon::today()) {
+                return false;
+            }
+            return true;
+        }
+        // If user is not candidate - admin.
         if (is_null($user->candidate)) {
             return true;
         }
