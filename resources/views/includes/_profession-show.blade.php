@@ -16,9 +16,13 @@
   <x-badge :value="$profession->close_date" type="danger"></x-badge>
 </p>
 
-<div class="mb-3">
-  @include('includes._admin-profession-options')
-</div>
+@auth
+  @if (Auth::user()->is_admin)
+    <div class="mb-3">
+      @include('includes._admin-profession-options')
+    </div>
+  @endif
+@endauth
 
 @can('unapply', $profession)
   @can('view', $candidate_profession)
