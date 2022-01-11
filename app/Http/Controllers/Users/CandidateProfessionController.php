@@ -183,7 +183,9 @@ class CandidateProfessionController extends Controller
 
     public function results(Candidate $candidate)
     {
-        $candidate_professions = CandidateProfession::where('candidate_id', $candidate->id)->get();
+        $candidate_professions = CandidateProfession::where('candidate_id', $candidate->id)
+                                                    ->with('profession') // eager loading
+                                                    ->get();
 
         foreach ($candidate_professions as $candidate_profession) {
             $this->authorize($candidate_profession);
