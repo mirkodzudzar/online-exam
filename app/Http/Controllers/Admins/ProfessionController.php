@@ -61,6 +61,12 @@ class ProfessionController extends Controller
      */
     public function show(Profession $profession)
     {
+        // Maybe there is better solution, but this is done just to have less queries.
+        $profession = Profession::where('id', $profession->id)
+                                ->withCount('candidates')
+                                ->withCount('questions')
+                                ->first();
+
         return view('admins.professions.show', [
             'profession' => $profession,
         ]);
