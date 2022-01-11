@@ -43,8 +43,7 @@ class CandidateProfessionPolicy
 
         // If profession is expired - close_date is older than current date/time,
         // or if status is just applied then we can not visit the page.
-        if (Carbon::parse($candidateProfession->profession->close_date) < Carbon::today() &&
-            $candidateProfession->status === 'applied') {
+        if ($candidateProfession->profession->isExpired() && $candidateProfession->status === 'applied') {
             return false;
         }
 
@@ -81,7 +80,7 @@ class CandidateProfessionPolicy
         }
         // If profession is expired - close_date is older than current date/time,
         // or if status is just applied then we can not update candidate_profession table record.
-        if (Carbon::parse($candidateProfession->profession->close_date) < Carbon::today() &&
+        if ($candidateProfession->profession->isExpired() &&
             $candidateProfession->status === 'applied') {
             return false;
         }

@@ -1,10 +1,9 @@
 @extends('layouts.user')
 
 @section('title', 'Your results')
-
-@section('page_title', 'Your results')
     
 @section('content')
+  <h1>Your results <x-badge :value="$candidate_professions->count()" type="primary"></x-badge></h1>
   @if ($candidate_professions->count() > 0)
     <div class="row">
       <div class="col-md-6">

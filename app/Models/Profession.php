@@ -53,6 +53,16 @@ class Profession extends Model
         return $builder->whereDate('close_date', '<', Carbon::today());
     }
 
+    // Check if close_date is older than today, if so than profession is expired.
+    public function isExpired()
+    {
+        if (Carbon::parse($this->close_date) < Carbon::today()) {
+            return true;
+        }
+
+        return false;
+    }
+
     public static function boot()
     {
         // static::addGlobalScope(new WithoutExpiredProfessionsUserScope);

@@ -15,14 +15,22 @@
       @forelse ($profession->questions as $question)
         <div class="card mb-3">
           <div class="card-body bg-light">
-            <b>{{ $question->id }}. {{ $question->question }}</b>
+            @if ($question->trashed())
+              <del>
+            @endif
+            <p class="{{ $question->trashed() ? 'text-muted' : '' }}"><b>{{ $question->id }}. {{ $question->question }}</b></p>
+            @if ($question->trashed())
+              </del>
+            @endif
             <ol type="a">
               <li class="{{ $question->answer_correct === 'answer_a' ? 'text-success border border-success' : '' }}">{{ $question->answer_a }}</li>
               <li class="{{ $question->answer_correct === 'answer_b' ? 'text-success border border-success' : '' }}">{{ $question->answer_b }}</li>
               <li class="{{ $question->answer_correct === 'answer_c' ? 'text-success border border-success' : '' }}">{{ $question->answer_c }}</li>
               <li class="{{ $question->answer_correct === 'answer_d' ? 'text-success border border-success' : '' }}">{{ $question->answer_d }}</li>
             </ol>
-            <a href="{{ route('admins.questions.edit', ['question' => $question->id]) }}" class="btn btn-success">Edit</a>
+            
+            @include('includes._admin-question-options')
+
           </div>
         </div>
       @empty

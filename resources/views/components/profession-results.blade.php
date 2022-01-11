@@ -1,6 +1,9 @@
-<div class="card mb-3 {{ Carbon\Carbon::parse($value->profession->close_date) < Carbon\Carbon::today() ? 'bg-warning' : '' }}">
+<div class="card mb-3 {{ $value->profession->isExpired() ? 'bg-warning' : '' }}">
   <div class="card-header">
     <p class="fs-5">
+      @if ($value->trashed())
+        <del>
+      @endif
       @if (Route::is('admins.candidates.show'))
         <a href="{{ route('admins.professions.show', ['profession' => $value->profession->id]) }}" class="text-decoration-none">{{ $value->profession->title }}</a>
       @elseif (Route::is('admins.candidates.professions.results'))
@@ -9,6 +12,9 @@
         <a href="{{ route('users.professions.show', ['profession' => $value->profession->id]) }}" class="text-decoration-none">{{ $value->profession->title }}</a>
       @endif
       result, attempted {{ $value->updated_at->diffForHumans() }}.
+      @if ($value->trashed())
+        </del>
+      @endif
     </p>
     <x-expired-badge :profession="$value->profession"></x-expired-badge>
   </div>
