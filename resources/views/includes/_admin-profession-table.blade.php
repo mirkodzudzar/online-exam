@@ -23,7 +23,7 @@
         <tr>
           <th scope="row">{{ $profession->id }}</th>
           <td>
-            <a href="{{ route('admins.professions.show', ['profession' => $profession]) }}" class="text-decoration-none">
+            <a href="{{ route('admins.candidates.professions.results', ['profession' => $profession]) }}" class="text-decoration-none">
               {{ $profession->title }}
             </a>
           </td>
