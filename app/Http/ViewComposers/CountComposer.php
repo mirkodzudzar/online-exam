@@ -20,12 +20,12 @@ class CountComposer
     $questions_count = Question::count();
     $questions_destroyed_count = Question::onlyTrashed()->count();
     
-    $view->with('candidates_count', $candidates_count);
-    $view->with('users_count', $users_count);
-    $view->with('professions_count', $professions_count);
-    $view->with('professions_expired_count', $professions_expired_count);
-    $view->with('professions_destroyed_count', $professions_destroyed_count);
-    $view->with('questions_count', $questions_count);
-    $view->with('questions_destroyed_count', $questions_destroyed_count);
+    $view->with('candidates_count', $candidates_count)
+         ->with('users_count', $users_count)
+         ->with('professions_count', $professions_count)
+         ->with('professions_expired_count', $professions_expired_count)
+         ->with('professions_destroyed_count', $professions_destroyed_count)
+         ->with('questions_count', $questions_count)
+         ->with('questions_destroyed_count', $questions_destroyed_count);
   }
 }

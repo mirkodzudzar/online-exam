@@ -21,7 +21,9 @@ class CandidateController extends Controller
     public function index()
     {
         return view('admins.candidates.index', [
-            'candidates' => Candidate::withCount('professions')->get(),
+            'candidates' => Candidate::withCount('professions')
+                                     ->with('user') // eager loading
+                                     ->get(),
         ]);
     }
 
@@ -54,7 +56,14 @@ class CandidateController extends Controller
      */
     public function show(Candidate $candidate)
     {
-        $candidate_professions = CandidateProfession::where('candidate_id', $candidate->id)->get();
+        // Maybe there is better solution, but this is done just to have less queries.
+        $candidate = Candidate::where('id', $candidate->id)
+                              ->with('professions')
+                              ->first();
+
+        $candidate_professions = CandidateProfession::where('candidate_id', $candidate->id)
+                                                    ->with('profession')
+                                                    ->get();
 
         return view('admins.candidates.show', [
             'candidate' => $candidate,
