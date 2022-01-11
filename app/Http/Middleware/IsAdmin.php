@@ -21,7 +21,7 @@ class IsAdmin
             return $next($request);
         }
 
-        return redirect()->route('users.professions.index')
+        return redirect()->back()
                          ->withStatus('You are not authorized to visit this page.');
     }
 }
