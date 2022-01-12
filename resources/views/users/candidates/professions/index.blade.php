@@ -3,6 +3,7 @@
 @section('title', 'Home page')
     
 @section('content')
-  <h1>List of your professions <x-badge :value="$professions->count()" type="primary"></x-badge></h1>
+  <h1>List of your professions</h1>
   @include('includes._profession-card')
+  <x-pager :items="$professions"></x-pager>
 @endsection
