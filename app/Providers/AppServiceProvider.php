@@ -2,10 +2,11 @@
 
 namespace App\Providers;
 
-use App\Http\ViewComposers\CountComposer;
 use App\Models\Profession;
+use Illuminate\Pagination\Paginator;
 use App\Observers\ProfessionObserver;
 use Illuminate\Support\ServiceProvider;
+use App\Http\ViewComposers\CountComposer;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,5 +32,8 @@ class AppServiceProvider extends ServiceProvider
         
         // Registering new Observer for Profession model class
         Profession::observe(ProfessionObserver::class);
+
+        // Include bootstrap for paginator styling.
+        Paginator::useBootstrap();
     }
 }
