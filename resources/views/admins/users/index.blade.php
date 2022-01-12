@@ -30,4 +30,5 @@
       @endforeach
     </tbody>
   </table>
+  <x-pager :items="$users"></x-pager>
 @endsection

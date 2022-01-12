@@ -28,7 +28,7 @@ class CandidateProfessionController extends Controller
         // })->withoutGlobalScope(WithoutExpiredProfessionsUserScope::class)->get();
 
         return view('users.candidates.professions.index', [
-            'professions' => $candidate->professions,
+            'professions' => $candidate->professions()->paginate(10),
         ]);
     }
 

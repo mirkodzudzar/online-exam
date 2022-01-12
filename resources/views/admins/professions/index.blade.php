@@ -2,7 +2,9 @@
 
 @section('title', 'Professions')
     
+@section('page_title', 'List of all professions')
+
 @section('content')
-  <h1>List of all professions <x-badge :value="$professions->count()" type="primary"></x-badge></h1>
   @include('includes._admin-profession-table')
+  <x-pager :items="$professions"></x-pager>
 @endsection

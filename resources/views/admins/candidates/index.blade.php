@@ -1,9 +1,10 @@
 @extends('layouts.admin')
 
 @section('title', 'Candidates')
+
+@section('page_title', 'List of all candidates')
     
 @section('content')
-  <h1>List of all candidates <x-badge :value="$candidates->count()" type="primary"></x-badge></h1>
   @if ($candidates->count() > 0)
     <table class="table table-striped">
       <thead class="table-dark">
@@ -42,4 +43,5 @@
   @else
     <p>There are no candidates!</p>
   @endif
+  <x-pager :items="$candidates"></x-pager>
 @endsection
