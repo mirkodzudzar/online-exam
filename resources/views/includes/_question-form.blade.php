@@ -11,7 +11,7 @@
         @foreach ($professions as $profession)
           <option value="{{ $profession->id }}" 
             {{-- $profession_url is optional parameter value if we came form specific profession to create new question --}}
-            @if(old('profession') === $profession->id || optional($profession_url ?? null)->id ===  $profession->id || $profession->id === optional($question->profession ?? null)->id) selected @endif>{{ $profession->title }}
+            @if((int)old('profession') === $profession->id || optional($profession_url ?? null)->id ===  $profession->id || $profession->id === optional($question->profession ?? null)->id) selected @endif>{{ $profession->title }}
           </option>
         @endforeach
       @endif

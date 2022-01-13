@@ -2,9 +2,9 @@
 
 namespace App\Observers;
 
-use App\Models\Question;
 use App\Models\Profession;
 use App\Models\CandidateProfession;
+use Illuminate\Support\Facades\Cache;
 
 class ProfessionObserver
 {
@@ -17,6 +17,12 @@ class ProfessionObserver
     public function created(Profession $profession)
     {
         //
+    }
+
+    public function creating()
+    {
+        // Profession coutn will increase.
+        Cache::tags(['profession'])->forget('count');
     }
 
     /**
@@ -45,6 +51,8 @@ class ProfessionObserver
     {
         $profession->questions()->delete();
         CandidateProfession::where('profession_id', $profession->id)->delete();
+        // Destroyed profession count will increase.
+        Cache::tags(['profession'])->forget('destoryed-count');
     }
 
     /**
@@ -62,6 +70,8 @@ class ProfessionObserver
     {
         $profession->questions()->restore();
         CandidateProfession::where('profession_id', $profession->id)->restore();
+        // Destroyed profession count will decrease.
+        Cache::tags(['profession'])->forget('destoryed-count');
     }
 
     /**
@@ -74,5 +84,11 @@ class ProfessionObserver
     {
         $profession->questions()->forceDelete();
         $profession->candidates()->detach();
+        // Profession count will decrease.
+        Cache::tags(['profession'])->forget('count');
+        // Expired profession count may decrease.
+        Cache::tags(['profession'])->forget('expired-count');
+        // Destroyed profession count will decrease.
+        Cache::tags(['profession'])->forget('destoryed-count');
     }
 }
