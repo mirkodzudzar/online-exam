@@ -1,28 +1,34 @@
-<style>
-  body {
-    font-family: Arial, Helvetica, sans-serif;
-  }
-</style>
+@component('mail::message')
+# Hi {{ $candidate->username }}.
 
-<p>Hi {{ $candidate->username }}.</p>
+You have successfully applied for the profession '{{ $profession->title }}'.
 
-<p>
-  You have successfully applied for the profession '{{ $profession->title }}'.
-  <a href="{{ route('users.professions.show', ['profession' => $profession->id]) }}">Visit</a>
-  it now.
-</p>
+@component('mail::button', ['url' => "{{ route('users.professions.show', ['profession' => $profession->id]) }}"])
+Visit profession
+@endcomponent
 
 @if ($profession->questions->count() > 0)
-  <p>You could now complete the exam for this profession to have a better chance of success.</p>
-  <p>Please <a href="{{ route('users.candidates.professions.show', [
-    'candidate' => $candidate->id,
-    'profession' => $profession->id,
-  ]) }}">visit the profession</a>  again and try to give the best answers to the questions. Good luck!</p>
+@component('mail::panel')
+You could now complete the exam for this profession to have a better chance of success.
+Please visit the profession exam and try to give the best answers to the questions. Good luck!
+@component('mail::button', ['url' => route('users.candidates.professions.show', [
+  'candidate' => $candidate->id,
+  'profession' => $profession->id,
+])])
+Exam
+@endcomponent
+@endcomponent
 @endif
 
-<p>If you would like to 
-  <a href="{{ route('users.professions.show', ['profession' => $profession->id]) }}">unapply</a>, 
-  you can do so at any time until the profession expires.
-</p>
+If you would like to unapply you can do so at any time until the profession expires.
+@component('mail::button', ['url' => "{{ route('users.professions.show', ['profession' => $profession->id]) }}"])
+Unapply
+@endcomponent
 
-<p>Deadline: {{ $profession->open_date }} - {{ $profession->close_date }}</p>
+@component('mail::panel')
+Deadline: {{ $profession->open_date }} - {{ $profession->close_date }}
+@endcomponent
+
+Thanks,<br>
+{{ config('app.name') }}
+@endcomponent

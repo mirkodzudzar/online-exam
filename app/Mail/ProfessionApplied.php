@@ -36,6 +36,6 @@ class ProfessionApplied extends Mailable
         $subject = "You have applied for '{$this->profession->title}' profession.";
 
         return $this->subject($subject)
-                    ->view('emails.professions.applied');
+                    ->markdown('emails.professions.applied');
     }
 }
