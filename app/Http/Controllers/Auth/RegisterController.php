@@ -7,6 +7,7 @@ use App\Models\Candidate;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Cache;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -89,6 +90,9 @@ class RegisterController extends Controller
         $user->save();
         $candidate->user_id = $user->id;
         $candidate->save();
+
+        // Cache will be forgotten once new user-candidate is registered.
+        Cache::forget('candidates-count');
 
         session()->flash('status', 'Welcome! Your registration have been completed successfully.');
 

@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Question;
 use App\Models\Profession;
+use App\Observers\QuestionObserver;
 use Illuminate\Pagination\Paginator;
 use App\Observers\ProfessionObserver;
 use Illuminate\Support\ServiceProvider;
@@ -32,6 +34,7 @@ class AppServiceProvider extends ServiceProvider
         
         // Registering new Observer for Profession model class
         Profession::observe(ProfessionObserver::class);
+        Question::observe(QuestionObserver::class);
 
         // Include bootstrap for paginator styling.
         Paginator::useBootstrap();
