@@ -16,6 +16,8 @@
   <x-badge :value="$profession->close_date" type="danger"></x-badge>
 </p>
 
+<p><i class="text-muted">Number of users currently visiting this profession: </i>{{ $counter }}</p>
+
 @auth
   @if (Auth::user()->is_admin)
     <div class="mb-3">

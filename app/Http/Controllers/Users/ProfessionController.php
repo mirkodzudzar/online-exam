@@ -59,6 +59,50 @@ class ProfessionController extends Controller
     {
         $this->authorize($profession);
 
+        // Id of current user session.
+        $session_id = session()->getId();
+        $counter_key = "profession-{$profession->id}-counter";
+        $users_key = "profession-{$profession->id}-users";
+
+        // Get all users from cache for this profesison, by unique key.
+        $users = Cache::get($users_key, []);
+        // Array to store new users.
+        $users_update = [];
+        $difference = 0;
+        $now = now();
+
+        foreach ($users as $session => $last_visit) {
+            // If time is equal or more then one minute.
+            if ($now->diffInMinutes($last_visit) >= 1) {
+                // Decrease counter for each user.
+                $difference--;
+            } else {
+                // User will stay saved in this array.
+                $users_update[$session] = $last_visit;
+            }
+        }
+
+        // Check if current user is not in array or if last visit time is equal or more then one minute.
+        if (!array_key_exists($session_id, $users) || $now->diffInMinutes($users[$session_id]) >= 1) {
+            $difference++;
+        }
+
+        // Set current user value.
+        $users_update[$session_id] = $now;
+        // Save all current users into cache.
+        Cache::forever($users_key, $users_update);
+        // If cache does not have counter value, save it forever.
+        if (!Cache::has($counter_key)) {
+            Cache::forever($counter_key, 1);
+        } else {
+            // If cache already have counter set, save new difference value.
+            $test = Cache::increment($counter_key, $difference);
+            dd($test);
+        }
+
+        // Getting value of counter from cache.
+        $counter = Cache::get($counter_key);
+
         if (Auth::check() && !Auth::user()->is_admin) {
             $candidate_profession = CandidateProfession::where('candidate_id', Auth::user()->candidate->id)
                                                        ->where('profession_id', $profession->id)
@@ -66,11 +110,13 @@ class ProfessionController extends Controller
             return view('users.professions.show', [
                 'profession' => $profession,
                 'candidate_profession' => $candidate_profession,
+                'counter' => $counter,
             ]);
         }
         
         return view('users.professions.show', [
             'profession' => $profession,
+            'counter' => $counter,
         ]);
     }
 
