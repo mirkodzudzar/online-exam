@@ -96,8 +96,7 @@ class ProfessionController extends Controller
             Cache::forever($counter_key, 1);
         } else {
             // If cache already have counter set, save new difference value.
-            $test = Cache::increment($counter_key, $difference);
-            dd($test);
+            Cache::increment($counter_key, $difference);
         }
 
         // Getting value of counter from cache.
