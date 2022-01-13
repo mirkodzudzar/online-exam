@@ -23,7 +23,9 @@ class ProfessionController extends Controller
     public function index()
     {
         return view('admins.professions.index', [
-            'professions' => Profession::withCount('candidates')->withCount('questions')->get(),
+            'professions' => Profession::withCount('candidates')
+                                       ->withCount('questions')
+                                       ->paginate(20),
         ]);
     }
 
@@ -61,6 +63,12 @@ class ProfessionController extends Controller
      */
     public function show(Profession $profession)
     {
+        // Maybe there is better solution, but this is done just to have less queries.
+        $profession = Profession::where('id', $profession->id)
+                                ->withCount('candidates')
+                                ->withCount('questions')
+                                ->first();
+
         return view('admins.professions.show', [
             'profession' => $profession,
         ]);
@@ -153,7 +161,7 @@ class ProfessionController extends Controller
      */
     public function destroyed()
     {
-        $professions = Profession::onlyTrashed()->get();
+        $professions = Profession::onlyTrashed()->paginate(20);
 
         return view('admins.professions.destroyed', [
             'professions' => $professions,
@@ -167,7 +175,7 @@ class ProfessionController extends Controller
      */
     public function expired()
     {
-        $professions = Profession::onlyExpiredProfessions()->get();
+        $professions = Profession::onlyExpiredProfessions()->paginate(20);
 
         return view('admins.professions.expired', [
             'professions' => $professions,

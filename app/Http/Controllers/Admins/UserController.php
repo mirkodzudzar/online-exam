@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Http\Requests\CreateUser;
 use App\Http\Requests\UpdateUser;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -23,7 +24,7 @@ class UserController extends Controller
     public function index()
     {
         return view('admins.users.index', [
-            'users' => User::where('is_admin', true)->get(),
+            'users' => User::where('is_admin', true)->paginate(20),
         ]);
     }
 
@@ -53,6 +54,9 @@ class UserController extends Controller
         $user->password = Hash::make($validated['email']);
         $user->is_admin = true;
         $user->save();
+
+        // Cache will be forgotten once new admin user is created by other admin user.
+        Cache::tags(['user'])->forget('count');
 
         return redirect()->route('admins.users.index')
                          ->withStatus("User {$user->name} has been created successfully.");

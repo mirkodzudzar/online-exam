@@ -23,7 +23,7 @@ class QuestionController extends Controller
     public function index()
     {
         return view('admins.questions.index', [
-            'questions' => Question::all(),
+            'questions' => Question::with('profession')->paginate(20),
         ]);
     }
 
@@ -152,7 +152,9 @@ class QuestionController extends Controller
      */
     public function destroyed()
     {
-        $questions = Question::onlyTrashed()->get();
+        $questions = Question::onlyTrashed()
+                             ->with('profession') // eager loading
+                             ->paginate(20);
 
         return view('admins.questions.destroyed', [
             'questions' => $questions,

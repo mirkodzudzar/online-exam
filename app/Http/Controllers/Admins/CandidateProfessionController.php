@@ -15,7 +15,16 @@ class CandidateProfessionController extends Controller
 
     public function results(Profession $profession)
     {
-        $candidate_professions = CandidateProfession::where('profession_id', $profession->id)->get();
+        // Maybe there is better solution, but this is done just to have less queries.
+        $profession = Profession::where('id', $profession->id)
+                                ->withCount('candidates')
+                                ->withCount('questions')
+                                ->first();
+
+        $candidate_professions = CandidateProfession::where('profession_id', $profession->id)
+                            ->with('candidate')
+                            ->with('profession')
+                            ->get();
 
         return view('admins.candidates.professions.results', [
             'profession' => $profession,

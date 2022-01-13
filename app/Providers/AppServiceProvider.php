@@ -2,10 +2,13 @@
 
 namespace App\Providers;
 
-use App\Http\ViewComposers\CountComposer;
+use App\Models\Question;
 use App\Models\Profession;
+use App\Observers\QuestionObserver;
+use Illuminate\Pagination\Paginator;
 use App\Observers\ProfessionObserver;
 use Illuminate\Support\ServiceProvider;
+use App\Http\ViewComposers\CountComposer;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,9 +30,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // CountComposer variables will be available in all blatde tamplates
-        view()->composer(['*'], CountComposer::class);
+        view()->composer(['layouts.admin'], CountComposer::class);
         
         // Registering new Observer for Profession model class
         Profession::observe(ProfessionObserver::class);
+        Question::observe(QuestionObserver::class);
+
+        // Include bootstrap for paginator styling.
+        Paginator::useBootstrap();
     }
 }
