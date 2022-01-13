@@ -12,29 +12,20 @@ use Illuminate\Support\Facades\Cache;
 
 class CountComposer
 {
-  private function rememberCountToCache(string $tag, $model)
-  {
-    $count = Cache::rememberForever($tag, function() use ($model) {
-      return $model::count();
-    });
-
-    return $count;
-  } 
-
   public function compose(View $view)
   {
     // Cache will be forgotten once new candidate is registered.
-    $candidates_count = Cache::rememberForever("candidates-count", function() {
+    $candidates_count = Cache::remember("candidates-count", 60, function() {
       return Candidate::count();
     });
 
     // Cache will be forgotten once new admin user is created by another admin user.
-    $users_count = Cache::rememberForever("users-count", function() {
+    $users_count = Cache::remember("users-count", 60, function() {
       return User::where('is_admin', true)->count();
     });
 
     // Cache will be forgotten once new profession is created or force-deleted.
-    $professions_count = Cache::rememberForever("professions-count", function() {
+    $professions_count = Cache::remember("professions-count", 60, function() {
       return Profession::count();
     });
 
@@ -45,17 +36,17 @@ class CountComposer
     });
 
     // Cache will be forgotten once we delete, restore or force-delete some profession.
-    $professions_destroyed_count = Cache::rememberForever("professions-destoryed-count", function() {
+    $professions_destroyed_count = Cache::remember("professions-destoryed-count", 60, function() {
       return Profession::onlyTrashed()->count();
     });
 
     // Cache will be forgotten once new question is created or force-deleted.
-    $questions_count = Cache::rememberForever("questions-count", function() {
+    $questions_count = Cache::remember("questions-count", 60, function() {
       return Question::count();
     });
 
     // Cache will be forgotten once we delete, restore or force-delete some question.
-    $questions_destroyed_count = Cache::rememberForever("questions-destoryed-count", function() {
+    $questions_destroyed_count = Cache::remember("questions-destoryed-count", 60, function() {
       return Question::onlyTrashed()->count();
     });
     
