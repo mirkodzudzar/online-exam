@@ -21,7 +21,7 @@ class QuestionObserver
     public function creating()
     {
         // Profession count will increase.
-        Cache::forget('questions-count');
+        Cache::tags(['question'])->forget('count');
     }
 
     /**
@@ -49,7 +49,7 @@ class QuestionObserver
     public function deleting()
     {
         // Destroyed questions count will increase.
-        Cache::forget('questions-destoryed-count');
+        Cache::tags(['question'])->forget('destoryed-count');
     }
 
     /**
@@ -66,7 +66,7 @@ class QuestionObserver
     public function restoring()
     {
         // Destroyed questions count will decrease.
-        Cache::forget('questions-destoryed-count');
+        Cache::tags(['question'])->forget('destoryed-count');
     }
 
     /**
@@ -78,8 +78,8 @@ class QuestionObserver
     public function forceDeleted(Question $question)
     {
         // Question count will decrease.
-        Cache::forget('questions-count');
+        Cache::tags(['question'])->forget('count');
         // Destroyed questions count will decrease.
-        Cache::forget('questions-destoryed-count');
+        Cache::tags(['question'])->forget('destoryed-count');
     }
 }

@@ -92,7 +92,7 @@ class RegisterController extends Controller
         $candidate->save();
 
         // Cache will be forgotten once new user-candidate is registered.
-        Cache::forget('candidates-count');
+        Cache::tags(['candidate'])->forget('count');
 
         session()->flash('status', 'Welcome! Your registration have been completed successfully.');
 

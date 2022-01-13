@@ -22,7 +22,7 @@ class ProfessionObserver
     public function creating()
     {
         // Profession coutn will increase.
-        Cache::forget('professions-count');
+        Cache::tags(['profession'])->forget('count');
     }
 
     /**
@@ -52,7 +52,7 @@ class ProfessionObserver
         $profession->questions()->delete();
         CandidateProfession::where('profession_id', $profession->id)->delete();
         // Destroyed profession count will increase.
-        Cache::forget('professions-destoryed-count');
+        Cache::tags(['profession'])->forget('destoryed-count');
     }
 
     /**
@@ -71,7 +71,7 @@ class ProfessionObserver
         $profession->questions()->restore();
         CandidateProfession::where('profession_id', $profession->id)->restore();
         // Destroyed profession count will decrease.
-        Cache::forget('professions-destoryed-count');
+        Cache::tags(['profession'])->forget('destoryed-count');
     }
 
     /**
@@ -85,10 +85,10 @@ class ProfessionObserver
         $profession->questions()->forceDelete();
         $profession->candidates()->detach();
         // Profession count will decrease.
-        Cache::forget('professions-count');
+        Cache::tags(['profession'])->forget('count');
         // Expired profession count may decrease.
-        Cache::forget('professions-expired-count');
+        Cache::tags(['profession'])->forget('expired-count');
         // Destroyed profession count will decrease.
-        Cache::forget('professions-destoryed-count');
+        Cache::tags(['profession'])->forget('destoryed-count');
     }
 }

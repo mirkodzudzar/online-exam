@@ -65,7 +65,7 @@ class ProfessionController extends Controller
         $users_key = "profession-{$profession->id}-users";
 
         // Get all users from cache for this profesison, by unique key.
-        $users = Cache::get($users_key, []);
+        $users = Cache::tags(['profession'])->get($users_key, []);
         // Array to store new users.
         $users_update = [];
         $difference = 0;
@@ -90,17 +90,17 @@ class ProfessionController extends Controller
         // Set current user value.
         $users_update[$session_id] = $now;
         // Save all current users into cache.
-        Cache::forever($users_key, $users_update);
+        Cache::tags(['profession'])->forever($users_key, $users_update);
         // If cache does not have counter value, save it forever.
-        if (!Cache::has($counter_key)) {
-            Cache::forever($counter_key, 1);
+        if (!Cache::tags(['profession'])->has($counter_key)) {
+            Cache::tags(['profession'])->forever($counter_key, 1);
         } else {
             // If cache already have counter set, save new difference value.
-            Cache::increment($counter_key, $difference);
+            Cache::tags(['profession'])->increment($counter_key, $difference);
         }
 
         // Getting value of counter from cache.
-        $counter = Cache::get($counter_key);
+        $counter = Cache::tags(['profession'])->get($counter_key);
 
         if (Auth::check() && !Auth::user()->is_admin) {
             $candidate_profession = CandidateProfession::where('candidate_id', Auth::user()->candidate->id)

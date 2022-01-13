@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Cache;
 use Database\Seeders\UsersTableSeeder;
 use Database\Seeders\CandidatesTableSeeder;
 use Database\Seeders\ProfessionTableSeeder;
@@ -22,6 +23,12 @@ class DatabaseSeeder extends Seeder
             $this->command->call('migrate:refresh');
             $this->command->info('Database refresh completed successfully.');
         }
+
+        // Od db::seed. flush all the cache.
+        Cache::tags(['user'])->flush();
+        Cache::tags(['candidate'])->flush();
+        Cache::tags(['profession'])->flush();
+        Cache::tags(['question'])->flush();
 
         $this->call([
             UsersTableSeeder::class,

@@ -15,38 +15,38 @@ class CountComposer
   public function compose(View $view)
   {
     // Cache will be forgotten once new candidate is registered.
-    $candidates_count = Cache::remember("candidates-count", 60, function() {
+    $candidates_count = Cache::tags(['candidate'])->remember("count", 60, function() {
       return Candidate::count();
     });
 
     // Cache will be forgotten once new admin user is created by another admin user.
-    $users_count = Cache::remember("users-count", 60, function() {
+    $users_count = Cache::tags(['user'])->remember("count", 60, function() {
       return User::where('is_admin', true)->count();
     });
 
     // Cache will be forgotten once new profession is created or force-deleted.
-    $professions_count = Cache::remember("professions-count", 60, function() {
+    $professions_count = Cache::tags(['profession'])->remember("count", 60, function() {
       return Profession::count();
     });
 
     // Cache will be forgotten every day exactly at midnight when some profession may expire,
     // but also when we force-delete some profession.
-    $professions_expired_count = Cache::remember("professions-expired-count", Carbon::now()->endOfDay()->addSecond(), function() {
+    $professions_expired_count = Cache::tags(['profession'])->remember("expired-count", Carbon::now()->endOfDay()->addSecond(), function() {
       return Profession::onlyExpiredProfessions()->count();
     });
 
     // Cache will be forgotten once we delete, restore or force-delete some profession.
-    $professions_destroyed_count = Cache::remember("professions-destoryed-count", 60, function() {
+    $professions_destroyed_count = Cache::tags(['profession'])->remember("destoryed-count", 60, function() {
       return Profession::onlyTrashed()->count();
     });
 
     // Cache will be forgotten once new question is created or force-deleted.
-    $questions_count = Cache::remember("questions-count", 60, function() {
+    $questions_count = Cache::tags(['question'])->remember("count", 60, function() {
       return Question::count();
     });
 
     // Cache will be forgotten once we delete, restore or force-delete some question.
-    $questions_destroyed_count = Cache::remember("questions-destoryed-count", 60, function() {
+    $questions_destroyed_count = Cache::tags(['question'])->remember("destoryed-count", 60, function() {
       return Question::onlyTrashed()->count();
     });
     
