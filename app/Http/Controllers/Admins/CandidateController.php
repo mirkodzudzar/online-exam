@@ -62,6 +62,7 @@ class CandidateController extends Controller
                               ->first();
 
         $candidate_professions = CandidateProfession::where('candidate_id', $candidate->id)
+                                                    ->where('status', '!=', 'unapplied')
                                                     ->with('profession')
                                                     ->get();
 
