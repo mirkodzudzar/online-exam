@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Users;
 use App\Models\Candidate;
 use App\Models\Profession;
 use Illuminate\Http\Request;
+use App\Mail\ProfessionApplied;
 use App\Models\CandidateProfession;
 use App\Http\Controllers\Controller;
-use App\Mail\ProfessionApplied;
 use Illuminate\Support\Facades\Mail;
+use App\Mail\ProfessionFinishedWithResult;
 
 class CandidateProfessionController extends Controller
 {
@@ -141,6 +142,11 @@ class CandidateProfessionController extends Controller
 
         $candidate_profession->save();
 
+        // This needs to be moved outside of controller later.
+        Mail::to($candidate->user)->queue(
+            new ProfessionFinishedWithResult($candidate_profession)
+        );
+
         return redirect()->route('users.candidates.professions.show', [
             'candidate' => $candidate->id,
             'profession' => $profession->id,
@@ -167,7 +173,7 @@ class CandidateProfessionController extends Controller
         $candidate->professions()->attach([$profession->id], ['status' => 'applied']);
 
         // This needs to be moved outside of controller later.
-        Mail::to($candidate->user)->send(
+        Mail::to($candidate->user)->queue(
             new ProfessionApplied($candidate, $profession)
         );
 
