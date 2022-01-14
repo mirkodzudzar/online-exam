@@ -10,7 +10,6 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Support\Facades\Mail;
 
 class NotifyAdminsProfessionFinishedWithResult implements ShouldQueue
 {
@@ -37,11 +36,9 @@ class NotifyAdminsProfessionFinishedWithResult implements ShouldQueue
         User::justAdminUsers()
             ->get()
             ->map(function (User $user) {
-                Mail::to($user)->queue(
-                    new ProfessionFinishedForAdmins(
-                        $this->candidate_profession,
-                        $user
-                    ),
+                ThrottledMail::dispatch(
+                    new ProfessionFinishedForAdmins($this->candidate_profession, $user),
+                    $user,
                 );
             });
     }

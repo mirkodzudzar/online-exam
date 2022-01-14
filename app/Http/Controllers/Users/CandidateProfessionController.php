@@ -11,6 +11,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ProfessionFinishedWithResult;
 use App\Jobs\NotifyAdminsProfessionFinishedWithResult;
+use App\Jobs\ThrottledMail;
 
 class CandidateProfessionController extends Controller
 {
@@ -145,8 +146,9 @@ class CandidateProfessionController extends Controller
 
         // This needs to be moved outside of controller later.
         // Mail will be sent to a user that has finished the profession questions.
-        Mail::to($candidate->user)->queue(
-            new ProfessionFinishedWithResult($candidate_profession)
+        ThrottledMail::dispatch(
+            new ProfessionFinishedWithResult($candidate_profession), 
+            $candidate->user
         );
 
         // Custom job that sends emails to all the admin users.
@@ -179,8 +181,9 @@ class CandidateProfessionController extends Controller
 
         // This needs to be moved outside of controller later.
         // Mail will be sent to a user that has applied for this job.
-        Mail::to($candidate->user)->queue(
-            new ProfessionApplied($candidate, $profession)
+        ThrottledMail::dispatch(
+            new ProfessionApplied($candidate, $profession), 
+            $candidate->user
         );
 
         return redirect()->back()
