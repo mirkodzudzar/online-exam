@@ -10,6 +10,7 @@ use App\Models\CandidateProfession;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ProfessionFinishedWithResult;
+use App\Jobs\NotifyAdminsProfessionFinishedWithResult;
 
 class CandidateProfessionController extends Controller
 {
@@ -143,9 +144,13 @@ class CandidateProfessionController extends Controller
         $candidate_profession->save();
 
         // This needs to be moved outside of controller later.
+        // Mail will be sent to a user that has finished the profession questions.
         Mail::to($candidate->user)->queue(
             new ProfessionFinishedWithResult($candidate_profession)
         );
+
+        // Custom job that sends emails to all the admin users.
+        NotifyAdminsProfessionFinishedWithResult::dispatch($candidate_profession);
 
         return redirect()->route('users.candidates.professions.show', [
             'candidate' => $candidate->id,
@@ -173,6 +178,7 @@ class CandidateProfessionController extends Controller
         $candidate->professions()->attach([$profession->id], ['status' => 'applied']);
 
         // This needs to be moved outside of controller later.
+        // Mail will be sent to a user that has applied for this job.
         Mail::to($candidate->user)->queue(
             new ProfessionApplied($candidate, $profession)
         );
