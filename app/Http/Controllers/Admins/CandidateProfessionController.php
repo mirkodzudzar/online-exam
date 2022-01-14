@@ -22,9 +22,10 @@ class CandidateProfessionController extends Controller
                                 ->first();
 
         $candidate_professions = CandidateProfession::where('profession_id', $profession->id)
-                            ->with('candidate')
-                            ->with('profession')
-                            ->get();
+                                                    ->where('status', '!=', 'unapplied')
+                                                    ->with('candidate')
+                                                    ->with('profession')
+                                                    ->get();
 
         return view('admins.candidates.professions.results', [
             'profession' => $profession,

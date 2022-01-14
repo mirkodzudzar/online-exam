@@ -177,9 +177,15 @@ class CandidateProfessionController extends Controller
 
     public function unapply(Candidate $candidate, Profession $profession, Request $request)
     {
-        // dd([$candidate->id, $profession->id]);
         $this->authorize($profession);
-        $candidate->professions()->detach([$profession->id]);
+        // $candidate->professions()->detach([$profession->id]);
+        $candidate_profession = CandidateProfession::where('candidate_id', $candidate->id)
+                                                   ->where('profession_id', $profession->id)
+                                                   ->where('status', 'applied')
+                                                   ->first();
+
+        $candidate_profession->status = 'unapplied';
+        $candidate_profession->save();
 
         return redirect()->route('users.professions.show', [
             'profession' => $profession->id,
@@ -189,6 +195,7 @@ class CandidateProfessionController extends Controller
     public function results(Candidate $candidate)
     {
         $candidate_professions = CandidateProfession::where('candidate_id', $candidate->id)
+                                                    ->where('status', '!=', 'unapplied') // without unapplied
                                                     ->with('profession') // eager loading
                                                     ->get();
 

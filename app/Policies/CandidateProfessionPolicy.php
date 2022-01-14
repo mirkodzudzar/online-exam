@@ -47,6 +47,10 @@ class CandidateProfessionPolicy
             return false;
         }
 
+        if ($candidateProfession->status === 'unapplied') {
+            return false;
+        }
+
         return true;
     }
 
