@@ -6,7 +6,7 @@ You have finished the exam for the profession '{{ $candidate_profession->profess
 @if ($candidate_profession->status === 'passed')
 ## Congratulations, you have successfully passed the exam! Here are the results.
 @else
-## Unfortunately, you did not pass the exam. Here are your results.
+## Unfortunately, you did not pass the exam. Here are the results.
 @endif
 
 @component('mail::panel')

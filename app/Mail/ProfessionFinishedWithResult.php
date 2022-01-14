@@ -30,7 +30,7 @@ class ProfessionFinishedWithResult extends Mailable
      */
     public function build()
     {
-        $subject = "You have finish the exam for '{$this->candidate_profession->profession->title}' profession.";
+        $subject = "You have finish the exam for profession '{$this->candidate_profession->profession->title}'.";
 
         return $this->subject($subject)
                     ->markdown('emails.professions.finished-with-result');
