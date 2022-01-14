@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Events\ProfessionApplied;
 use App\Events\ProfessionFinished;
+use App\Listeners\NotifyUserProfessionApplied;
 use Illuminate\Auth\Events\Registered;
 use App\Listeners\NotifyUsersProfessionFinished;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
@@ -23,6 +25,10 @@ class EventServiceProvider extends ServiceProvider
         ProfessionFinished::class => [
             NotifyUsersProfessionFinished::class,
         ],
+
+        ProfessionApplied::class => [
+            NotifyUserProfessionApplied::class,
+        ]
     ];
 
     /**

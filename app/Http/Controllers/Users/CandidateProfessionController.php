@@ -6,10 +6,9 @@ use App\Events\ProfessionFinished;
 use App\Models\Candidate;
 use App\Models\Profession;
 use Illuminate\Http\Request;
-use App\Mail\ProfessionApplied;
+use App\Events\ProfessionApplied;
 use App\Models\CandidateProfession;
 use App\Http\Controllers\Controller;
-use App\Jobs\ThrottledMail;
 
 class CandidateProfessionController extends Controller
 {
@@ -169,12 +168,7 @@ class CandidateProfessionController extends Controller
         // $candidate->professions()->syncWithoutDetaching([$profession->id]);
         $candidate->professions()->attach([$profession->id], ['status' => 'applied']);
 
-        // This needs to be moved outside of controller later.
-        // Mail will be sent to a user that has applied for this job.
-        ThrottledMail::dispatch(
-            new ProfessionApplied($candidate, $profession), 
-            $candidate->user
-        );
+        event(new ProfessionApplied($candidate, $profession));
 
         return redirect()->back()
                          ->withStatus("You have successfully applied for '{$profession->title}' profession.");

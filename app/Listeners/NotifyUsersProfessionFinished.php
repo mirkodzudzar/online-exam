@@ -28,7 +28,6 @@ class NotifyUsersProfessionFinished
      */
     public function handle(ProfessionFinished $event)
     {
-        // This needs to be moved outside of controller later.
         // Mail will be sent to a user that has finished the profession questions.
         ThrottledMail::dispatch(
             new ProfessionFinishedWithResult($event->candidate_profession), 
