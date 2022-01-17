@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use App\Models\Candidate;
 use App\Http\Controllers\Controller;
+use App\Models\Location;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cache;
@@ -97,5 +98,15 @@ class RegisterController extends Controller
         session()->flash('status', 'Welcome! Your registration have been completed successfully.');
 
         return $user;
+    }
+
+    // Overriding parent method to pass some additional parameters.
+    public function showRegistrationForm()
+    {
+        $locations = Location::all();
+
+        return view('auth.register', [
+            'locations' => $locations,
+        ]);
     }
 }
