@@ -6,7 +6,7 @@
   <div>
     <label for="profession">Profession</label>
     <select name="profession" id="profession" class="form-select form-select-sm">
-      <option selected></option>
+      <option selected>- none -</option>
       @if ($professions->count() > 0)
         @foreach ($professions as $profession)
           <option value="{{ $profession->id }}" 

@@ -24,7 +24,7 @@
             <a href="{{ route('users.locations.show', ['location' => $location->id]) }}" class="text-decoration-none">
               {{ $location->name }}
             </a>
-            {{ $loop->last ? '' : "-" }}
+            {{ $loop->last ? '' : "|" }}
           @endforeach
         </p>
       @endif

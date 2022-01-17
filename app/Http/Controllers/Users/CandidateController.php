@@ -73,8 +73,14 @@ class CandidateController extends Controller
         $user->save();
         $candidate->save();
 
-        $location = Location::findOrFail($validated['location']);
-        $candidate->location()->sync($location);
+        // If there is valid value, save it.
+        if ($validated['location'] != null) {
+            $location = Location::findOrFail($validated['location']);
+            $candidate->location()->sync($location);
+        // If there is no value, we will remove the record if it existed before.
+        } else {
+            $candidate->location()->detach();
+        }
 
         return redirect()->back()->withStatus('You have updated your profile successfully.');
     }

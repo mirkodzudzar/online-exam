@@ -24,19 +24,19 @@
 
 @if(Route::is('users.candidates.edit') )
   <div class="col-md-4">
-    <label for="current_password" class="form-label">Current password *</label>
-    <input class="form-control" type="password" name="current_password" id="current_password" required>
+    <label for="current_password" class="form-label">Current password</label>
+    <input class="form-control" type="password" name="current_password" id="current_password">
     <x-error field="current_password"></x-error>
   </div>
   <div class="col-md-4">
-    <label for="password" class="form-label">Password *</label>
-    <input class="form-control" type="password" name="password" id="password" required>
+    <label for="password" class="form-label">Password</label>
+    <input class="form-control" type="password" name="password" id="password">
     <x-error field="password"></x-error>
   </div>
 
   <div class="col-md-4">
-    <label for="password_confirmation" class="form-label">Password confirmation *</label>
-    <input class="form-control" type="password" name="password_confirmation" id="password_confirmation" required>
+    <label for="password_confirmation" class="form-label">Password confirmation</label>
+    <input class="form-control" type="password" name="password_confirmation" id="password_confirmation">
   </div>
 @elseif(Route::is('register'))
   <div class="col-md-6">
@@ -72,7 +72,7 @@
 <div class="col">
   <label for="location">Location where you want to look for work</label>
     <select name="location" id="location" class="form-select form-select-sm">
-      <option selected></option>
+      <option value="" selected>- none -</option>
       @if ($locations->count() > 0)
         @foreach ($locations as $location)
           <option value="{{ $location->id }}"
