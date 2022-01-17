@@ -42,7 +42,7 @@ Route::group([
 
     Route::resource('candidates', CandidateController::class)->only(['edit', 'update']);
 
-    Route::resource('locations', LocationController::class)->only(['index']);
+    Route::resource('locations', LocationController::class)->only(['index', 'show']);
 });
 
 Route::group([

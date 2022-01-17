@@ -49,7 +49,10 @@ class LocationController extends Controller
      */
     public function show(Location $location)
     {
-        //
+        return view('users.locations.show', [
+            'location' => $location,
+            'professions' => $location->professions()->paginate(10),
+        ]);
     }
 
     /**
