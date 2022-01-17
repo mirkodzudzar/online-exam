@@ -10,6 +10,9 @@
   </del>
 @endif
 <p>{{ $profession->description }}</p>
+
+<x-location :profession="$profession"></x-location>
+
 <p>
   <x-badge :value="$profession->open_date" type="dark"></x-badge>
   <b> - </b>

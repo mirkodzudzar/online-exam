@@ -17,17 +17,7 @@
       @endif
       <p class="card-text">{{ Str::limit($profession->description, 250) }}</p>
       
-      @if ($profession->locations->count() > 0)
-        <p class="fs-5">
-          <x-geo-icon></x-geo-icon>
-          @foreach ($profession->locations as $location)
-            <a href="{{ route('users.locations.show', ['location' => $location->id]) }}" class="text-decoration-none">
-              {{ $location->name }}
-            </a>
-            {{ $loop->last ? '' : "|" }}
-          @endforeach
-        </p>
-      @endif
+      <x-location :profession="$profession"></x-location>
       
       <p>
         <x-badge :value="$profession->open_date" type="dark"></x-badge>
