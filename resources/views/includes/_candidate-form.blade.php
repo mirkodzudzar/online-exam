@@ -76,8 +76,8 @@
       @if ($locations->count() > 0)
         @foreach ($locations as $location)
           <option value="{{ $location->id }}"
-            @auth        
-              @if((int)old('location') === $location->id || $location->id === optional(Auth::user()->candidate()->location ?? null)->id) selected @endif>{{ $location->name }}
+            @auth
+              @if((int)old('location') === $location->id || $location->id === optional(Auth::user()->candidate->location ?? null)->id) selected @endif>{{ $location->name }}
             @else
               @if((int)old('location') === $location->id) selected @endif>{{ $location->name }}
             @endauth

@@ -62,6 +62,7 @@ class RegisterController extends Controller
             'city' => ['required', 'string', 'max:255'],
             'address' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'location' => 'nullable|exists:locations,id',
         ]);
     }
 
@@ -91,6 +92,9 @@ class RegisterController extends Controller
         $user->save();
         $candidate->user_id = $user->id;
         $candidate->save();
+
+        $location = Location::findOrFail($data['location']);
+        $candidate->location()->sync($location);
 
         // Cache will be forgotten once new user-candidate is registered.
         Cache::tags(['candidate'])->forget('count');

@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use App\Rules\MatchCurrentPassword;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateCandidate extends FormRequest
 {
@@ -38,6 +39,7 @@ class UpdateCandidate extends FormRequest
             'password' => 'required|string|min:8|confirmed',
             // Custom rule to confirm current password so we can change its value. 
             'current_password' => ['required', new MatchCurrentPassword],
+            'location' => 'nullable|exists:locations,id',
         ];
     }
 }
