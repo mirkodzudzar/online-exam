@@ -62,7 +62,7 @@ class RegisterController extends Controller
             'city' => ['required', 'string', 'max:255'],
             'address' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'location' => 'nullable|exists:locations,id',
+            'location' => ['nullable|exists:locations,id'],
         ]);
     }
 
