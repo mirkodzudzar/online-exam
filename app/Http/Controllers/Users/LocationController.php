@@ -50,6 +50,7 @@ class LocationController extends Controller
     public function show(Location $location)
     {
         $professions = $location->professions()
+                                ->withoutExpiredProfessions() // exclude expired professions
                                 ->with('locations')
                                 ->paginate(10);
 
