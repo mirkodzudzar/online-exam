@@ -25,7 +25,7 @@ class CreateQuestion extends FormRequest
     {
         return [
             'question' => 'required|min:5',
-            'profession' => 'required',
+            'profession' => 'required|exists:professions,id',
             'answer_a' => 'required|min:5',
             'answer_b' => 'required|min:5',
             'answer_c' => 'required|min:5',
