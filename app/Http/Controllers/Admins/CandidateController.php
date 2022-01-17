@@ -23,6 +23,7 @@ class CandidateController extends Controller
         return view('admins.candidates.index', [
             'candidates' => Candidate::withCount('professions')
                                      ->with('user') // eager loading
+                                     ->with('location') // eager loading
                                      ->paginate(20),
         ]);
     }

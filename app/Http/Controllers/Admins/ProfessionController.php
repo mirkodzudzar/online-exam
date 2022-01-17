@@ -25,6 +25,7 @@ class ProfessionController extends Controller
         return view('admins.professions.index', [
             'professions' => Profession::withCount('candidates')
                                        ->withCount('questions')
+                                       ->with('locations')
                                        ->paginate(20),
         ]);
     }
@@ -161,7 +162,9 @@ class ProfessionController extends Controller
      */
     public function destroyed()
     {
-        $professions = Profession::onlyTrashed()->paginate(20);
+        $professions = Profession::onlyTrashed()
+                                 ->with('locations')
+                                 ->paginate(20);
 
         return view('admins.professions.destroyed', [
             'professions' => $professions,
@@ -175,7 +178,9 @@ class ProfessionController extends Controller
      */
     public function expired()
     {
-        $professions = Profession::onlyExpiredProfessions()->paginate(20);
+        $professions = Profession::onlyExpiredProfessions()
+                                 ->with('locations')
+                                 ->paginate(20);
 
         return view('admins.professions.expired', [
             'professions' => $professions,

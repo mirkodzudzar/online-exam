@@ -24,7 +24,9 @@ class ProfessionController extends Controller
     public function index()
     {
         return view('users.professions.index', [
-            'professions' => Profession::withoutExpiredProfessions()->paginate(10),
+            'professions' => Profession::withoutExpiredProfessions()
+                                       ->with('locations') // eager loading
+                                       ->paginate(10),
         ]);
     }
 
