@@ -42,6 +42,11 @@ class Profession extends Model
         return $this->hasMany(Question::class);
     }
 
+    public function locations()
+    {
+        return $this->morphToMany(Location::class, 'locationable');
+    }
+
     public function scopeWithoutExpiredProfessions(Builder $builder)
     {
         // Comparing two dates with default format
