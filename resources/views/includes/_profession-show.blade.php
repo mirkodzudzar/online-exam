@@ -50,7 +50,7 @@
         <a href="{{ route('users.candidates.professions.show', ['candidate' => Auth::user()->candidate->id, 'profession' => $profession->id]) }}" class="btn btn-outline-info">Result</a>
       @endif
     @endcan
-    @if ($candidate_profession->status === 'unapplied')
+    @if (isset($candidate_profession->status) && $candidate_profession->status === 'unapplied')
       <x-badge value="You have already unapplied from this profession, {{ $candidate_profession->updated_at->diffForHumans() }}" type="danger"></x-badge>
     @endif
   @endif

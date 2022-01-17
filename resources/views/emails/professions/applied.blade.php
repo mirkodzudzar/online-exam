@@ -3,7 +3,7 @@
 
 You have successfully applied for the profession '{{ $profession->title }}'.
 
-@component('mail::button', ['url' => "{{ route('users.professions.show', ['profession' => $profession->id]) }}"])
+@component('mail::button', ['url' => route('users.professions.show', ['profession' => $profession->id])])
 Visit profession
 @endcomponent
 
@@ -21,7 +21,7 @@ Exam
 @endif
 
 If you would like to unapply you can do so at any time until the profession expires.
-@component('mail::button', ['url' => "{{ route('users.professions.show', ['profession' => $profession->id]) }}"])
+@component('mail::button', ['url' => route('users.professions.show', ['profession' => $profession->id])])
 Unapply
 @endcomponent
 
