@@ -11,7 +11,7 @@
 @endif
 <p>{{ $profession->description }}</p>
 
-<x-location :profession="$profession"></x-location>
+<x-location :locations="$profession->locations"></x-location>
 
 <p>
   <x-badge :value="$profession->open_date" type="dark"></x-badge>
