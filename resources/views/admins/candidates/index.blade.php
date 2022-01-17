@@ -15,6 +15,7 @@
           <th scope="col">Username</th>
           <th scope="col">Phone number</th>
           <th scope="col">Professions</th>
+          <th scope="col">Location</th>
           {{-- <th scope="col">State</th>
           <th scope="col">City</th>
           <th scope="col">Address</th> --}}
@@ -31,6 +32,7 @@
             <td>{{ $candidate->username }}</td>
             <td>{{ $candidate->phone_number }}</td>
             <td>{{ $candidate->professions_count }}</td>
+            <td>{{ optional($candidate->location ?? null)->name }}</td>
             {{-- <td>{{ $candidate->state }}</td>
             <td>{{ $candidate->city }}</td>
             <td>{{ $candidate->address }}</td> --}}

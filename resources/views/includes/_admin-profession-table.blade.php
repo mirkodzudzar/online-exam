@@ -6,6 +6,7 @@
         <th scope="col">Title</th>
         <th scope="col">Candidates</th>
         <th scope="col">Questions</th>
+        <th scope="col">Locations</th>
         <th scope="col">Open date</th>
         <th scope="col">Close date</th>
         <th scope="col">Note</th>
@@ -35,6 +36,12 @@
           </td>
           <td>{{ $profession->candidates_count }}</td>
           <td>{{ $profession->questions_count }}</td>
+          <td>
+            @foreach ($profession->locations as $location)
+              {{ $location->name }}
+              {{ $loop->last ? '' : "|" }}
+            @endforeach
+          </td>
           <td>{{ $profession->open_date }}</td>
           <td>{{ $profession->close_date }}</td>
           <td>

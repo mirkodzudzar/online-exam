@@ -10,6 +10,7 @@ use App\Http\Controllers\Admins\ProfessionController as AdminProfessionControlle
 use App\Http\Controllers\Users\CandidateProfessionController;
 use App\Http\Controllers\Admins\QuestionController as AdminQuestionController;
 use App\Http\Controllers\Admins\CandidateProfessionController as AdminCandidateProfessionController;
+use App\Http\Controllers\Users\LocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,8 @@ Route::group([
     Route::resource('candidates.professions', CandidateProfessionController::class)->only(['index', 'show', 'update']);
 
     Route::resource('candidates', CandidateController::class)->only(['edit', 'update']);
+
+    Route::resource('locations', LocationController::class)->only(['index', 'show']);
 });
 
 Route::group([

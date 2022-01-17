@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Users;
 
+use App\Models\User;
+use App\Models\Location;
 use App\Models\Candidate;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UpdateCandidate;
-use App\Models\User;
 
 class CandidateController extends Controller
 {
@@ -36,8 +37,11 @@ class CandidateController extends Controller
     {
         $this->authorize($candidate);
 
+        $locations = Location::all();
+
         return view('users.candidates.edit', [
             'candidate' => $candidate,
+            'locations' => $locations,
         ]);
     }
 
@@ -68,6 +72,15 @@ class CandidateController extends Controller
 
         $user->save();
         $candidate->save();
+
+        // If there is valid value, save it.
+        if ($validated['location'] != null) {
+            $location = Location::findOrFail($validated['location']);
+            $candidate->location()->sync($location);
+        // If there is no value, we will remove the record if it existed before.
+        } else {
+            $candidate->location()->detach();
+        }
 
         return redirect()->back()->withStatus('You have updated your profile successfully.');
     }

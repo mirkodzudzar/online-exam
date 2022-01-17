@@ -5,8 +5,10 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Cache;
 use Database\Seeders\UsersTableSeeder;
+use Database\Seeders\LocationsTableSeeder;
 use Database\Seeders\CandidatesTableSeeder;
 use Database\Seeders\ProfessionTableSeeder;
+use Database\Seeders\LocationablesTableSeeder;
 use Database\Seeders\CandidateProfessionTableSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -36,6 +38,8 @@ class DatabaseSeeder extends Seeder
             ProfessionTableSeeder::class,
             CandidateProfessionTableSeeder::class,
             QuestionsTableSeeder::class,
+            LocationsTableSeeder::class,
+            LocationablesTableSeeder::class,
         ]);
     }
 }

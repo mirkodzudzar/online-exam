@@ -39,6 +39,10 @@
         <td>{{ $candidate->address }}</td>
       </tr>
       <tr>
+        <th>Location</th>
+        <td>{{ optional($candidate->location ?? null)->name }}</td>
+      </tr>
+      <tr>
         <th>Created At</th>
         <td>{{ $candidate->created_at }}</td>
       </tr>

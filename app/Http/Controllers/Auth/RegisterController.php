@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use App\Models\Candidate;
 use App\Http\Controllers\Controller;
+use App\Models\Location;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cache;
@@ -61,6 +62,8 @@ class RegisterController extends Controller
             'city' => ['required', 'string', 'max:255'],
             'address' => ['required', 'string', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            // Value needs to be existing id, or there can be no value.
+            'location' => ['nullable', 'exists:locations,id'],
         ]);
     }
 
@@ -91,11 +94,27 @@ class RegisterController extends Controller
         $candidate->user_id = $user->id;
         $candidate->save();
 
+        // If value is entered, it will be saved. Otherwise, there will be no value saved.
+        if ($data['location'] != null) {
+            $location = Location::findOrFail($data['location']);
+            $candidate->location()->sync($location);
+        }
+
         // Cache will be forgotten once new user-candidate is registered.
         Cache::tags(['candidate'])->forget('count');
 
         session()->flash('status', 'Welcome! Your registration have been completed successfully.');
 
         return $user;
+    }
+
+    // Overriding parent method to pass some additional parameters.
+    public function showRegistrationForm()
+    {
+        $locations = Location::all();
+
+        return view('auth.register', [
+            'locations' => $locations,
+        ]);
     }
 }
