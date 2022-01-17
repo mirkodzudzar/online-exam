@@ -49,9 +49,13 @@ class LocationController extends Controller
      */
     public function show(Location $location)
     {
+        $professions = $location->professions()
+                                ->with('locations')
+                                ->paginate(10);
+
         return view('users.locations.show', [
             'location' => $location,
-            'professions' => $location->professions()->paginate(10),
+            'professions' => $professions,
         ]);
     }
 
