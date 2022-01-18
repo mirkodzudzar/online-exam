@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admins;
 
+use App\Models\Location;
 use App\Models\Profession;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProfession;
@@ -37,7 +38,11 @@ class ProfessionController extends Controller
      */
     public function create()
     {
-        return view('admins.professions.create');
+        $locations = Location::all();
+
+        return view('admins.professions.create', [
+            'locations' => $locations
+        ]);
     }
 
     /**
@@ -50,6 +55,14 @@ class ProfessionController extends Controller
     {
         $validated = $request->validated();
         $profession = Profession::create($validated);
+
+        // If there is valid value, save it.
+        if ($validated['locations'][0] !== null) {
+            $profession->locations()->sync($validated['locations']);
+        // If there is no value, we will remove the record if it existed before.
+        } else {
+            $profession->locations()->detach();
+        }
 
         return redirect()->route('admins.professions.show', [
             'profession' => $profession->id,
@@ -83,8 +96,11 @@ class ProfessionController extends Controller
      */
     public function edit(Profession $profession)
     {
+        $locations = Location::all();
+
         return view('admins.professions.edit', [
             'profession' => $profession,
+            'locations' => $locations,
         ]);
     }
 
@@ -99,6 +115,16 @@ class ProfessionController extends Controller
     {
         $validated = $request->validated();
         $profession->update($validated);
+
+        // dd($validated['locations'][0]);
+
+        // If there is valid value, save it.
+        if ($validated['locations'][0] !== null) {
+            $profession->locations()->sync($validated['locations']);
+        // If there is no value, we will remove the record if it existed before.
+        } else {
+            $profession->locations()->detach();
+        }
 
         return redirect()->back()->withStatus("Profession '{$profession->title}' has been updated successfully.");
     }
