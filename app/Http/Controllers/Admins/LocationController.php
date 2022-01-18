@@ -89,4 +89,21 @@ class LocationController extends Controller
     {
         //
     }
+
+    public function candidates(Location $location)
+    {
+        $candidates = $location->candidates()->paginate(15);
+
+        return view ('admins.locations.candidates', [
+            'location' => $location,
+            'candidates' => $candidates,
+        ]);
+    }
+
+
+    public function professions(Location $location)
+    {
+        //
+    }
 }
+

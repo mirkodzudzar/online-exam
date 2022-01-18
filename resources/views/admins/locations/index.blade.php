@@ -19,7 +19,7 @@
         @foreach ($locations as $location)
           <tr>
             <th>{{ $location->id }}</th>
-            <td>{{ $location->name }}</td>
+            <td><a href="{{ route('admins.locations.candidates', ['location' => $location->id]) }}" class="text-decoration-none">{{ $location->name }}</a></td>
             <td>{{ $location->candidates_count }}</td>
             <td>{{ $location->professions_count }}</td>
           </tr>
