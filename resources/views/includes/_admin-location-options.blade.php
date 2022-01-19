@@ -1,0 +1,1 @@
+<a href="{{ route('admins.locations.edit', ['location' => $location->id]) }}" class="btn btn-success d-inline">Edit</a>

@@ -71,9 +71,11 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Location $location)
     {
-        //
+        return view('admins.locations.edit', [
+            'location' => $location,
+        ]);
     }
 
     /**
@@ -83,9 +85,13 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreLocation $request, Location $location)
     {
-        //
+        $validated = $request->validated();
+        $location->update($validated);
+
+        return redirect()->route('admins.locations.index')
+                         ->withStatus("Location '{$location->name}' has been updated successfully.");
     }
 
     /**

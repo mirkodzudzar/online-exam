@@ -9,7 +9,7 @@
         <th scope="col">Answer B</th>
         <th scope="col">Answer C</th>
         <th scope="col">Answer D</th>
-        <th scope="col"></th>
+        <th scope="col">Options</th>
       </tr>
     </thead>
     <tbody>

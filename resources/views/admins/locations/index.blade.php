@@ -13,6 +13,7 @@
           <th>Name</th>
           <th>Candidates</th>
           <th>Professions</th>
+          <th>Options</th>
         </tr>
       </thead>
       <tbody>
@@ -22,6 +23,9 @@
             <td><a href="{{ route('admins.locations.candidates', ['location' => $location->id]) }}" class="text-decoration-none">{{ $location->name }}</a></td>
             <td>{{ $location->candidates_count }}</td>
             <td>{{ $location->professions_count }}</td>
+            <td>
+              @include('includes._admin-location-options')
+            </td>
           </tr>
         @endforeach
       </tbody>

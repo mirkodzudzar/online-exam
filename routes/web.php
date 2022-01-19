@@ -75,7 +75,7 @@ Route::group([
 
     Route::get('/locations/{location}/candidates', [AdminLocationController::class, 'candidates'])->name('locations.candidates');
     Route::get('/locations/{location}/professions', [AdminLocationController::class, 'professions'])->name('locations.professions');
-    Route::resource('locations', AdminLocationController::class)->only(['index', 'create', 'store']);
+    Route::resource('locations', AdminLocationController::class)->except(['show', 'destroy']);
 });
 
 Route::get('/', [ProfessionController::class, 'index'])->name('users.professions.index');

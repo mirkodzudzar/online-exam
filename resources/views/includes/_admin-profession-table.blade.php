@@ -10,7 +10,7 @@
         <th scope="col">Open date</th>
         <th scope="col">Close date</th>
         <th scope="col">Note</th>
-        <th scope="col"></th>
+        <th scope="col">Options</th>
         {{--  <th scope="col">
           <form action="{{ route('admins.professions.restore-all') }}" method="POST">
             @csrf
