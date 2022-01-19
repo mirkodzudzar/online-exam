@@ -16,6 +16,7 @@ class CreateDocumentsTable extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
             $table->string('path');
+            $table->unsignedBigInteger('candidate_id');
             $table->foreign('candidate_id')
                   ->references('id')
                   ->on('candidates')

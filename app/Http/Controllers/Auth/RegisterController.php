@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Models\Document;
+use App\Models\Location;
 use App\Models\Candidate;
 use App\Http\Controllers\Controller;
-use App\Models\Location;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cache;
 use App\Providers\RouteServiceProvider;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -64,6 +66,7 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             // Value needs to be existing id, or there can be no value.
             'location' => ['nullable', 'exists:locations,id'],
+            'document' => 'file|mimes:pdf|max:2048',
         ]);
     }
 
@@ -89,6 +92,16 @@ class RegisterController extends Controller
             'city' => $data['city'],
             'address' => $data['address'],
         ]);
+
+        // Uploading CV document.
+        if ($data['document']) {
+            $path = $data['document']->store('documents');
+            $candidate->document()->save(
+                Document::create([
+                    'path' => $path,
+                ])
+            );
+        }
 
         $user->save();
         $candidate->user_id = $user->id;

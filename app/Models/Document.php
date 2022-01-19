@@ -9,6 +9,8 @@ class Document extends Model
 {
     use HasFactory;
 
+    public $fillable = ['path', 'candidate_id'];
+
     public function candidate()
     {
         return $this->belongsTo(Candidate::class);

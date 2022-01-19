@@ -5,7 +5,9 @@
 @section('page_title', "Edit - $candidate->username")
 
 @section('content')
-  <form action="{{ route('users.candidates.update', ['candidate' => $candidate->id]) }}" method="POST" class="row g-3">
+  <form action="{{ route('users.candidates.update', ['candidate' => $candidate->id]) }}" 
+        method="POST" class="row g-3" 
+        enctype="multipart/form-data">
     @csrf
     @method('PUT')
     
