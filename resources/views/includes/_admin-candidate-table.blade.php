@@ -10,11 +10,7 @@
         <th scope="col">Phone number</th>
         <th scope="col">Professions</th>
         <th scope="col">Location</th>
-        {{-- <th scope="col">State</th>
-        <th scope="col">City</th>
-        <th scope="col">Address</th> --}}
         <th scope="col">Created at</th>
-        <th scope="col">Updated at</th>
       </tr>
     </thead>
     <tbody>
@@ -26,12 +22,16 @@
           <td>{{ $candidate->username }}</td>
           <td>{{ $candidate->phone_number }}</td>
           <td>{{ $candidate->professions_count }}</td>
-          <td>{{ optional($candidate->location ?? null)->name }}</td>
-          {{-- <td>{{ $candidate->state }}</td>
-          <td>{{ $candidate->city }}</td>
-          <td>{{ $candidate->address }}</td> --}}
+          <td>
+            @if ($candidate->location) 
+              <a href="{{ route('admins.locations.candidates', ['location' => $candidate->location->id]) }}" class="text-decoration-none"> 
+                {{ optional($candidate->location ?? null)->name }}
+              </a>
+            @else
+              <p>/</p>
+            @endif
+          </td>
           <td>{{ $candidate->created_at }}</td>
-          <td>{{ $candidate->updated_at }}</td>
         </tr>
       @endforeach
     </tbody>

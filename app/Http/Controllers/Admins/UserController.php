@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admins;
 
 use App\Models\User;
-use App\Http\Requests\CreateUser;
+use App\Http\Requests\StoreUser;
 use App\Http\Requests\UpdateUser;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Cache;
@@ -44,7 +44,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateUser $request)
+    public function store(StoreUser $request)
     {
         $validated = $request->validated();
 

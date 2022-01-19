@@ -10,7 +10,7 @@
         <th scope="col">Open date</th>
         <th scope="col">Close date</th>
         <th scope="col">Note</th>
-        <th scope="col"></th>
+        <th scope="col">Options</th>
         {{--  <th scope="col">
           <form action="{{ route('admins.professions.restore-all') }}" method="POST">
             @csrf
@@ -37,10 +37,7 @@
           <td>{{ $profession->candidates_count }}</td>
           <td>{{ $profession->questions_count }}</td>
           <td>
-            @foreach ($profession->locations as $location)
-              {{ $location->name }}
-              {{ $loop->last ? '' : "|" }}
-            @endforeach
+            <x-location :locations="$profession->locations"></x-location>
           </td>
           <td>{{ $profession->open_date }}</td>
           <td>{{ $profession->close_date }}</td>
@@ -57,3 +54,4 @@
 @else
   <p>There are no professions!</p>
 @endif
+<x-pager :items="$professions"></x-pager>

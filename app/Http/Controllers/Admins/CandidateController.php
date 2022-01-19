@@ -57,11 +57,6 @@ class CandidateController extends Controller
      */
     public function show(Candidate $candidate)
     {
-        // Maybe there is better solution, but this is done just to have less queries.
-        $candidate = Candidate::where('id', $candidate->id)
-                              ->with('professions')
-                              ->first();
-
         $candidate_professions = CandidateProfession::where('candidate_id', $candidate->id)
                                                     ->where('status', '!=', 'unapplied')
                                                     ->with('profession')

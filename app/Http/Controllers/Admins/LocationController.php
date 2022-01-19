@@ -5,9 +5,14 @@ namespace App\Http\Controllers\Admins;
 use App\Models\Location;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreLocation;
 
 class LocationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'admin']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -31,7 +36,7 @@ class LocationController extends Controller
      */
     public function create()
     {
-        //
+        return view('admins.locations.create');
     }
 
     /**
@@ -40,9 +45,13 @@ class LocationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreLocation $request)
     {
-        //
+        $validated = $request->validated();
+        $location = Location::create($validated);
+
+        return redirect()->route('admins.locations.index')
+                         ->withStatus("Location '{$location->name}' has been created successfully.");
     }
 
     /**
@@ -62,9 +71,11 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Location $location)
     {
-        //
+        return view('admins.locations.edit', [
+            'location' => $location,
+        ]);
     }
 
     /**
@@ -74,9 +85,13 @@ class LocationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreLocation $request, Location $location)
     {
-        //
+        $validated = $request->validated();
+        $location->update($validated);
+
+        return redirect()->route('admins.locations.index')
+                         ->withStatus("Location '{$location->name}' has been updated successfully.");
     }
 
     /**
@@ -92,7 +107,11 @@ class LocationController extends Controller
 
     public function candidates(Location $location)
     {
-        $candidates = $location->candidates()->paginate(15);
+        $candidates = $location->candidates()
+                               ->with('location')
+                               ->with('user')
+                               ->withCount('professions')
+                               ->paginate(20);
 
         return view ('admins.locations.candidates', [
             'location' => $location,
@@ -103,7 +122,16 @@ class LocationController extends Controller
 
     public function professions(Location $location)
     {
-        //
+        $professions = $location->professions()
+                                ->with('locations')
+                                ->withCount('candidates')
+                                ->withCount('questions')
+                                ->paginate(20);
+
+        return view('admins.locations.professions', [
+            'location' => $location,
+            'professions' => $professions,
+        ]);
     }
 }
 

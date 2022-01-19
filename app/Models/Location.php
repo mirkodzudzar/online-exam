@@ -9,6 +9,8 @@ class Location extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name'];
+
     public function candidates()
     {
         return $this->morphedByMany(Candidate::class, 'locationable')->withTimestamps();
