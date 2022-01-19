@@ -1,6 +1,8 @@
 @if ($locations->count() > 0)
-  <p class="fs-5">
-    <x-geo-icon></x-geo-icon>
+  <p>
+    @if (isset($icon))
+      <x-geo-icon></x-geo-icon>
+    @endif
     @foreach ($locations as $location)
       {{-- Only for admin routes, link will be to admin location candidates page --}}
       @if (Route::is('admins.*'))

@@ -17,7 +17,7 @@
       @endif
       <p class="card-text">{{ Str::limit($profession->description, 250) }}</p>
       
-      <x-location :locations="$profession->locations"></x-location>
+      <x-location :locations="$profession->locations" :icon="true"></x-location>
       
       <p>
         <x-badge :value="$profession->open_date" type="dark"></x-badge>

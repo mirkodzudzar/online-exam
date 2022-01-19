@@ -26,7 +26,15 @@
           <td>{{ $candidate->username }}</td>
           <td>{{ $candidate->phone_number }}</td>
           <td>{{ $candidate->professions_count }}</td>
-          <td>{{ optional($candidate->location ?? null)->name }}</td>
+          <td>
+            @if ($candidate->location) 
+              <a href="{{ route('admins.locations.candidates', ['location' => $candidate->location->id]) }}" class="text-decoration-none"> 
+                {{ optional($candidate->location ?? null)->name }}
+              </a>
+            @else
+              <p>/</p>
+            @endif
+          </td>
           {{-- <td>{{ $candidate->state }}</td>
           <td>{{ $candidate->city }}</td>
           <td>{{ $candidate->address }}</td> --}}

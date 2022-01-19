@@ -40,7 +40,15 @@
       </tr>
       <tr>
         <th>Location</th>
-        <td>{{ optional($candidate->location ?? null)->name }}</td>
+        <td>
+          @if ($candidate->location)
+            <a href="{{ route('admins.locations.candidates', ['location' => $candidate->location->id]) }}" class="text-decoration-none">
+              {{ optional($candidate->location ?? null)->name }}
+            </a>
+          @else
+            <p>/</p>
+          @endif
+        </td>
       </tr>
       <tr>
         <th>Created At</th>

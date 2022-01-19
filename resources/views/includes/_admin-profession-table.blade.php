@@ -37,10 +37,7 @@
           <td>{{ $profession->candidates_count }}</td>
           <td>{{ $profession->questions_count }}</td>
           <td>
-            @foreach ($profession->locations as $location)
-              {{ $location->name }}
-              {{ $loop->last ? '' : "|" }}
-            @endforeach
+            <x-location :locations="$profession->locations"></x-location>
           </td>
           <td>{{ $profession->open_date }}</td>
           <td>{{ $profession->close_date }}</td>
