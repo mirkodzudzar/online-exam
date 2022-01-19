@@ -6,7 +6,7 @@ use App\Models\Question;
 use App\Models\Profession;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CreateQuestion;
+use App\Http\Requests\StoreQuestion;
 
 class QuestionController extends Controller
 {
@@ -51,7 +51,7 @@ class QuestionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateQuestion $request)
+    public function store(StoreQuestion $request)
     {
         $validated = $request->validated();
         $question = Question::make($validated);
@@ -95,7 +95,7 @@ class QuestionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CreateQuestion $request, Question $question)
+    public function update(StoreQuestion $request, Question $question)
     {
         $validated = $request->validated();
         $question->fill($validated);
