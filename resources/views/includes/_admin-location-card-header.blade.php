@@ -3,14 +3,14 @@
     <li class="nav-item">
       <a class="nav-link {{ Route::is('admins.locations.candidates') ? 'active' : '' }}" href="{{ route('admins.locations.candidates', ['location' => $location]) }}">
         Candidates
-        <x-badge :value="$candidates->count()" type="primary"></x-badge>
+        <x-badge :value="$location->candidates->count()" type="primary"></x-badge>
       </a>
     </li>
-    {{-- <li class="nav-item">
-      <a class="nav-link {{ Route::is('admins.professions.show') ? 'active' : '' }}" aria-current="true" href="{{ route('admins.professions.show', ['profession' => $profession->id]) }}">
+    <li class="nav-item">
+      <a class="nav-link {{ Route::is('admins.locations.professions') ? 'active' : '' }}" aria-current="true" href="{{ route('admins.locations.professions', ['location' => $location->id]) }}">
         Professions
-        <x-badge :value="$profession->professions_count" type="primary"></x-badge>
+        <x-badge :value="$location->professions->count()" type="primary"></x-badge>
       </a>
-    </li> --}}
+    </li>
   </ul>
 </div>

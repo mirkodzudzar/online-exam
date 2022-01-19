@@ -54,3 +54,4 @@
 @else
   <p>There are no professions!</p>
 @endif
+<x-pager :items="$professions"></x-pager>

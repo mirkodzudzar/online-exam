@@ -92,7 +92,11 @@ class LocationController extends Controller
 
     public function candidates(Location $location)
     {
-        $candidates = $location->candidates()->paginate(15);
+        $candidates = $location->candidates()
+                               ->with('location')
+                               ->with('user')
+                               ->withCount('professions')
+                               ->paginate(20);
 
         return view ('admins.locations.candidates', [
             'location' => $location,
@@ -103,7 +107,16 @@ class LocationController extends Controller
 
     public function professions(Location $location)
     {
-        //
+        $professions = $location->professions()
+                                ->with('locations')
+                                ->withCount('candidates')
+                                ->withCount('questions')
+                                ->paginate(20);
+
+        return view('admins.locations.professions', [
+            'location' => $location,
+            'professions' => $professions,
+        ]);
     }
 }
 
