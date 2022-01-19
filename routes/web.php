@@ -11,6 +11,7 @@ use App\Http\Controllers\Users\CandidateProfessionController;
 use App\Http\Controllers\Admins\QuestionController as AdminQuestionController;
 use App\Http\Controllers\Admins\CandidateProfessionController as AdminCandidateProfessionController;
 use App\Http\Controllers\Users\LocationController;
+use App\Http\Controllers\Admins\LocationController as AdminLocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -71,6 +72,9 @@ Route::group([
     Route::resource('questions', AdminQuestionController::class)->except(['create', 'show']);
 
     Route::get('/candidates/professions/{profession}/results', [AdminCandidateProfessionController::class, 'results'])->name('candidates.professions.results');
+
+    Route::get('/locations/{location}/candidates', [AdminLocationController::class, 'candidates'])->name('locations.candidates');
+    Route::resource('locations', AdminLocationController::class)->only(['index']);
 });
 
 Route::get('/', [ProfessionController::class, 'index'])->name('users.professions.index');

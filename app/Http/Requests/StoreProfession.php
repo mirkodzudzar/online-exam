@@ -29,6 +29,7 @@ class StoreProfession extends FormRequest
             'description' => 'required|min:25',
             'open_date' => 'required|after_or_equal:' . Carbon::today()->format('m/d/Y'),
             'close_date' => 'required|after_or_equal:open_date',
+            'locations.*' => 'nullable|exists:locations,id',
         ];
     }
 }

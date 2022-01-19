@@ -11,6 +11,30 @@
   <x-error field="description"></x-error>
 </div>
 
+<div>
+  <label for="location">Locations</label>
+    <select name="locations[]" multiple id="location" class="form-select form-select-sm">
+      @if (Route::is('admins.professions.edit'))
+        <option value="" @if ($profession->locations->count() === 0 || (collect(old('locations'))->contains(null))) selected @endif>- none -</option>
+      @else
+        <option value="" @if ((collect(old('locations'))->contains(null)) || old('locations') === null) selected @endif>- none -</option>
+      @endif
+      @if ($locations->count() > 0)
+        @foreach ($locations as $location)
+          <option value="{{ $location->id }}" 
+            {{-- Select profession locations when there are old location values. --}}
+            @if (collect(old('locations'))->contains($location->id) ||
+                // Profession locations will be selected if they existed in Database, 
+                // but when we unselect them or chose other options additionaly - profession location values are still present including newly selected ones.
+                // TODO Fix this
+                (optional($profession->locations ?? null)->contains($location) && !collect(old('locations'))->contains(null))) selected @endif
+          >{{ $location->name }}</option>
+        @endforeach
+      @endif
+    </select>
+  <x-error field="locations"></x-error>
+</div>
+
 <div class="col-md-6 mt-3 row">
   <label for="open_date" class="col-sm-2 col-form-label">Open date</label>
   <div class="col-sm-10">

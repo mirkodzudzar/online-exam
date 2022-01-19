@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Question;
 use App\Models\Candidate;
+use App\Models\Location;
 use Illuminate\View\View;
 use App\Models\Profession;
 use Illuminate\Support\Facades\Cache;
@@ -49,6 +50,11 @@ class CountComposer
     $questions_destroyed_count = Cache::tags(['question'])->remember("destoryed-count", 60, function() {
       return Question::onlyTrashed()->count();
     });
+
+    // Cache will be forgotten once new location is created.
+    $locations_count = Cache::tags(['location'])->remember("count", 60, function() {
+      return Location::count();
+    });
     
     $view->with('candidates_count', $candidates_count)
          ->with('users_count', $users_count)
@@ -56,6 +62,7 @@ class CountComposer
          ->with('professions_expired_count', $professions_expired_count)
          ->with('professions_destroyed_count', $professions_destroyed_count)
          ->with('questions_count', $questions_count)
-         ->with('questions_destroyed_count', $questions_destroyed_count);
+         ->with('questions_destroyed_count', $questions_destroyed_count)
+         ->with('locations_count', $locations_count);
   }
 }
