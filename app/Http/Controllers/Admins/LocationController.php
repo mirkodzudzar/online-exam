@@ -5,9 +5,14 @@ namespace App\Http\Controllers\Admins;
 use App\Models\Location;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreLocation;
 
 class LocationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(['auth', 'admin']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -31,7 +36,7 @@ class LocationController extends Controller
      */
     public function create()
     {
-        //
+        return view('admins.locations.create');
     }
 
     /**
@@ -40,9 +45,13 @@ class LocationController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreLocation $request)
     {
-        //
+        $validated = $request->validated();
+        $location = Location::create($validated);
+
+        return redirect()->route('admins.locations.index')
+                         ->withStatus("Location '{$location->name}' has been created successfully.");
     }
 
     /**
