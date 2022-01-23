@@ -32,6 +32,13 @@ Additionally, you can see the results for this candidate on the website.
 Visit the candidate results
 @endcomponent
 
+@if ($candidate_profession->candidate->document)
+Here is candidate CV
+@component('mail::button', ['url' => Storage::url($candidate_profession->candidate->document->path)])
+CV document
+@endcomponent
+@endif
+
 Thanks,<br>
 {{ config('app.name') }}
 @endcomponent
