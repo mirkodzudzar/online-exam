@@ -24,9 +24,13 @@ class CandidateController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Candidate $candidate)
     {
-        //
+        $this->authorize($candidate);
+        
+        return view('users.candidates.show', [
+            'candidate' => $candidate,
+        ]);
     }
 
     /**

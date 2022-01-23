@@ -31,7 +31,7 @@ class CandidatePolicy
      */
     public function view(User $user, Candidate $candidate)
     {
-        //
+        return $user->id === $candidate->user->id;
     }
 
     /**

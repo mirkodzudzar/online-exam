@@ -42,7 +42,7 @@ Route::group([
     Route::get('/candidates/{candidate}/professions/results', [CandidateProfessionController::class, 'results'])->name('candidates.professions.results');
     Route::resource('candidates.professions', CandidateProfessionController::class)->only(['index', 'show', 'update']);
 
-    Route::resource('candidates', CandidateController::class)->only(['edit', 'update']);
+    Route::resource('candidates', CandidateController::class)->only(['show', 'edit', 'update']);
 
     Route::resource('locations', LocationController::class)->only(['index', 'show']);
 
