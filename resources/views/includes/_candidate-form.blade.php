@@ -96,8 +96,12 @@
 
 <div>
   @if (optional($candidate ?? null)->document)
-    <p>
-      <a href="{{ Storage::url($candidate->document->path) }}" target="_blank">Existing CV document</a> -
+    <a href="{{ route('users.candidates.documents.destroy', ['candidate' => $candidate->id]) }}"
+      class="btn btn-danger d-inline"
+      onclick='event.preventDefault(); document.getElementById("remove-cv-form").submit(); return confirm("Are you sure you want to remove your CV document? You can upload new one any time or leave it empty.");'>
+    X</a>
+    <p class="d-inline">
+      <a href="{{ Storage::url($candidate->document->path) }}" target="_blank" class="btn btn-outline-secondary">Existing CV document</a> -
       uploaded {{ $candidate->document->updated_at->diffForHumans() }}.
     </p>
   @endif
