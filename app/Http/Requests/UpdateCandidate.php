@@ -44,6 +44,7 @@ class UpdateCandidate extends FormRequest
             "password_confirmation" =>"nullable|required_with:password|required_with:current_password",
             // Once this value is entered, it needs to be existing id.
             'location' => 'nullable|exists:locations,id',
+            'document' => 'nullable|file|mimes:pdf|max:2048',
         ];
     }
 }

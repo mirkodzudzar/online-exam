@@ -30,6 +30,11 @@ class Candidate extends Model
         return $this->morphToOne(Location::class, 'locationable');
     }
 
+    public function document()
+    {
+        return $this->hasOne(Document::class);
+    }
+
     public static function boot()
     {
         static::addGlobalScope(new NewestScope);

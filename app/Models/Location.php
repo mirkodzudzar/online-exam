@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Scopes\NewestScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Location extends Model
 {
@@ -19,5 +20,12 @@ class Location extends Model
     public function professions()
     {
         return $this->morphedByMany(Profession::class, 'locationable')->withTimestamps();
+    }
+
+    public static function boot()
+    {
+        static::addGlobalScope(new NewestScope);
+
+        parent::boot();
     }
 }

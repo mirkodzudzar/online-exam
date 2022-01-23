@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Users;
 
 use App\Models\User;
+use App\Models\Document;
 use App\Models\Location;
 use App\Models\Candidate;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UpdateCandidate;
+use Illuminate\Support\Facades\Storage;
 
 class CandidateController extends Controller
 {
@@ -54,6 +56,8 @@ class CandidateController extends Controller
      */
     public function update(UpdateCandidate $request, Candidate $candidate)
     {
+        $this->authorize($candidate);
+
         $validated = $request->validated();
         //Find user of a candidate.
         $user = User::findOrFail($candidate->user->id);
@@ -68,7 +72,24 @@ class CandidateController extends Controller
         $candidate->city = $validated['city'];
         $candidate->address = $validated['address'];
 
-        $this->authorize($candidate);
+        // Uploading CV document.
+        if ($request->hasFile('document')) {
+            $path = $validated['document']->store('documents');
+            // Updating existing document.
+            if ($candidate->document) {
+                Storage::delete($candidate->document->path);
+                $candidate->document->path = $path;
+                $candidate->document->save();
+            // Or uploading new document.
+            } else {
+                $candidate->document()->save(
+                    Document::create([
+                        'path' => $path,
+                        'candidate_id' => $candidate->id,
+                    ])
+                );
+            }
+        }
 
         $user->save();
         $candidate->save();
