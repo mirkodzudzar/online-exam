@@ -5,7 +5,7 @@
 @section('page_title', 'Candidate Registration')
 
 @section('content')
-  <form action="{{ route('register') }}" method="POST" class="row g-3">
+  <form action="{{ route('register') }}" method="POST" class="row g-3" enctype="multipart/form-data">
     @csrf
     @include('includes._candidate-form')
     <div>

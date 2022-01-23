@@ -7,11 +7,9 @@ use App\Models\Document;
 use App\Models\Location;
 use App\Models\Candidate;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cache;
 use App\Providers\RouteServiceProvider;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
@@ -66,7 +64,7 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             // Value needs to be existing id, or there can be no value.
             'location' => ['nullable', 'exists:locations,id'],
-            'document' => 'file|mimes:pdf|max:2048',
+            'document' => ['nullable', 'file', 'mimes:pdf', 'max:2048'],
         ]);
     }
 
@@ -93,16 +91,6 @@ class RegisterController extends Controller
             'address' => $data['address'],
         ]);
 
-        // Uploading CV document.
-        if ($data['document']) {
-            $path = $data['document']->store('documents');
-            $candidate->document()->save(
-                Document::create([
-                    'path' => $path,
-                ])
-            );
-        }
-
         $user->save();
         $candidate->user_id = $user->id;
         $candidate->save();
@@ -111,6 +99,17 @@ class RegisterController extends Controller
         if ($data['location'] != null) {
             $location = Location::findOrFail($data['location']);
             $candidate->location()->sync($location);
+        }
+
+        // Uploading CV document.
+        if (isset($data['document'])) {
+            $path = $data['document']->store('documents');
+            $candidate->document()->save(
+                Document::create([
+                    'path' => $path,
+                    'candidate_id' => $candidate->id,
+                ])
+            );
         }
 
         // Cache will be forgotten once new user-candidate is registered.
