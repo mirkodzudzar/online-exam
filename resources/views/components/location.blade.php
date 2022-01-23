@@ -14,5 +14,12 @@
       </a>
       {{ $loop->last ? '' : "|" }}
     @endforeach
+    @auth
+      @if (!Auth::user()->is_admin && Auth::user()->candidate->location)
+        @if ($locations->contains(Auth::user()->candidate->location))
+          <x-badge value="May be near you!" type="info"></x-badge>
+        @endif
+      @endif
+    @endauth
   </p>
 @endif
