@@ -93,3 +93,12 @@
   <input type="file" class="form-control-file" id="document" name="document">
   <x-error field="document"></x-error>
 </div>
+
+<div>
+  @if (optional($candidate ?? null)->document)
+    <p>
+      <a href="{{ Storage::url($candidate->document->path) }}" target="_blank">Existing CV document</a> -
+      uploaded {{ $candidate->document->updated_at->diffForHumans() }}.
+    </p>
+  @endif
+</div>

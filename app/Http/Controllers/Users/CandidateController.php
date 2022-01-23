@@ -85,6 +85,7 @@ class CandidateController extends Controller
                 $candidate->document()->save(
                     Document::create([
                         'path' => $path,
+                        'candidate_id' => $candidate->id,
                     ])
                 );
             }

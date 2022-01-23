@@ -12,6 +12,7 @@ use App\Http\Controllers\Admins\QuestionController as AdminQuestionController;
 use App\Http\Controllers\Admins\CandidateProfessionController as AdminCandidateProfessionController;
 use App\Http\Controllers\Users\LocationController;
 use App\Http\Controllers\Admins\LocationController as AdminLocationController;
+use App\Http\Controllers\Admins\DocumentController as AdminDocumentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +45,8 @@ Route::group([
     Route::resource('candidates', CandidateController::class)->only(['edit', 'update']);
 
     Route::resource('locations', LocationController::class)->only(['index', 'show']);
+
+    Route::delete('/candidates/{candidate}/document/destroy', [AdminDocumentController::class, 'destroy'])->name('candidates.documents.destroy');
 });
 
 Route::group([
