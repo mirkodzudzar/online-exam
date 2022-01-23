@@ -50,6 +50,18 @@
     </td>
   </tr>
   <tr>
+    <th>CV document</th>
+    <td>
+      @if ($candidate->document)
+        <p>
+          <a href="{{ Storage::url($candidate->document->path) }}" target="_blank" class="text-decoration-none">Preview CV</a>
+        </p>
+      @else
+        <p>/</p>
+      @endif
+    </td>
+  </tr>
+  <tr>
     <th>Created At</th>
     <td>{{ $candidate->created_at }}</td>
   </tr>

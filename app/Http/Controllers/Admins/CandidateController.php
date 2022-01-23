@@ -24,6 +24,7 @@ class CandidateController extends Controller
             'candidates' => Candidate::withCount('professions')
                                      ->with('user') // eager loading
                                      ->with('location') // eager loading
+                                     ->with('document') // eager loading
                                      ->paginate(20),
         ]);
     }

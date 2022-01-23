@@ -13,8 +13,11 @@
 
     @include('includes._candidate-form')
 
-    <div>
-      <input class="btn btn-primary mt-5" type="submit" value="Edit">
+    <div class="d-inline">
+      <input class="btn btn-primary d-inline" type="submit" value="Edit">
+    </div>
+    <div class="d-inline mb-3">
+      <a href="{{ route('users.candidates.show', ['candidate' => $candidate->id]) }}" class="btn btn-success d-inline">View profile</a>
     </div>
   </form>
 

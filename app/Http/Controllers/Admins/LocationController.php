@@ -110,6 +110,7 @@ class LocationController extends Controller
         $candidates = $location->candidates()
                                ->with('location')
                                ->with('user')
+                               ->with('document')
                                ->withCount('professions')
                                ->paginate(20);
 
