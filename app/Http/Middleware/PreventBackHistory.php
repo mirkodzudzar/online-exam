@@ -9,6 +9,9 @@ class PreventBackHistory
 {
     /**
      * Handle an incoming request.
+     * Prevent user to return to auth routes once it has been logged out.
+     * Once we use back button, we are redirected to login page.
+     * Without this, user was able to see confidential details and that was not secure, even though he could not interact on this pages.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
