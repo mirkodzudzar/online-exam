@@ -9,13 +9,6 @@ use App\Http\Requests\StoreProfession;
 
 class ProfessionController extends Controller
 {
-    public function __construct()
-    {
-        // We have this middleware included so authorization with policy is not required.
-        // Policy will be used in blades for now.
-        $this->middleware(['auth', 'admin']);
-    }
-
     /**
      * Display a listing of the resource.
      *

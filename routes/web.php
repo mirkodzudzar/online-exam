@@ -52,6 +52,7 @@ Route::group([
 Route::group([
     'prefix' => 'admins',
     'as' => 'admins.',
+    'middleware' => ['auth', 'admin', 'preventBackHistory'],
 ], function() {
     /// for authenticated admin users
     Route::get('/professions/expired', [AdminProfessionController::class, 'expired'])->name('professions.expired');

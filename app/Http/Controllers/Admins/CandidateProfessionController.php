@@ -8,11 +8,6 @@ use App\Models\Profession;
 
 class CandidateProfessionController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['auth', 'admin']);
-    }
-
     public function results(Profession $profession)
     {
         // Maybe there is better solution, but this is done just to have less queries.
