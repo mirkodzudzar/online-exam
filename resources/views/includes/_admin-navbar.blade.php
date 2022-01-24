@@ -1,5 +1,3 @@
-<a class="nav-link p-2 text-dark" href="{{ route('users.professions.index') }}">Home</a>
-<a class="nav-link p-2 text-dark" href="{{ route('users.locations.index') }}">Locations</a>
 <a class="nav-link p-2 text-dark" href="{{ route('admins.professions.index') }}">Admin panel</a>
 <a class="nav-link p-2 text-dark" href="{{ route('logout') }}"
   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
