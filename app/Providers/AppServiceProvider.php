@@ -9,6 +9,8 @@ use Illuminate\Pagination\Paginator;
 use App\Observers\ProfessionObserver;
 use Illuminate\Support\ServiceProvider;
 use App\Http\ViewComposers\CountComposer;
+use App\Services\Counter;
+use PHPUnit\Framework\Constraint\Count;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -38,5 +40,28 @@ class AppServiceProvider extends ServiceProvider
 
         // Include bootstrap for paginator styling.
         Paginator::useBootstrap();
+
+        // // Registering service in services container.
+        // Singleton means that if we call this service many times, it will create new instance only once.
+        $this->app->singleton(Counter::class, function($app) {
+            // If Counter is used, it will always be set here with 5 minutes timeout.
+            // diffInMinutes is user inside Counter...
+            return new Counter(
+                // As same as resolve().
+                $app->make('Illuminate\Contracts\Cache\Factory'),
+                $app->make('Illuminate\Contracts\Session\Session'),
+                env('COUNTER_TIMEOUT')
+            );
+        });
+
+        // If we call CounterContract interface, Counter class will be used insted.
+        $this->app->bind(
+            'App\Contracts\CounterContract',
+            Counter::class,
+        );
+
+        // $this->app->when(Counter::class)
+        //           ->needs('$timeout')
+        //           ->give(env('COUNTER_TIMEOUT'));
     }
 }

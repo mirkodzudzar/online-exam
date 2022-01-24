@@ -6,6 +6,7 @@
     
 @section('content')
   <p>All professions related to location {{ $location->name }}</p>
+  <p><i class="text-muted">Number of users currently visiting this location: </i>{{ $counter }}</p>
   <x-profession-card :professions="$professions"></x-profession-card>
   <x-pager :items="$professions"></x-pager>
 @endsection
