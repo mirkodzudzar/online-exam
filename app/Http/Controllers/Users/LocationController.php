@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Users;
 
 use App\Models\Location;
 use Illuminate\Http\Request;
+use App\Facades\CounterFacade;
 use App\Http\Controllers\Controller;
 
 class LocationController extends Controller
@@ -54,9 +55,12 @@ class LocationController extends Controller
                                 ->with('locations')
                                 ->paginate(10);
 
+        $counter = CounterFacade::increment("location-{$location->id}", ["location"]);
+
         return view('users.locations.show', [
             'location' => $location,
             'professions' => $professions,
+            'counter' => $counter,
         ]);
     }
 
