@@ -19,7 +19,7 @@
   <x-badge :value="$profession->close_date" type="danger"></x-badge>
 </p>
 
-@if (Route::is('users.professions.show'))
+@if (Route::is('professions.show'))
   <p><i class="text-muted">Number of users currently visiting this profession: </i>{{ $counter }}</p>
 @endif
 

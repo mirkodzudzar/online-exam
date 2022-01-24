@@ -2,17 +2,17 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LocationController;
+use App\Http\Controllers\ProfessionController;
+use App\Http\Controllers\Users\DocumentController;
 use App\Http\Controllers\Users\CandidateController;
+use App\Http\Controllers\Users\CandidateProfessionController;
 use App\Http\Controllers\Admins\UserController as AdminUserController;
-use App\Http\Controllers\Users\ProfessionController;
+use App\Http\Controllers\Admins\LocationController as AdminLocationController;
+use App\Http\Controllers\Admins\QuestionController as AdminQuestionController;
 use App\Http\Controllers\Admins\CandidateController as AdminCandidateController;
 use App\Http\Controllers\Admins\ProfessionController as AdminProfessionController;
-use App\Http\Controllers\Users\CandidateProfessionController;
-use App\Http\Controllers\Admins\QuestionController as AdminQuestionController;
 use App\Http\Controllers\Admins\CandidateProfessionController as AdminCandidateProfessionController;
-use App\Http\Controllers\Users\LocationController;
-use App\Http\Controllers\Admins\LocationController as AdminLocationController;
-use App\Http\Controllers\Admins\DocumentController as AdminDocumentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,10 +32,9 @@ use App\Http\Controllers\Admins\DocumentController as AdminDocumentController;
 Route::group([
     'prefix' => 'users',
     'as' => 'users.',
+    'middleware' => ['auth', 'preventBackHistory'],
 ], function() {
     // for authenticated users
-    Route::resource('professions', ProfessionController::class)->only(['show']);
-
     // Additional routes for resource controller
     Route::post('/candidates/{candidate}/professions/{profession}/apply', [CandidateProfessionController::class, 'apply'])->name('candidates.professions.apply');
     Route::post('/candidates/{candidate}/professions/{profession}/unapply', [CandidateProfessionController::class, 'unapply'])->name('candidates.professions.unapply');
@@ -44,9 +43,7 @@ Route::group([
 
     Route::resource('candidates', CandidateController::class)->only(['show', 'edit', 'update']);
 
-    Route::resource('locations', LocationController::class)->only(['index', 'show']);
-
-    Route::delete('/candidates/{candidate}/document/destroy', [AdminDocumentController::class, 'destroy'])->name('candidates.documents.destroy');
+    Route::delete('/candidates/{candidate}/document/destroy', [DocumentController::class, 'destroy'])->name('candidates.documents.destroy');
 });
 
 Route::group([
@@ -54,7 +51,7 @@ Route::group([
     'as' => 'admins.',
     'middleware' => ['auth', 'admin', 'preventBackHistory'],
 ], function() {
-    /// for authenticated admin users
+    // for authenticated admin users
     Route::get('/professions/expired', [AdminProfessionController::class, 'expired'])->name('professions.expired');
     // This route is not in use right now, find a way how to also restore all related questons that have been soft deleted (observer method or similar solution).
     // Route::post('/professions/restore-all', [AdminProfessionController::class, 'restoreAll'])->name('professions.restore-all');
@@ -66,7 +63,6 @@ Route::group([
     Route::resource('users', AdminUserController::class)->except(['show', 'destroy']);
 
     Route::resource('candidates', AdminCandidateController::class)->only(['index', 'show']);
-
 
     // Custom route for resource controller because we needed additional parameter
     Route::get('/questions/create/{profession?}', [AdminQuestionController::class, 'create'])->name('questions.create');
@@ -82,5 +78,11 @@ Route::group([
     Route::resource('locations', AdminLocationController::class)->except(['show', 'destroy']);
 });
 
-Route::get('/', [ProfessionController::class, 'index'])->name('users.professions.index');
+// This routes does not require authentication.
+Route::get('/', [ProfessionController::class, 'index'])->name('professions.index'); // Home page
+Route::resource('professions', ProfessionController::class)->only(['show']);
+
+Route::resource('locations', LocationController::class)->only(['index', 'show']);
+
+// Routes related to authentication.
 Auth::routes();

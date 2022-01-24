@@ -13,11 +13,6 @@ use Illuminate\Support\Facades\Storage;
 
 class CandidateController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['auth', 'preventBackHistory']);
-    }
-
     /**
      * Display the specified resource.
      *
@@ -108,16 +103,5 @@ class CandidateController extends Controller
         }
 
         return redirect()->back()->withStatus('You have updated your profile successfully.');
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

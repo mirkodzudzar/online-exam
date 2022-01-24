@@ -40,7 +40,7 @@
             {{ $candidate->location->name }}
           </a>
         @else
-          <a href="{{ route('users.locations.show', ['location' => $candidate->location->id]) }}" class="text-decoration-none">
+          <a href="{{ route('locations.show', ['location' => $candidate->location->id]) }}" class="text-decoration-none">
             {{ $candidate->location->name }}
           </a>
         @endif

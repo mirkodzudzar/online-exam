@@ -23,7 +23,7 @@
           @if ($candidate_profession->status === 'applied')
             {{-- Profession table with the applied professions --}}
             <x-applied-profession-card
-              :route="route('users.professions.show', [
+              :route="route('professions.show', [
                 'profession' => $candidate_profession->profession->id,
               ])"
               :profession="$candidate_profession->profession"
