@@ -8,7 +8,7 @@
       @if (Route::is('admins.*'))
         <a href="{{ route('admins.locations.candidates', ['location' => $location->id]) }}" class="text-decoration-none">
       @else
-        <a href="{{ route('users.locations.show', ['location' => $location->id]) }}" class="text-decoration-none">
+        <a href="{{ route('locations.show', ['location' => $location->id]) }}" class="text-decoration-none">
       @endif
         {{ $location->name }}
       </a>

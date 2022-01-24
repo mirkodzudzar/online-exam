@@ -12,7 +12,7 @@
     </div>
     <ul class="list-group list-group-flush fs-4">
       @foreach ($locations as $location)
-        <li class="list-group-item"><a href="{{ route('users.locations.show', ['location' => $location->id]) }}" class="text-decoration-none">{{ $location->name }}</a></li>  
+        <li class="list-group-item"><a href="{{ route('locations.show', ['location' => $location->id]) }}" class="text-decoration-none">{{ $location->name }}</a></li>  
       @endforeach
     </ul>
   </div>

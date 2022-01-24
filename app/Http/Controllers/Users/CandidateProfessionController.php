@@ -12,11 +12,6 @@ use App\Http\Controllers\Controller;
 
 class CandidateProfessionController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['auth', 'preventBackHistory']);
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -32,27 +27,6 @@ class CandidateProfessionController extends Controller
         return view('users.candidates.professions.index', [
             'professions' => $candidate->professions()->paginate(10),
         ]);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Candidate $candidate, Request $request)
-    {
-        //
     }
 
     /**
@@ -73,17 +47,6 @@ class CandidateProfessionController extends Controller
             'profession' => $profession,
             'candidate_profession' => $candidate_profession,
         ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
     }
 
     /**
@@ -149,17 +112,6 @@ class CandidateProfessionController extends Controller
         ])->withStatus('You have finished process of applying for this job. Check your results.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
     public function apply(Candidate $candidate, Profession $profession, Request $request)
     {
         $this->authorize($profession);
@@ -186,7 +138,7 @@ class CandidateProfessionController extends Controller
         $candidate_profession->status = 'unapplied';
         $candidate_profession->save();
 
-        return redirect()->route('users.professions.show', [
+        return redirect()->route('professions.show', [
             'profession' => $profession->id,
         ])->withStatus("You have successfully unapplied '{$profession->title}' profession.");
     }
