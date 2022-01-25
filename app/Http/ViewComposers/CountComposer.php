@@ -22,7 +22,7 @@ class CountComposer
 
     // Cache will be forgotten once new admin user is created by another admin user.
     $users_count = Cache::tags(['user'])->remember("count", 60, function() {
-      return User::where('is_admin', true)->count();
+      return User::justAdminUsers()->count();
     });
 
     // Cache will be forgotten once new profession is created or force-deleted.

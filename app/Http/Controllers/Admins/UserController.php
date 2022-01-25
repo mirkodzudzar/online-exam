@@ -55,9 +55,6 @@ class UserController extends Controller
         $user->is_admin = true;
         $user->save();
 
-        // Cache will be forgotten once new admin user is created by other admin user.
-        Cache::tags(['user'])->forget('count');
-
         return redirect()->route('admins.users.index')
                          ->withStatus("User {$user->name} has been created successfully.");
     }
