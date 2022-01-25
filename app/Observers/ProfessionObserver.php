@@ -21,7 +21,7 @@ class ProfessionObserver
 
     public function creating()
     {
-        // Profession coutn will increase.
+        // Profession count will increase.
         Cache::tags(['profession'])->forget('count');
     }
 
