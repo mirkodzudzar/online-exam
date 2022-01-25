@@ -6,7 +6,9 @@
     
 @section('content')
 
-  <div class="card">
+  @include('includes._admin-location-options')
+  
+  <div class="card mt-3">
     
     @include('includes._admin-location-card-header')
 

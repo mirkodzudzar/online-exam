@@ -108,5 +108,27 @@ class LocationController extends Controller
             'professions' => $professions,
         ]);
     }
+
+    public function enable(Location $location)
+    {
+        $this->authorize($location);
+
+        $location->enabled = true;
+        $location->save();
+
+        return redirect()->back()
+                         ->withStatus("Location '{$location->name}' has been enabled successfully.");
+    }
+
+    public function disable(Location $location)
+    {
+        $this->authorize($location);
+
+        $location->enabled = false;
+        $location->save();
+
+        return redirect()->back()
+                         ->withStatus("Location '{$location->name}' has been disabled successfully.");
+    }
 }
 
