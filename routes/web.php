@@ -75,6 +75,8 @@ Route::group([
 
     Route::get('/locations/{location}/candidates', [AdminLocationController::class, 'candidates'])->name('locations.candidates');
     Route::get('/locations/{location}/professions', [AdminLocationController::class, 'professions'])->name('locations.professions');
+    Route::post('locations/{location}/enable', [AdminLocationController::class, 'enable'])->name('locations.enable');
+    Route::post('locations/{location}/disable', [AdminLocationController::class, 'disable'])->name('locations.disable');
     Route::resource('locations', AdminLocationController::class)->except(['show', 'destroy']);
 });
 
