@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Scopes\NewestScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use App\Scopes\OnlyEnabledLocationsUserScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Location extends Model
@@ -22,9 +24,15 @@ class Location extends Model
         return $this->morphedByMany(Profession::class, 'locationable')->withTimestamps();
     }
 
+    public function scopeOnlyEnabledLocations(Builder $builder)
+    {
+        return $builder->where('enabled', true);
+    }
+
     public static function boot()
     {
         static::addGlobalScope(new NewestScope);
+        static::addGlobalScope(new OnlyEnabledLocationsUserScope);
 
         parent::boot();
     }
