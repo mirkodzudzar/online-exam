@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Profession;
+use Illuminate\Http\Request;
 use App\Facades\CounterFacade;
 use App\Models\CandidateProfession;
 use Illuminate\Support\Facades\Auth;
@@ -14,12 +15,23 @@ class ProfessionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->has('profession_search')) {
+            // Because of error "Method Laravel\Scout\Builder::withoutExpiredProfessions does not exist." - we pluck id and than we proceed with another query.
+            $professions_ids = Profession::search($request->input('profession_search'))->get()->pluck('id');
+            $professions = Profession::whereIn('id', $professions_ids)
+                                     ->withoutExpiredProfessions()
+                                     ->with('locations') // eager loading
+                                     ->paginate(10);
+        } else {
+            $professions = Profession::withoutExpiredProfessions()
+                                     ->with('locations') // eager loading
+                                     ->paginate(10);
+        }
+
         return view('professions.index', [
-            'professions' => Profession::withoutExpiredProfessions()
-                                       ->with('locations') // eager loading
-                                       ->paginate(10),
+            'professions' => $professions,
         ]);
     }
 
