@@ -1,6 +1,6 @@
 
   @if ($candidates->count() > 0)
-  <table class="table table-striped">
+  <table class="table table-responsive table-hover table-striped">
     <thead class="table-dark">
       <tr>
         <th scope="col">Id</th>

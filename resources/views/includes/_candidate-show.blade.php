@@ -1,4 +1,4 @@
-<table class="table table-striped text-center">
+<table class="table table-responsive table-hover table-striped text-center">
   <tr>
     <th scope="row">Id</th>
     <td>{{ $candidate->id }}</td>
