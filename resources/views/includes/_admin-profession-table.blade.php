@@ -1,5 +1,5 @@
 @if ($professions->count() > 0)
-  <table class="table table-responsive table-hover table-striped">
+  <table class="table table-responsive table-hover table-striped w-100 d-block d-md-table">
     <thead class="table-dark">
       <tr>
         <th scope="col">Id</th>
