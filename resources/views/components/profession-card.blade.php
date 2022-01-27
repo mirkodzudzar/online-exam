@@ -26,20 +26,6 @@
       </p>
       <x-expired-badge :profession="$profession"></x-expired-badge>
     </div>
-    {{-- <div class="card-footer">
-      @can('unapply', $profession)
-        @include('includes._unapply-button')
-      @elsecan('apply', $profession)
-        @include('includes._apply-button')
-      @else
-        @auth
-          @if (!Auth::user()->is_admin)
-            <a href="{{ route('users.candidates.professions.show', 
-              ['candidate' => Auth::user()->candidate->id, 'profession' => $profession->id]) }}" class="btn btn-outline-info">Exam</a>
-          @endif
-        @endauth
-      @endcan
-    </div> --}}
   </div>
 @empty
   <p>There are no professions!</p>
