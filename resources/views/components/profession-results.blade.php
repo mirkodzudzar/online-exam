@@ -19,7 +19,7 @@
     <x-expired-badge :profession="$value->profession"></x-expired-badge>
   </div>
   <div class="card-body">
-    <table class="table table-responsive table-hover table-striped">
+    <table class="table table-responsive table-hover table-striped w-100 d-block d-md-table">
       <thead class="table-dark">
         <tr>
           <th scope="col">Total</th>
