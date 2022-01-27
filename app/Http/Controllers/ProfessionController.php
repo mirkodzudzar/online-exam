@@ -17,18 +17,24 @@ class ProfessionController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->has('profession_search')) {
-            // Because of error "Method Laravel\Scout\Builder::withoutExpiredProfessions does not exist." - we pluck id and than we proceed with another query.
-            $professions_ids = Profession::search($request->input('profession_search'))->get()->pluck('id');
+        if ($request->has('search')) {
+            $result = $request->input('search');
+            // Scout builder does not contain all of the methods as eloquent does so we are having two queries.
+            $professions_ids = Profession::search($result)->get()->pluck('id');
             $professions = Profession::whereIn('id', $professions_ids)
                                      ->withoutExpiredProfessions()
                                      ->with('locations') // eager loading
                                      ->paginate(10);
-        } else {
-            $professions = Profession::withoutExpiredProfessions()
-                                     ->with('locations') // eager loading
-                                     ->paginate(10);
+            return view('professions.index', [
+                'professions' => $professions,
+                // It is search result that will be displayed when we submit the form.
+                'result' => $result,
+            ]);
         }
+
+        $professions = Profession::withoutExpiredProfessions()
+                                 ->with('locations') // eager loading
+                                 ->paginate(10);
 
         return view('professions.index', [
             'professions' => $professions,
