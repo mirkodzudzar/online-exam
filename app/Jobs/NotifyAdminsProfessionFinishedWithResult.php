@@ -33,7 +33,7 @@ class NotifyAdminsProfessionFinishedWithResult implements ShouldQueue
      */
     public function handle()
     {
-        User::justAdminUsers()
+        User::onlyAdminUsers()
             ->get()
             ->map(function (User $user) {
                 ThrottledMail::dispatch(

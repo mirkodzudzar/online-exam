@@ -5,14 +5,17 @@ namespace App\Models;
 use App\Scopes\NewestScope;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Scout\Searchable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, 
+        HasFactory, 
+        Notifiable, 
+        Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -49,7 +52,7 @@ class User extends Authenticatable
         return $this->hasOne(Candidate::class);
     }
 
-    public function scopeJustAdminUsers(Builder $builder)
+    public function scopeOnlyAdminUsers(Builder $builder)
     {
         return $builder->where('is_admin', true);
     }
