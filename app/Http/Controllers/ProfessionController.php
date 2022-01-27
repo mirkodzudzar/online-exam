@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Profession;
 use Illuminate\Http\Request;
 use App\Facades\CounterFacade;
+use App\Services\SearchResult;
 use App\Models\CandidateProfession;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,25 +20,21 @@ class ProfessionController extends Controller
     {
         if ($request->has('search')) {
             $result = $request->input('search');
-            // Scout builder does not contain all of the methods as eloquent does so we are having two queries.
-            $professions_ids = Profession::search($result)->get()->pluck('id');
-            $professions = Profession::whereIn('id', $professions_ids)
-                                     ->withoutExpiredProfessions()
-                                     ->with('locations') // eager loading
-                                     ->paginate(10);
-            return view('professions.index', [
-                'professions' => $professions,
-                // It is search result that will be displayed when we submit the form.
-                'result' => $result,
-            ]);
+            $professions = SearchResult::search(Profession::class, $result);
+        } else {
+            // This way we are getting eloquent builder so we can proceed with other queries.
+            // Find a better solution...
+            $professions = Profession::whereNotNull('id');
         }
 
-        $professions = Profession::withoutExpiredProfessions()
-                                 ->with('locations') // eager loading
-                                 ->paginate(10);
+        $professions = $professions->withoutExpiredProfessions()
+                                   ->with('locations')
+                                   ->paginate(10);
 
         return view('professions.index', [
             'professions' => $professions,
+            // It is search result that will be displayed when we submit the form.
+            'result' => $result ?? null,
         ]);
     }
 
