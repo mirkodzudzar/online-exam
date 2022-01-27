@@ -15,7 +15,7 @@
     <tbody>
       @foreach ($questions as $question)
         <tr>
-          <th>{{ $question->id }}</th>
+          <th scope="row">{{ $question->id }}</th>
           <td>
             @if ($question->trashed())
               <del>

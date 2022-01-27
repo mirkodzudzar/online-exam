@@ -10,10 +10,11 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Scopes\WithoutExpiredProfessionsUserScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 
 class Profession extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Searchable;
 
     protected $fillable = ['title', 'description', 'open_date', 'close_date'];
 

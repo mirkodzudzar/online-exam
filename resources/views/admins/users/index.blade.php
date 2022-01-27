@@ -5,6 +5,10 @@
 @section('page_title', 'List of all admin users')
     
 @section('content')
+  <x-search-form placeholder="Search for users"
+                :item="$users"
+                :result="$result ?? null">
+  </x-search-form>
   <table class="table table-striped">
     <thead class="table-dark">
       <tr>

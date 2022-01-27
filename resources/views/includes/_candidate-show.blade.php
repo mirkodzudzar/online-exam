@@ -1,38 +1,38 @@
 <table class="table table-striped text-center">
   <tr>
-    <th>Id</th>
-    <th>{{ $candidate->id }}</th>
+    <th scope="row">Id</th>
+    <td>{{ $candidate->id }}</td>
   </tr>
   <tr>
-    <th>Name</th>
+    <th scope="row">Name</th>
     <td>{{ $candidate->user->name }}</td>
   </tr>
   <tr>
-    <th>Email</th>
+    <th scope="row">Email</th>
     <td>{{ $candidate->user->email }}</td>
   </tr>
   <tr>
-    <th>Username</th>
+    <th scope="row">Username</th>
     <td>{{ $candidate->username }}</td>
   </tr>
   <tr>
-    <th>Phone number</th>
+    <th scope="row">Phone number</th>
     <td>{{ $candidate->phone_number }}</td>
   </tr>
   <tr>
-    <th>State</th>
+    <th scope="row">State</th>
     <td>{{ $candidate->state }}</td>
   </tr>
   <tr>
-    <th>City</th>
+    <th scope="row">City</th>
     <td>{{ $candidate->city }}</td>
   </tr>
   <tr>
-    <th>Address</th>
+    <th scope="row">Address</th>
     <td>{{ $candidate->address }}</td>
   </tr>
   <tr>
-    <th>Location</th>
+    <th scope="row">Location</th>
     <td>
       @if ($candidate->location)
         @if (Auth::check() && Auth::user()->is_admin)
@@ -50,7 +50,7 @@
     </td>
   </tr>
   <tr>
-    <th>CV document</th>
+    <th scope="row">CV document</th>
     <td>
       @if ($candidate->document)
         <p>
@@ -62,11 +62,11 @@
     </td>
   </tr>
   <tr>
-    <th>Created At</th>
+    <th scope="row">Created At</th>
     <td>{{ $candidate->created_at }}</td>
   </tr>
   <tr>
-    <th>Updated At</th>
+    <th scope="row">Updated At</th>
     <td>{{ $candidate->updated_at }}</td>
   </tr>
 </thead>
