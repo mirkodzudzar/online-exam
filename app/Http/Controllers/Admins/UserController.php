@@ -3,10 +3,11 @@
 namespace App\Http\Controllers\Admins;
 
 use App\Models\User;
+use Illuminate\Http\Request;
+use App\Services\SearchResult;
 use App\Http\Requests\StoreUser;
 use App\Http\Requests\UpdateUser;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -16,10 +17,22 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->has('search')) {
+            $result = $request->input('search');
+            $users = SearchResult::search(User::class, $result);
+        } else {
+            $users = User::whereNotNull('id');
+        }
+
+        $users = $users->onlyAdminUsers()
+                       ->paginate(20);
+
         return view('admins.users.index', [
-            'users' => User::where('is_admin', true)->paginate(20),
+            'users' => $users,
+            // It is search result that will be displayed when we submit the form.
+            'result' => $result ?? null,
         ]);
     }
 
