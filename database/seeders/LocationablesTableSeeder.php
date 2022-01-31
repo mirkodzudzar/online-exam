@@ -16,10 +16,11 @@ class LocationablesTableSeeder extends Seeder
      */
     public function run()
     {
-        $locationsCount = Location::all()->count();
+        $locationsCount = Location::count();
 
         if (!($locationsCount > 0)) {
-            $this->commant->info("No locations found, skipping assigning locations to candidates and professions.");
+            $this->command->info("No locations found, skipping assigning locations to candidates and professions.");
+            return;
         }
 
         $min_default = 0;
