@@ -19,6 +19,8 @@ class LocationsTableSeeder extends Seeder
         $locations->each(function ($locationName) {
             $location = new Location();
             $location->name = $locationName;
+            // We need to enable location to be able to relate it with profession or user later.
+            $location->enabled = true;
             $location->save();
         });
     }
