@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admins;
 use App\Models\Question;
 use App\Models\Profession;
 use Illuminate\Http\Request;
+use App\Services\SearchResult;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreQuestion;
 
@@ -15,10 +16,21 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->has('search')) {
+            $result = $request->input('search');
+            $questions = SearchResult::search(Question::class, $result);
+        } else {
+            $questions = Question::whereNotNull('id');
+        }
+
+        $questions = $questions->with('profession')
+                               ->paginate(20);
+
         return view('admins.questions.index', [
-            'questions' => Question::with('profession')->paginate(20),
+            'questions' => $questions,
+            'result' => $result ?? null,
         ]);
     }
 

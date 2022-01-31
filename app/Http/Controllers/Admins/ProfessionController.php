@@ -6,6 +6,8 @@ use App\Models\Location;
 use App\Models\Profession;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProfession;
+use App\Services\SearchResult;
+use Illuminate\Http\Request;
 
 class ProfessionController extends Controller
 {
@@ -14,13 +16,23 @@ class ProfessionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->has('search')) {
+            $result = $request->input('search');
+            $professions = SearchResult::search(Profession::class, $result);
+        } else {
+            $professions = Profession::whereNotNull('id');
+        }
+
+        $professions = $professions->withCount('candidates')
+                                   ->withCount('questions')
+                                   ->with('locations')
+                                   ->paginate(20);
+
         return view('admins.professions.index', [
-            'professions' => Profession::withCount('candidates')
-                                       ->withCount('questions')
-                                       ->with('locations')
-                                       ->paginate(20),
+            'professions' => $professions,
+            'result' => $result ?? null,
         ]);
     }
 

@@ -6,10 +6,13 @@ use App\Scopes\NewestScope;
 use Illuminate\Database\Eloquent\Model;
 use Fidum\EloquentMorphToOne\HasMorphToOne;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Scout\Searchable;
 
 class Candidate extends Model
 {
-    use HasFactory, HasMorphToOne;
+    use HasFactory, 
+        HasMorphToOne,
+        Searchable;
 
     protected $fillable = ['username', 'phone_number', 'state', 'city', 'address'];
 

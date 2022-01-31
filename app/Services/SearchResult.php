@@ -10,7 +10,7 @@ class SearchResult
    */
   public static function search(string $model, string $result)
   {
-    $ids = $model::search($result)->get()->pluck('id');
+    $ids = $model::search($result)->withTrashed()->get()->pluck('id');
     $models = $model::whereIn('id', $ids);
 
     return $models;

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Admins;
 
-use App\Http\Controllers\Controller;
 use App\Models\Candidate;
+use Illuminate\Http\Request;
+use App\Services\SearchResult;
 use App\Models\CandidateProfession;
+use App\Http\Controllers\Controller;
 
 class CandidateController extends Controller
 {
@@ -13,14 +15,24 @@ class CandidateController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->has('search')) {
+            $result = $request->input('search');
+            $candidates = SearchResult::search(Candidate::class, $result);
+        } else {
+            $candidates = Candidate::whereNotNull('id');
+        }
+
+        $candidates = $candidates->withCount('professions')
+                                 ->with('user') // eager loading
+                                 ->with('location') // eager loading
+                                 ->with('document') // eager loading
+                                 ->paginate(20);
+
         return view('admins.candidates.index', [
-            'candidates' => Candidate::withCount('professions')
-                                     ->with('user') // eager loading
-                                     ->with('location') // eager loading
-                                     ->with('document') // eager loading
-                                     ->paginate(20),
+            'candidates' => $candidates,
+            'result' => $result ?? null,
         ]);
     }
 
