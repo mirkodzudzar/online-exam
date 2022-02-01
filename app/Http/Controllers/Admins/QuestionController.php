@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admins;
 
+use App\Models\Exam;
 use App\Models\Question;
 use App\Models\Profession;
 use Illuminate\Http\Request;
@@ -25,8 +26,7 @@ class QuestionController extends Controller
             $questions = Question::whereNotNull('id');
         }
 
-        $questions = $questions->with('profession')
-                               ->paginate(20);
+        $questions = $questions->paginate(20);
 
         return view('admins.questions.index', [
             'questions' => $questions,
@@ -39,17 +39,13 @@ class QuestionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Profession $profession = null)
+    public function create(Exam $exam = null)
     {
-        // if (empty($profession)) {
-        //     return redirect()->route('admins.questions.create');
-        // } else {
-            return view('admins.questions.create', [
-                'professions' => Profession::all(),
-                // Additional optional parameter - used when we arive from specific profession admin page to create new question
-                'profession_url' => $profession,
-            ]);
-        // }
+        return view('admins.questions.create', [
+            'exams' => Exam::all(),
+            // Additional optional parameter - used when we arive from specific exam admin page to create new question
+            'exam_url' => $exam,
+        ]);
     }
 
     /**
@@ -62,11 +58,11 @@ class QuestionController extends Controller
     {
         $validated = $request->validated();
         $question = Question::make($validated);
-        $question->profession_id = $validated['profession'];
+        $question->exam_id = $validated['exam'];
         $question->save();
 
-        return redirect()->route('admins.professions.show', [
-            'profession' => $question->profession->id,
+        return redirect()->route('admins.exams.questions', [
+            'exam' => $question->exam->id,
         ])->withStatus('You have created new question successfully.');
     }
 

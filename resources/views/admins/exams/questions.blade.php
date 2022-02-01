@@ -1,6 +1,7 @@
 @extends('admins.layouts.exam')
     
 @section('exam_content')
+  <a href="{{ route('admins.questions.create', ['exam' => $exam->id]) }}" class="btn btn-primary mb-3">Create new question</a>
   @if ($questions->count() > 0)
     <div class="card-body">
       @forelse ($questions as $question)
@@ -29,7 +30,6 @@
           No questions yet. 
         </p>
       @endforelse
-      <a href="{{ route('admins.questions.create', ['exam' => $exam->id]) }}" class="btn btn-primary mb-3">Create new question</a>
     </div>
   @else
     <p>No questions yet.</p>

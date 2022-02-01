@@ -4,19 +4,19 @@
     <x-error field="question"></x-error>
   </div>
   <div>
-    <label for="profession">Profession</label>
-    <select name="profession" id="profession" class="form-select form-select-sm">
+    <label for="exam">Exam</label>
+    <select name="exam" id="exam" class="form-select form-select-sm">
       <option selected>- none -</option>
-      @if ($professions->count() > 0)
-        @foreach ($professions as $profession)
-          <option value="{{ $profession->id }}" 
-            {{-- $profession_url is optional parameter value if we came form specific profession to create new question --}}
-            @if((int)old('profession') === $profession->id || optional($profession_url ?? null)->id ===  $profession->id || $profession->id === optional($question->profession ?? null)->id) selected @endif>{{ $profession->title }}
+      @if ($exams->count() > 0)
+        @foreach ($exams as $exam)
+          <option value="{{ $exam->id }}" 
+            {{-- $exam_url is optional parameter value if we came form specific exam to create new question --}}
+            @if((int)old('exam') === $exam->id || optional($exam_url ?? null)->id ===  $exam->id || $exam->id === optional($question->exam ?? null)->id) selected @endif>{{ $exam->title }}
           </option>
         @endforeach
       @endif
     </select>
-    <x-error field="profession"></x-error>
+    <x-error field="exam"></x-error>
   </div>
 
   <div id="answer_correct">Type and check correct answer</div>

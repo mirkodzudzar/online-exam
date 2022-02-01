@@ -65,7 +65,7 @@ Route::group([
     Route::resource('candidates', AdminCandidateController::class)->only(['index', 'show']);
 
     // Custom route for resource controller because we needed additional parameter
-    Route::get('/questions/create/{profession?}', [AdminQuestionController::class, 'create'])->name('questions.create');
+    Route::get('/questions/create/{exam?}', [AdminQuestionController::class, 'create'])->name('questions.create');
     Route::post('/questions/{question}/restore', [AdminQuestionController::class, 'restore'])->name('questions.restore');
     Route::post('/questions/{question}/force-delete', [AdminQuestionController::class, 'forceDelete'])->name('questions.force-delete');
     Route::get('/questions/destroyed', [AdminQuestionController::class, 'destroyed'])->name('questions.destroyed');
