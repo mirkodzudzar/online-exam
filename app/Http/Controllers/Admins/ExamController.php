@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admins;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreExam;
 use App\Models\Exam;
 use Illuminate\Http\Request;
 
@@ -29,7 +30,7 @@ class ExamController extends Controller
      */
     public function create()
     {
-        //
+        return view('admins.exams.create');
     }
 
     /**
@@ -38,9 +39,14 @@ class ExamController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreExam $request)
     {
-        //
+        $validated = $request->validated();
+
+        $exam = Exam::create($validated);
+
+        return redirect()->route('admins.exams.index')
+                         ->withStatus("Exam {$exam->title} has been created successfully.");
     }
 
     /**

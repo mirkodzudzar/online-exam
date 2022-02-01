@@ -88,7 +88,7 @@
                   All
                   <x-badge :value="$exams_count" type="primary"></x-badge>
                 </a></li>
-                {{--  <li><a class="dropdown-item" href="{{ route('admins.exams.create') }}">Add new</a></li>  --}}
+                <li><a class="dropdown-item" href="{{ route('admins.exams.create') }}">Add new</a></li>
               </ul>
             </div>
             <div class="dropdown">

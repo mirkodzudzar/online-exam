@@ -2,15 +2,25 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Scopes\NewestScope;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Exam extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['title', 'description'];
+
     public function professions()
     {
         return $this->hasMany(Profession::class);
+    }
+
+    public static function boot()
+    {
+        static::addGlobalScope(new NewestScope);
+
+        parent::boot();
     }
 }
