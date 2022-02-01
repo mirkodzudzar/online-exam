@@ -12,7 +12,6 @@ use App\Http\Controllers\Admins\LocationController as AdminLocationController;
 use App\Http\Controllers\Admins\QuestionController as AdminQuestionController;
 use App\Http\Controllers\Admins\CandidateController as AdminCandidateController;
 use App\Http\Controllers\Admins\ProfessionController as AdminProfessionController;
-use App\Http\Controllers\Admins\CandidateProfessionController as AdminCandidateProfessionController;
 use App\Http\Controllers\Admins\ExamController as AdminExamController;
 
 /*
@@ -72,15 +71,13 @@ Route::group([
     Route::get('/questions/destroyed', [AdminQuestionController::class, 'destroyed'])->name('questions.destroyed');
     Route::resource('questions', AdminQuestionController::class)->except(['create', 'show']);
 
-    Route::get('/candidates/professions/{profession}/results', [AdminCandidateProfessionController::class, 'results'])->name('candidates.professions.results');
-
     Route::get('/locations/{location}/candidates', [AdminLocationController::class, 'candidates'])->name('locations.candidates');
     Route::get('/locations/{location}/professions', [AdminLocationController::class, 'professions'])->name('locations.professions');
     Route::post('locations/{location}/enable', [AdminLocationController::class, 'enable'])->name('locations.enable');
     Route::post('locations/{location}/disable', [AdminLocationController::class, 'disable'])->name('locations.disable');
     Route::resource('locations', AdminLocationController::class)->except(['show', 'destroy']);
 
-    // Route::get('exams/questions', [AdminExamController::class, 'questions'])->name('exams.questions');
+    Route::get('exams/{exam}/questions', [AdminExamController::class, 'questions'])->name('exams.questions');
     Route::get('exams/{exam}/professions', [AdminExamController::class, 'professions'])->name('exams.professions');
     Route::resource('exams', AdminExamController::class)->except(['show', 'destroy']);
 });

@@ -27,7 +27,7 @@
             @if ($profession->trashed())
               <del>
             @endif
-            <a href="{{ route('admins.candidates.professions.results', ['profession' => $profession]) }}" class="{{ $profession->trashed() ? 'text-muted' : '' }}">
+            <a href="{{ route('admins.professions.show', ['profession' => $profession]) }}" class="{{ $profession->trashed() ? 'text-muted' : '' }}">
               {{ $profession->title }}
             </a>
             @if ($profession->trashed())

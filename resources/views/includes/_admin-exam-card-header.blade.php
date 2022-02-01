@@ -6,11 +6,11 @@
         <x-badge :value="$exam->professions->count()" type="primary"></x-badge>
       </a>
     </li>
-    {{--  <li class="nav-item">
+    <li class="nav-item">
       <a class="nav-link {{ Route::is('admins.exams.questions') ? 'active' : '' }}" aria-current="true" href="{{ route('admins.exams.questions', ['exam' => $exam]) }}">
         Questions
         <x-badge :value="$exam->questions->count()" type="primary"></x-badge>
       </a>
-    </li>  --}}
+    </li>
   </ul>
 </div>

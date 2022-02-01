@@ -15,7 +15,9 @@ class ExamController extends Controller
      */
     public function index()
     {
-        $exams = Exam::withCount('professions')->paginate(20);
+        $exams = Exam::withCount('professions')
+                     ->withCount('questions')
+                     ->paginate(20);
 
         return view('admins.exams.index', [
             'exams' => $exams,
@@ -78,18 +80,21 @@ class ExamController extends Controller
                          ->withStatus("Exam {$exam->title} has been updated successfully.");
     }
 
-    // public function questions(Exam $exam)
-    // {
-    //     $questions = $exam->questions;
+    public function questions(Exam $exam)
+    {
+        $questions = $exam->questions;
 
-    //     return view('admins.exams.questions', [
-    //         'questions' => $questions,
-    //     ]);
-    // }
+        return view('admins.exams.questions', [
+            'exam' => $exam,
+            'questions' => $questions,
+        ]);
+    }
 
     public function professions(Exam $exam)
     {
-        $professions = $exam->professions()->paginate(20);
+        $professions = $exam->professions()
+                            ->withCount('candidates')
+                            ->paginate(20);
 
         return view('admins.exams.professions', [
             'exam' => $exam,

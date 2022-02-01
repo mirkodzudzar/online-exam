@@ -6,8 +6,6 @@
       @endif
       @if (Route::is('admins.candidates.show'))
         <a href="{{ route('admins.professions.show', ['profession' => $value->profession->id]) }}">{{ $value->profession->title }}</a>
-      @elseif (Route::is('admins.candidates.professions.results'))
-        <a href="{{ route('admins.candidates.show', ['candidate' => $value->candidate->id]) }}">{{ $value->candidate->user->email }}</a>
       @else
         <a href="{{ route('professions.show', ['profession' => $value->profession->id]) }}">{{ $value->profession->title }}</a>
       @endif

@@ -24,7 +24,7 @@
         <td><a href="{{ route('admins.exams.professions', ['exam' => $exam->id]) }}">{{ $exam->title }}</a></td>
         <td>{{ Str::limit($exam->description, 50) }}</td>
         <td>{{ $exam->professions_count }}</td>
-        <td></td>
+        <td>{{ $exam->questions_count }}</td>
         <td>
           @include('includes._admin-exam-options')
         </td>

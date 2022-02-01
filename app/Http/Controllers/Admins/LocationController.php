@@ -100,7 +100,6 @@ class LocationController extends Controller
         $professions = $location->professions()
                                 ->with('locations')
                                 ->withCount('candidates')
-                                ->withCount('questions')
                                 ->paginate(20);
 
         return view('admins.locations.professions', [
