@@ -3,7 +3,6 @@
 namespace App\Observers;
 
 use App\Models\User;
-use App\Models\Location;
 use Illuminate\Support\Facades\Cache;
 
 class UserObserver
@@ -19,7 +18,7 @@ class UserObserver
         //
     }
 
-    public function creating(Location $location)
+    public function creating(User $user)
     {
         // Cache will be forgotten once new admin user is created by other admin user.
         Cache::tags(['user'])->forget('count');
