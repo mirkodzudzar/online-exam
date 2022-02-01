@@ -75,7 +75,7 @@ class CandidateProfessionPolicy
     public function update(User $user, CandidateProfession $candidateProfession)
     {
         // If there are no question.
-        if ($candidateProfession->profession->questions->count() === 0) {
+        if ($candidateProfession->profession->exam->questions->count() === 0) {
             return false;
         }
         // Only if status is applied, we can proceed with the profession questions.

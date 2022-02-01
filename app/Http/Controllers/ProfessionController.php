@@ -66,4 +66,20 @@ class ProfessionController extends Controller
             'counter' => $counter,
         ]);
     }
+
+    public function exam(Profession $profession)
+    {
+        $this->authorize($profession);
+
+        if(Auth::check() && Auth::user()->candidate) {
+            $candidate_profession = CandidateProfession::where('candidate_id', Auth::user()->candidate->id)
+                                                       ->where('profession_id', $profession->id)
+                                                       ->first();
+        }
+        
+        return view('professions.exam', [
+            'profession' => $profession,
+            'candidate_profession' => $candidate_profession,
+        ]);
+    }
 }

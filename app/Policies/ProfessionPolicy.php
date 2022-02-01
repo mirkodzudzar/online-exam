@@ -95,4 +95,28 @@ class ProfessionPolicy
 
         return false;
     }
+
+    public function exam(User $user, Profession $profession)
+    {
+        // If profession is expired - close_date is older than current date/time
+        if ($profession->isExpired()) {
+            return false;
+        }
+        // If user is not candidate - admin
+        if (is_null($user->candidate)) {
+            return false;
+        }
+
+        $user_professions = $user->candidate->professions;
+        foreach ($user_professions as $user_profession) {
+            if ($user_profession->id === $profession->id) {
+                // If status is passed or failed or unapplied, we can not do anything with this profession (only see the results).
+                if ($user_profession->pivot->status === 'applied') {
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
 }

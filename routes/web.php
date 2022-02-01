@@ -84,6 +84,7 @@ Route::group([
 
 // This routes does not require authentication.
 Route::get('/', [ProfessionController::class, 'index'])->name('professions.index'); // Home page
+Route::get('professions/{profession}/exam', [ProfessionController::class, 'exam'])->name('professions.exam');
 Route::resource('professions', ProfessionController::class)->only(['show']);
 
 Route::resource('locations', LocationController::class)->only(['index', 'show']);

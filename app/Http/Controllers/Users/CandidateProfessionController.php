@@ -58,58 +58,58 @@ class CandidateProfessionController extends Controller
      */
     public function update(Candidate $candidate, Profession $profession, Request $request)
     {
-        $candidate_profession = CandidateProfession::where('candidate_id', $candidate->id)
-                                                   ->where('profession_id', $profession->id)
-                                                   ->where('status', 'applied')
-                                                   ->first();
+        // $candidate_profession = CandidateProfession::where('candidate_id', $candidate->id)
+        //                                            ->where('profession_id', $profession->id)
+        //                                            ->where('status', 'applied')
+        //                                            ->first();
 
-        $this->authorize($candidate_profession);
+        // $this->authorize($candidate_profession);
 
-        $total = count($profession->questions);
-        $attempted = [];
-        $correct = [];
-        $wrong = [];
+        // $total = count($profession->questions);
+        // $attempted = [];
+        // $correct = [];
+        // $wrong = [];
 
-        foreach ($profession->questions as $question) {
-            if (isset($request->input("answers")[$question->id])) {
-                $answer = $request->input("answers")[$question->id];
-                // Counting how many answers user provided.
-                $attempted[] = $answer;
-                // Is the answer correct?
-                if ($answer === $question->answer_correct) {
-                    $correct[] = $answer;
-                // Or is it wrong?
-                } else {
-                    $wrong[] = $answer;
-                }
-            }
-        }
+        // foreach ($profession->questions as $question) {
+        //     if (isset($request->input("answers")[$question->id])) {
+        //         $answer = $request->input("answers")[$question->id];
+        //         // Counting how many answers user provided.
+        //         $attempted[] = $answer;
+        //         // Is the answer correct?
+        //         if ($answer === $question->answer_correct) {
+        //             $correct[] = $answer;
+        //         // Or is it wrong?
+        //         } else {
+        //             $wrong[] = $answer;
+        //         }
+        //     }
+        // }
 
-        $attempted = count($attempted);
-        $correct = count($correct);
-        $wrong = count($wrong);
+        // $attempted = count($attempted);
+        // $correct = count($correct);
+        // $wrong = count($wrong);
 
-        $candidate_profession->total = $total;
-        $candidate_profession->attempted = $attempted;
-        $candidate_profession->correct = $correct;
-        $candidate_profession->wrong = $wrong;
+        // $candidate_profession->total = $total;
+        // $candidate_profession->attempted = $attempted;
+        // $candidate_profession->correct = $correct;
+        // $candidate_profession->wrong = $wrong;
 
-        // Failed if we did not answered correctly at least half of the total number of questions.
-        if ($total / 2 > $correct) {
-            $candidate_profession->status = "failed";
-        // Passed
-        } else {
-            $candidate_profession->status = "passed";
-        }
+        // // Failed if we did not answered correctly at least half of the total number of questions.
+        // if ($total / 2 > $correct) {
+        //     $candidate_profession->status = "failed";
+        // // Passed
+        // } else {
+        //     $candidate_profession->status = "passed";
+        // }
 
-        $candidate_profession->save();
+        // $candidate_profession->save();
 
-        event(new ProfessionFinished($candidate_profession));
+        // event(new ProfessionFinished($candidate_profession));
 
-        return redirect()->route('users.candidates.professions.show', [
-            'candidate' => $candidate->id,
-            'profession' => $profession->id,
-        ])->withStatus('You have finished process of applying for this job. Check your results.');
+        // return redirect()->route('users.candidates.professions.show', [
+        //     'candidate' => $candidate->id,
+        //     'profession' => $profession->id,
+        // ])->withStatus('You have finished process of applying for this job. Check your results.');
     }
 
     public function apply(Candidate $candidate, Profession $profession, Request $request)

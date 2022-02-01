@@ -1,12 +1,12 @@
-<h4><u>To finish application for this profession, please answer correctly on questions below:</u></h4>
+<h5>To finish application for this profession, please answer correctly on questions below:</h5>
 <form class="d-inline" action="{{ route('users.candidates.professions.update', [
   'candidate' => Auth::user()->candidate->id,
   'profession' => $profession->id,
 ]) }}" method="POST">
   @csrf
   @method('PUT')
-  @foreach ($profession->questions as $question)
-    <div class="card mb-3 p-2">
+  @foreach ($profession->exam->questions as $question)
+    <div class="card mb-3 p-2 bg-light">
       <b>{{ $loop->iteration }}. {{ $question->question }}</b>
       <div class="form-check">
         <input class="form-check-input" type="radio" name="answers[{{ $question->id }}]" id="answer_a_{{ $question->id }}" value="answer_a">
