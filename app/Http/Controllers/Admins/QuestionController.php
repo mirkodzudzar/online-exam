@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admins;
 
 use App\Models\Exam;
 use App\Models\Question;
-use App\Models\Profession;
 use Illuminate\Http\Request;
 use App\Services\SearchResult;
 use App\Http\Controllers\Controller;
@@ -86,7 +85,7 @@ class QuestionController extends Controller
     public function edit(Question $question)
     {
         return view('admins.questions.edit', [
-            'professions' => Profession::all(),
+            'exams' => Exam::all(),
             'question' => $question,
         ]);
     }
@@ -102,7 +101,7 @@ class QuestionController extends Controller
     {
         $validated = $request->validated();
         $question->fill($validated);
-        $question->profession_id = $validated['profession'];
+        $question->exam_id = $validated['exam'];
         $question->save();
 
         return redirect()->back()
@@ -156,7 +155,6 @@ class QuestionController extends Controller
     public function destroyed()
     {
         $questions = Question::onlyTrashed()
-                             ->with('profession') // eager loading
                              ->paginate(20);
 
         return view('admins.questions.destroyed', [
