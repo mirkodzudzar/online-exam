@@ -11,6 +11,12 @@
 @endif
 <p>{{ $profession->description }}</p>
 
+@auth
+  @if (Auth::user()->is_admin)
+    <p>Exam: <a href="{{ route('admins.exams.professions', ['exam' => $profession->exam->id]) }}">{{ $profession->exam->title }}</a></p>
+  @endif
+@endauth
+
 <x-location :locations="$profession->locations" :icon="true"></x-location>
 
 <p>
