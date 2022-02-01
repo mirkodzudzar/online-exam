@@ -10,16 +10,13 @@ You have finished the exam for the profession '{{ $candidate_profession->profess
 @endif
 
 @component('mail::panel')
-@php
-  $percentage = ($candidate_profession->correct / $candidate_profession->total) * 100;
-@endphp
 @component('mail::table')
-| Total                              | Attempted                              | Correct                              | Wrong                                |
-|:----------------------------------:|:--------------------------------------:|:------------------------------------:|:------------------------------------:|
-| {{ $candidate_profession->total }} | {{ $candidate_profession->attempted }} | {{ $candidate_profession->correct }} | {{ $candidate_profession->wrong }}   |
-|                                    |                                        |                                      |                                      |
-|                                    |                                        | Percentage                           | {{ round($percentage, 2) }} %        |
-|                                    |                                        | Status                               | {{ $candidate_profession->status }}  |
+| Total                              | Attempted                              | Correct                              | Wrong                                            |
+|:----------------------------------:|:--------------------------------------:|:------------------------------------:|:------------------------------------------------:|
+| {{ $candidate_profession->total }} | {{ $candidate_profession->attempted }} | {{ $candidate_profession->correct }} | {{ $candidate_profession->wrong }}               |
+|                                    |                                        |                                      |                                                  |
+|                                    |                                        | Percentage                           | {{ $candidate_profession->percentage }} %        |
+|                                    |                                        | Status                               | {{ $candidate_profession->status }}              |
 @endcomponent
 @endcomponent
 

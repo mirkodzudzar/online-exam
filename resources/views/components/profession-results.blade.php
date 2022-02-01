@@ -40,12 +40,7 @@
         <tr>
           <td colspan="2"></td>
           <td>Percentage</td>
-          <td>
-            @php
-              $percentage = ($value->correct / $value->total) * 100;
-            @endphp
-            {{ round($percentage, 2) }} %
-          </td>
+          <td>{{ $value->percentage }} %</td>
         </tr>
         <tr>
           <td colspan="2"></td>

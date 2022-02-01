@@ -9,8 +9,13 @@ use Illuminate\Pagination\Paginator;
 use App\Observers\ProfessionObserver;
 use Illuminate\Support\ServiceProvider;
 use App\Http\ViewComposers\CountComposer;
+use App\Models\CandidateProfession;
+use App\Models\Location;
+use App\Models\User;
+use App\Observers\CandidateProfessionObserver;
+use App\Observers\LocationObserver;
+use App\Observers\UserObserver;
 use App\Services\Counter;
-use PHPUnit\Framework\Constraint\Count;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -35,8 +40,11 @@ class AppServiceProvider extends ServiceProvider
         view()->composer(['layouts.admin'], CountComposer::class);
         
         // Registering new Observer for Profession model class
+        CandidateProfession::observe(CandidateProfessionObserver::class);
+        Location::observe(LocationObserver::class);
         Profession::observe(ProfessionObserver::class);
         Question::observe(QuestionObserver::class);
+        User::observe(UserObserver::class);
 
         // Include bootstrap for paginator styling.
         Paginator::useBootstrap();
