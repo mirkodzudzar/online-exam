@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Exam;
-use App\Models\Profession;
 use Illuminate\Database\Seeder;
 
 class ExamsTableSeeder extends Seeder
@@ -15,9 +14,6 @@ class ExamsTableSeeder extends Seeder
      */
     public function run()
     {
-        Profession::all()->each(function(Profession $profession){
-            $exam = Exam::factory()->create();
-            $exam->professions()->save($profession);
-        });
+        Exam::factory(10)->create();
     }
 }
