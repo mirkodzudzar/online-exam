@@ -21,7 +21,7 @@
     @foreach ($exams as $exam)
       <tr>
         <th scope="row">{{ $exam->id }}</th>
-        <td><a href="{{ route('admins.exams.show', ['exam' => $exam->id]) }}">{{ $exam->title }}</a></td>
+        <td><a href="{{ route('admins.exams.professions', ['exam' => $exam->id]) }}">{{ $exam->title }}</a></td>
         <td>{{ Str::limit($exam->description, 50) }}</td>
         <td>{{ $exam->professions_count }}</td>
         <td></td>

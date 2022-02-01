@@ -35,7 +35,7 @@
             @endif
           </td>
           <td>{{ $profession->candidates_count }}</td>
-          <td><a href="{{ route('admins.exams.show', ['exam' => $profession->exam->id]) }}">{{ $profession->exam->title }}</a></td>
+          <td><a href="{{ route('admins.exams.professions', ['exam' => $profession->exam->id]) }}">{{ $profession->exam->title }}</a></td>
           <td>
             <x-location :locations="$profession->locations"></x-location>
           </td>

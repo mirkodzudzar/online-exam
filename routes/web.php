@@ -80,7 +80,9 @@ Route::group([
     Route::post('locations/{location}/disable', [AdminLocationController::class, 'disable'])->name('locations.disable');
     Route::resource('locations', AdminLocationController::class)->except(['show', 'destroy']);
 
-    Route::resource('exams', AdminExamController::class)->except(['destroy']);
+    // Route::get('exams/questions', [AdminExamController::class, 'questions'])->name('exams.questions');
+    Route::get('exams/{exam}/professions', [AdminExamController::class, 'professions'])->name('exams.professions');
+    Route::resource('exams', AdminExamController::class)->except(['show', 'destroy']);
 });
 
 // This routes does not require authentication.

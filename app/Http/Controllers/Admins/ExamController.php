@@ -49,19 +49,6 @@ class ExamController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Exam  $exam
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Exam $exam)
-    {
-        return view('admins.exams.show', [
-            'exam' => $exam,
-        ]);
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Exam  $exam
@@ -89,5 +76,24 @@ class ExamController extends Controller
 
         return redirect()->route('admins.exams.index')
                          ->withStatus("Exam {$exam->title} has been updated successfully.");
+    }
+
+    // public function questions(Exam $exam)
+    // {
+    //     $questions = $exam->questions;
+
+    //     return view('admins.exams.questions', [
+    //         'questions' => $questions,
+    //     ]);
+    // }
+
+    public function professions(Exam $exam)
+    {
+        $professions = $exam->professions()->paginate(20);
+
+        return view('admins.exams.professions', [
+            'exam' => $exam,
+            'professions' => $professions,
+        ]);
     }
 }
