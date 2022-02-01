@@ -11,11 +11,13 @@
 <body>
   <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white 
     border-bottom shadow-sm mb-3">
-    <h5 class="my-0 mr-md-auto font-weight-normal">Online Exam</h5>
+    <h5 class="my-0 mr-md-auto font-weight-normal"><a href="{{ route('professions.index') }}" class="nav-link p-2 text-dark">Online Exam</a></h5>
     <nav class="navbar navbar-expand navbar-light">
     <div class="container-fluid">
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
+          <a class="nav-link p-2 text-dark" href="{{ route('professions.index') }}">Professions</a>
+          <a class="nav-link p-2 text-dark" href="{{ route('locations.index') }}">Locations</a>
           @guest
             @include('includes._guest-navbar')
           @else

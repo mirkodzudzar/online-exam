@@ -10,10 +10,11 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Scopes\WithoutExpiredProfessionsUserScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 
 class Profession extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, Searchable;
 
     protected $fillable = ['title', 'description', 'open_date', 'close_date'];
 
@@ -33,7 +34,18 @@ class Profession extends Model
 
     public function candidates()
     {
-        return $this->belongsToMany(Candidate::class);
+        return $this->belongsToMany(Candidate::class)
+                    ->withPivot(['total', 'attempted', 'correct', 'wrong', 'status']);
+    }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
+
+    public function locations()
+    {
+        return $this->morphToMany(Location::class, 'locationable');
     }
 
     public function exam()
@@ -50,6 +62,16 @@ class Profession extends Model
     public function scopeOnlyExpiredProfessions(Builder $builder)
     {
         return $builder->whereDate('close_date', '<', Carbon::today());
+    }
+
+    // Check if close_date is older than today, if so than profession is expired.
+    public function isExpired()
+    {
+        if (Carbon::parse($this->close_date) < Carbon::today()) {
+            return true;
+        }
+
+        return false;
     }
 
     public static function boot()

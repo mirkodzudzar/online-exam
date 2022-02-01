@@ -2,12 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Scopes\NewestScope;
 use Illuminate\Database\Eloquent\Model;
+use Fidum\EloquentMorphToOne\HasMorphToOne;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Laravel\Scout\Searchable;
 
 class Candidate extends Model
 {
-    use HasFactory;
+    use HasFactory, 
+        HasMorphToOne,
+        Searchable;
 
     protected $fillable = ['username', 'phone_number', 'state', 'city', 'address'];
 
@@ -19,7 +24,24 @@ class Candidate extends Model
     public function professions()
     {
         return $this->belongsToMany(Profession::class)
-                    ->withPivot('created_at')
+                    ->withPivot(['total', 'attempted', 'correct', 'wrong', 'status', 'created_at'])
                     ->orderByPivot('created_at', 'desc');
+    }
+
+    public function location()
+    {
+        return $this->morphToOne(Location::class, 'locationable');
+    }
+
+    public function document()
+    {
+        return $this->hasOne(Document::class);
+    }
+
+    public static function boot()
+    {
+        static::addGlobalScope(new NewestScope);
+
+        parent::boot();
     }
 }

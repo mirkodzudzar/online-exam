@@ -2,15 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Scopes\NewestScope;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Scout\Searchable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, 
+        HasFactory, 
+        Notifiable, 
+        Searchable;
 
     /**
      * The attributes that are mass assignable.
@@ -45,5 +50,17 @@ class User extends Authenticatable
     public function candidate()
     {
         return $this->hasOne(Candidate::class);
+    }
+
+    public function scopeOnlyAdminUsers(Builder $builder)
+    {
+        return $builder->where('is_admin', true);
+    }
+
+    public static function boot()
+    {
+        static::addGlobalScope(new NewestScope);
+
+        parent::boot();
     }
 }
