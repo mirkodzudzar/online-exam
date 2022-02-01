@@ -26,7 +26,7 @@
             @endif
           </td>
           <td>
-            <a href="{{ route('admins.professions.show', ['profession' => $question->profession]) }}" class="text-decoration-none">{{ $question->profession->title }}</a>
+            <a href="{{ route('admins.professions.show', ['profession' => $question->profession]) }}">{{ $question->profession->title }}</a>
           </td>
           <td class="{{ $question->answer_correct === 'answer_a' ? 'text-success' : '' }}">{{ $question->answer_a }}</td>
           <td class="{{ $question->answer_correct === 'answer_b' ? 'text-success' : '' }}">{{ $question->answer_b }}</td>

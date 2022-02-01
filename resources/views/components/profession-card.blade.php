@@ -8,7 +8,7 @@
         <del>
       @endif
       <h5 class="card-title fs-2">
-        <a href="{{ route('professions.show', ['profession' => $profession->id]) }}" class="text-decoration-none {{ $profession->trashed() ? 'text-muted' : '' }}">
+        <a href="{{ route('professions.show', ['profession' => $profession->id]) }}" class="{{ $profession->trashed() ? 'text-muted' : '' }}">
           {{ $profession->title }}
         </a>
       </h5>

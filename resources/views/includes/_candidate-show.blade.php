@@ -36,11 +36,11 @@
     <td>
       @if ($candidate->location)
         @if (Auth::check() && Auth::user()->is_admin)
-          <a href="{{ route('admins.locations.candidates', ['location' => $candidate->location->id]) }}" class="text-decoration-none">
+          <a href="{{ route('admins.locations.candidates', ['location' => $candidate->location->id]) }}">
             {{ $candidate->location->name }}
           </a>
         @else
-          <a href="{{ route('locations.show', ['location' => $candidate->location->id]) }}" class="text-decoration-none">
+          <a href="{{ route('locations.show', ['location' => $candidate->location->id]) }}">
             {{ $candidate->location->name }}
           </a>
         @endif
@@ -54,7 +54,7 @@
     <td>
       @if ($candidate->document)
         <p>
-          <a href="{{ Storage::url($candidate->document->path) }}" target="_blank" class="text-decoration-none">Preview CV</a>
+          <a href="{{ Storage::url($candidate->document->path) }}" target="_blank">Preview CV</a>
         </p>
       @else
         <p>/</p>

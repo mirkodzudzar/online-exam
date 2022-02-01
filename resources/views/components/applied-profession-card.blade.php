@@ -5,7 +5,7 @@
         <del>
       @endif
       {{--  $title value will be used if it is passed, if not, title of profession will be used instead  --}}
-      <a href="{{ $route }}" class="text-decoration-none {{ $profession->trashed() ? 'text-muted' : '' }}">{{ $title ?? $profession->title }}</a>{{ $text }}
+      <a href="{{ $route }}" class="{{ $profession->trashed() ? 'text-muted' : '' }}">{{ $title ?? $profession->title }}</a>{{ $text }}
       @if ($profession->trashed())
         </del>
       @endif

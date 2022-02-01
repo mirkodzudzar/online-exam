@@ -20,7 +20,7 @@
         @foreach ($locations as $location)
           <tr>
             <th scope="row">{{ $location->id }}</th>
-            <td><a href="{{ route('admins.locations.candidates', ['location' => $location->id]) }}" class="text-decoration-none">{{ $location->name }}</a></td>
+            <td><a href="{{ route('admins.locations.candidates', ['location' => $location->id]) }}">{{ $location->name }}</a></td>
             <td>{{ $location->candidates_count }}</td>
             <td>{{ $location->professions_count }}</td>
             <td>

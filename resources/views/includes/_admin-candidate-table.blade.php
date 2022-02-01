@@ -18,14 +18,14 @@
       @foreach ($candidates as $candidate)
         <tr>
           <th scope="row">{{ $candidate->id }}</th>
-          <td><a href="{{ route('admins.candidates.show', ['candidate' => $candidate->id]) }}" class="text-decoration-none">{{ $candidate->user->name }}</a></td>
+          <td><a href="{{ route('admins.candidates.show', ['candidate' => $candidate->id]) }}">{{ $candidate->user->name }}</a></td>
           <td>{{ $candidate->user->email }}</td>
           <td>{{ $candidate->username }}</td>
           <td>{{ $candidate->phone_number }}</td>
           <td>{{ $candidate->professions_count }}</td>
           <td>
             @if ($candidate->location) 
-              <a href="{{ route('admins.locations.candidates', ['location' => $candidate->location->id]) }}" class="text-decoration-none"> 
+              <a href="{{ route('admins.locations.candidates', ['location' => $candidate->location->id]) }}"> 
                 {{ $candidate->location->name }}
               </a>
             @else
@@ -35,7 +35,7 @@
           <td>
             @if ($candidate->document)
               <p>
-                <a href="{{ Storage::url($candidate->document->path) }}" target="_blank" class="text-decoration-none">Preview CV</a>
+                <a href="{{ Storage::url($candidate->document->path) }}" target="_blank">Preview CV</a>
               </p>
             @else
               <p>/</p>

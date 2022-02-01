@@ -49,9 +49,22 @@ class ExamController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Exam  $exam
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Exam $exam)
+    {
+        return view('admins.exams.show', [
+            'exam' => $exam,
+        ]);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Exam  $exam
      * @return \Illuminate\Http\Response
      */
     public function edit(Exam $exam)
@@ -64,8 +77,8 @@ class ExamController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\StoreExam  $request
+     * @param  \App\Models\Exam  $exam
      * @return \Illuminate\Http\Response
      */
     public function update(StoreExam $request, Exam $exam)

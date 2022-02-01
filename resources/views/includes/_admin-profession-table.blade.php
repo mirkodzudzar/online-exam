@@ -5,7 +5,7 @@
         <th scope="col">Id</th>
         <th scope="col">Title</th>
         <th scope="col">Candidates</th>
-        <th scope="col">Questions</th>
+        <th scope="col">Exam</th>
         <th scope="col">Locations</th>
         <th scope="col">Open date</th>
         <th scope="col">Close date</th>
@@ -27,7 +27,7 @@
             @if ($profession->trashed())
               <del>
             @endif
-            <a href="{{ route('admins.candidates.professions.results', ['profession' => $profession]) }}" class="text-decoration-none {{ $profession->trashed() ? 'text-muted' : '' }}">
+            <a href="{{ route('admins.candidates.professions.results', ['profession' => $profession]) }}" class="{{ $profession->trashed() ? 'text-muted' : '' }}">
               {{ $profession->title }}
             </a>
             @if ($profession->trashed())
@@ -35,7 +35,7 @@
             @endif
           </td>
           <td>{{ $profession->candidates_count }}</td>
-          <td>{{ $profession->questions_count }}</td>
+          <td><a href="{{ route('admins.exams.show', ['exam' => $profession->exam->id]) }}">{{ $profession->exam->title }}</a></td>
           <td>
             <x-location :locations="$profession->locations"></x-location>
           </td>

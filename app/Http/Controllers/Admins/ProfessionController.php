@@ -26,7 +26,7 @@ class ProfessionController extends Controller
         }
 
         $professions = $professions->withCount('candidates')
-                                   ->withCount('questions')
+                                   ->with('exam')
                                    ->with('locations')
                                    ->paginate(20);
 
