@@ -32,7 +32,7 @@ class CandidateProfessionPolicy
     public function view(User $user, CandidateProfession $candidateProfession)
     {
         // If there are no questions.
-        if ($candidateProfession->profession->questions->count() === 0) {
+        if ($candidateProfession->profession->exam->questions->count() === 0) {
             return false;
         }
         
