@@ -13,6 +13,7 @@ use App\Http\Controllers\Admins\QuestionController as AdminQuestionController;
 use App\Http\Controllers\Admins\CandidateController as AdminCandidateController;
 use App\Http\Controllers\Admins\ProfessionController as AdminProfessionController;
 use App\Http\Controllers\Admins\CandidateProfessionController as AdminCandidateProfessionController;
+use App\Http\Controllers\Admins\ExamController as AdminExamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -78,6 +79,8 @@ Route::group([
     Route::post('locations/{location}/enable', [AdminLocationController::class, 'enable'])->name('locations.enable');
     Route::post('locations/{location}/disable', [AdminLocationController::class, 'disable'])->name('locations.disable');
     Route::resource('locations', AdminLocationController::class)->except(['show', 'destroy']);
+
+    Route::resource('exams', AdminExamController::class)->only(['index']);
 });
 
 // This routes does not require authentication.
