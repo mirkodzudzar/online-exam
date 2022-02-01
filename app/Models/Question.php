@@ -22,6 +22,11 @@ class Question extends Model
         return $this->belongsTo(Profession::class);
     }
 
+    public function exam()
+    {
+        return $this->belongsTo(Exam::class);
+    }
+
     public static function boot()
     {
         static::addGlobalScope(new NewestScope);

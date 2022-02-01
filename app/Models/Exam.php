@@ -17,6 +17,11 @@ class Exam extends Model
         return $this->hasMany(Profession::class);
     }
 
+    public function questions()
+    {
+        return $this->hasMany(Question::class);
+    }
+
     public static function boot()
     {
         static::addGlobalScope(new NewestScope);
