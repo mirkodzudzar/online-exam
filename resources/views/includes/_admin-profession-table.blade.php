@@ -5,7 +5,9 @@
         <th scope="col">Id</th>
         <th scope="col">Title</th>
         <th scope="col">Candidates</th>
-        <th scope="col">Exam</th>
+        @if (!Route::is('admins.exams.professions'))
+          <th scope="col">Exam</th>
+        @endif
         <th scope="col">Locations</th>
         <th scope="col">Open date</th>
         <th scope="col">Close date</th>
@@ -35,7 +37,9 @@
             @endif
           </td>
           <td>{{ $profession->candidates_count }}</td>
-          <td><a href="{{ route('admins.exams.professions', ['exam' => $profession->exam->id]) }}">{{ $profession->exam->title }}</a></td>
+          @if (!Route::is('admins.exams.professions'))
+            <td><a href="{{ route('admins.exams.professions', ['exam' => $profession->exam->id]) }}">{{ $profession->exam->title }}</a></td>
+          @endif
           <td>
             <x-location :locations="$profession->locations"></x-location>
           </td>
