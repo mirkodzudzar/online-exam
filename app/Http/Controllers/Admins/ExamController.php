@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admins;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreExam;
 use App\Models\Exam;
-use Illuminate\Http\Request;
 
 class ExamController extends Controller
 {
@@ -50,25 +49,16 @@ class ExamController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Exam $exam)
     {
-        //
+        return view('admins.exams.edit', [
+            'exam' => $exam,
+        ]);
     }
 
     /**
@@ -78,19 +68,13 @@ class ExamController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreExam $request, Exam $exam)
     {
-        //
-    }
+        $validated = $request->validated();
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $exam->update($validated);
+
+        return redirect()->route('admins.exams.index')
+                         ->withStatus("Exam {$exam->title} has been updated successfully.");
     }
 }

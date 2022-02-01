@@ -14,6 +14,7 @@
       <th scope="col">Description</th>
       <th scope="col">Professions</th>
       <th scope="col">Questions</th>
+      <th scope="col">Options</th>
     </tr>
   </thead>
   <tbody>
@@ -24,6 +25,9 @@
         <td>{{ Str::limit($exam->description, 50) }}</td>
         <td>{{ $exam->professions_count }}</td>
         <td></td>
+        <td>
+          @include('includes._admin-exam-options')
+        </td>
       </tr>
     @endforeach
   </tbody>
