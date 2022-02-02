@@ -36,12 +36,6 @@ class AddExamIdToQuestionsTable extends Migration
         Schema::table('questions', function (Blueprint $table) {
             $table->dropForeign(['exam_id']);
             $table->dropColumn('exam_id');
-
-            $table->unsignedBigInteger('profession_id');
-            $table->foreign('profession_id')
-                  ->references('id')
-                  ->on('professions')
-                  ->onDelete('cascade');
         });
     }
 }
