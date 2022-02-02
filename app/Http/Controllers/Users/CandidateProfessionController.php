@@ -6,10 +6,9 @@ use App\Models\Candidate;
 use App\Models\Profession;
 use Illuminate\Http\Request;
 use App\Events\ProfessionApplied;
-use App\Events\ProfessionFinished;
 use App\Models\CandidateProfession;
 use App\Http\Controllers\Controller;
-use App\Events\CandidateProfessionUpdate;
+use App\Events\CandidateProfessionUpdated;
 
 class CandidateProfessionController extends Controller
 {
@@ -66,11 +65,10 @@ class CandidateProfessionController extends Controller
 
         $this->authorize($candidate_profession);
 
-        // Calculate how many answers candidate has provided
-        event(new CandidateProfessionUpdate($candidate_profession));
-
-        // Notify candidate that he has finished the exam
-        event(new ProfessionFinished($candidate_profession));
+        // Calculate how many answers candidate has provided and
+        // notify candidate that he has finished the exam.
+        // TWO listeners will be triggered.
+        event(new CandidateProfessionUpdated($candidate_profession));
 
         return redirect()->route('users.candidates.professions.show', [
             'candidate' => $candidate->id,

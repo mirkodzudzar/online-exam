@@ -7,7 +7,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 
-class CandidateProfessionUpdate
+class CandidateProfessionUpdated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 

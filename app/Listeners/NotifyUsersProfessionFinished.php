@@ -3,7 +3,7 @@
 namespace App\Listeners;
 
 use App\Jobs\ThrottledMail;
-use App\Events\ProfessionFinished;
+use App\Events\CandidateProfessionUpdated;
 use App\Mail\ProfessionFinishedWithResult;
 use App\Jobs\NotifyAdminsProfessionFinishedWithResult;
 
@@ -26,7 +26,7 @@ class NotifyUsersProfessionFinished
      * @param  object  $event
      * @return void
      */
-    public function handle(ProfessionFinished $event)
+    public function handle(CandidateProfessionUpdated $event)
     {
         // Mail will be sent to a user that has finished the profession questions.
         ThrottledMail::dispatch(

@@ -2,7 +2,8 @@
 
 namespace App\Listeners;
 
-use App\Events\CandidateProfessionUpdate;
+use App\Models\CandidateQuestion;
+use App\Events\CandidateProfessionUpdated;
 
 class EvaluateStatusOfCandidateProfession
 {
@@ -12,7 +13,7 @@ class EvaluateStatusOfCandidateProfession
      * @param  object  $event
      * @return void
      */
-    public function handle(CandidateProfessionUpdate $event)
+    public function handle(CandidateProfessionUpdated $event)
     {
         $candidate_profession = $event->candidate_profession;
         $total = count($candidate_profession->profession->exam->questions);
@@ -32,6 +33,12 @@ class EvaluateStatusOfCandidateProfession
                 } else {
                     $wrong[] = $answer;
                 }
+
+                CandidateQuestion::create([
+                    'candidate_id' => $candidate_profession->candidate->id,
+                    'question_id' => $question->id,
+                    'candidate_answer' => $answer,
+                ]);
             }
         }
 
