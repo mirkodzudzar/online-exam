@@ -16,7 +16,7 @@ class QuestionFactory extends Factory
         $possible_answers = ['answer_a', 'answer_b', 'answer_c', 'answer_d'];
 
         return [
-            'question' => $this->faker->realText() . '?',
+            'text' => $this->faker->realText() . '?',
             'answer_a' => $this->faker->catchPhrase(),
             'answer_b' => $this->faker->catchPhrase(),
             'answer_c' => $this->faker->catchPhrase(),

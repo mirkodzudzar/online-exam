@@ -10,7 +10,7 @@
             @if ($question->trashed())
               <del>
             @endif
-            <p class="{{ $question->trashed() ? 'text-muted' : '' }}"><b>{{ $question->id }}. {{ $question->question }}</b></p>
+            <p class="{{ $question->trashed() ? 'text-muted' : '' }}"><b>{{ $question->id }}. {{ $question->text }}</b></p>
             @if ($question->trashed())
               </del>
             @endif

@@ -20,7 +20,7 @@
             @if ($question->trashed())
               <del>
             @endif
-            <p class="{{ $question->trashed() ? 'text-muted' : '' }}">{{ Str::limit($question->question, 50) }}</p>
+            <p class="{{ $question->trashed() ? 'text-muted' : '' }}">{{ Str::limit($question->text, 50) }}</p>
             @if ($question->trashed())
               </del>
             @endif

@@ -7,7 +7,7 @@
   @method('PUT')
   @foreach ($profession->exam->questions as $question)
     <div class="card mb-3 p-2 bg-light">
-      <b>{{ $loop->iteration }}. {{ $question->question }}</b>
+      <b>{{ $loop->iteration }}. {{ $question->text }}</b>
       <div class="form-check">
         <input class="form-check-input" type="radio" name="answers[{{ $question->id }}]" id="answer_a_{{ $question->id }}" value="answer_a">
         <label class="form-check-label" for="answer_a_{{ $question->id }}">{{ $question->answer_a }}</label>
