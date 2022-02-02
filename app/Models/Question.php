@@ -27,6 +27,12 @@ class Question extends Model
         return $this->belongsTo(Exam::class);
     }
 
+    public function candidates()
+    {
+        return $this->belongsToMany(Candidate::class)
+                    ->withPivot(['candidate_asnwer']);
+    }
+
     public static function boot()
     {
         static::addGlobalScope(new NewestScope);

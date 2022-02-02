@@ -28,6 +28,12 @@ class Candidate extends Model
                     ->orderByPivot('created_at', 'desc');
     }
 
+    public function questions()
+    {
+        return $this->belongsToMany(Question::class)
+                    ->withPivot(['candidate_asnwer']);
+    }
+
     public function location()
     {
         return $this->morphToOne(Location::class, 'locationable');
