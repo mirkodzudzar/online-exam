@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Events\CandidateProfessionUpdate;
 use App\Events\ProfessionApplied;
 use App\Events\ProfessionFinished;
+use App\Listeners\EvaluateStatusOfCandidateProfession;
 use App\Listeners\NotifyUserProfessionApplied;
 use Illuminate\Auth\Events\Registered;
 use App\Listeners\NotifyUsersProfessionFinished;
@@ -28,7 +30,11 @@ class EventServiceProvider extends ServiceProvider
 
         ProfessionApplied::class => [
             NotifyUserProfessionApplied::class,
-        ]
+        ],
+
+        CandidateProfessionUpdate::class => [
+            EvaluateStatusOfCandidateProfession::class,
+        ],
     ];
 
     /**

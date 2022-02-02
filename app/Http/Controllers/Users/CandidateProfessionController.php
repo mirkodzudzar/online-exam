@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Users;
 
-use App\Events\ProfessionFinished;
 use App\Models\Candidate;
 use App\Models\Profession;
 use Illuminate\Http\Request;
 use App\Events\ProfessionApplied;
+use App\Events\ProfessionFinished;
 use App\Models\CandidateProfession;
 use App\Http\Controllers\Controller;
+use App\Events\CandidateProfessionUpdate;
 
 class CandidateProfessionController extends Controller
 {
@@ -65,45 +66,10 @@ class CandidateProfessionController extends Controller
 
         $this->authorize($candidate_profession);
 
-        $total = count($profession->exam->questions);
-        $attempted = [];
-        $correct = [];
-        $wrong = [];
+        // Calculate how many answers candidate has provided
+        event(new CandidateProfessionUpdate($candidate_profession));
 
-        foreach ($profession->exam->questions as $question) {
-            if (isset($request->input("answers")[$question->id])) {
-                $answer = $request->input("answers")[$question->id];
-                // Counting how many answers user provided.
-                $attempted[] = $answer;
-                // Is the answer correct?
-                if ($answer === $question->answer_correct) {
-                    $correct[] = $answer;
-                // Or is it wrong?
-                } else {
-                    $wrong[] = $answer;
-                }
-            }
-        }
-
-        $attempted = count($attempted);
-        $correct = count($correct);
-        $wrong = count($wrong);
-
-        $candidate_profession->total = $total;
-        $candidate_profession->attempted = $attempted;
-        $candidate_profession->correct = $correct;
-        $candidate_profession->wrong = $wrong;
-
-        // Failed if we did not answered correctly at least half of the total number of questions.
-        if ($total / 2 > $correct) {
-            $candidate_profession->status = "failed";
-        // Passed
-        } else {
-            $candidate_profession->status = "passed";
-        }
-
-        $candidate_profession->save();
-
+        // Notify candidate that he has finished the exam
         event(new ProfessionFinished($candidate_profession));
 
         return redirect()->route('users.candidates.professions.show', [
