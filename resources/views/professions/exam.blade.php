@@ -7,11 +7,9 @@
     <a href="{{ route('professions.show', ['profession' => $profession->id]) }}">{{ $profession->title }}</a>
   </h1>
   <div class="mb-5">
-    <p>
-      <x-badge :value="$profession->open_date" type="dark"></x-badge>
-      <b> - </b>
-      <x-badge :value="$profession->close_date" type="danger"></x-badge>
-    </p>
+
+    <x-date-range :profession="$profession"></x-date-range>
+    
     <div class="card mb-3 p-2">
       <h3>{{ $profession->exam->title }}</h3>
       <p>{{ $profession->exam->description }}</p>

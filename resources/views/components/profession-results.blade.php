@@ -13,9 +13,9 @@
       @if ($value->trashed())
         </del>
       @endif
-      <x-badge :value="$value->profession->open_date" type="dark"></x-badge>
-      <b> - </b>
-      <x-badge :value="$value->profession->close_date" type="danger"></x-badge>
+      
+      <x-date-range :profession="$value->profession"></x-date-range>
+
       <x-expired-badge :profession="$value->profession"></x-expired-badge>
     </p>
   </div>

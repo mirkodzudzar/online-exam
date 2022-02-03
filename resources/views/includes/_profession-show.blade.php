@@ -19,11 +19,7 @@
 
 <x-location :locations="$profession->locations" :icon="true"></x-location>
 
-<p>
-  <x-badge :value="$profession->open_date" type="dark"></x-badge>
-  <b> - </b>
-  <x-badge :value="$profession->close_date" type="danger"></x-badge>
-</p>
+<x-date-range :profession="$profession"></x-date-range>
 
 @if (Route::is('professions.show'))
   <p><i class="text-muted">Number of users currently visiting this profession: </i>{{ $counter }}</p>
