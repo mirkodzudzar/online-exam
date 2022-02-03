@@ -4,10 +4,10 @@
       @if ($value->trashed())
         <del>
       @endif
-      @if (Route::is('admins.candidates.show'))
-        <a href="{{ route('admins.professions.show', ['profession' => $value->profession->id]) }}">{{ $value->profession->title }}</a>
+      @if (Route::is('users.candidates.professions.show'))
+        Your
       @else
-        <a href="{{ route('professions.show', ['profession' => $value->profession->id]) }}">{{ $value->profession->title }}</a>
+        <a href="{{ route('admins.candidates.show', ['candidate' => $value->candidate->id]) }}">{{ $value->candidate->user->email }}</a>
       @endif
       result, attempted {{ $value->updated_at->diffForHumans() }}.
       @if ($value->trashed())
