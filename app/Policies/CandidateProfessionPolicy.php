@@ -2,7 +2,6 @@
 
 namespace App\Policies;
 
-use Carbon\Carbon;
 use App\Models\User;
 use App\Models\CandidateProfession;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -17,9 +16,13 @@ class CandidateProfessionPolicy
      * @param  \App\Models\User  $user
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function viewAny(User $user)
+    public function viewAny(User $user, CandidateProfession $candidateProfession)
     {
-        //
+        if (is_null($user->candidate)) {
+            return false;
+        }
+
+        return $user->candidate->id === $candidateProfession->candidate->id;
     }
 
     /**
@@ -126,14 +129,5 @@ class CandidateProfessionPolicy
     public function forceDelete(User $user, CandidateProfession $candidateProfession)
     {
         //
-    }
-
-    public function results(User $user, CandidateProfession $candidateProfession)
-    {
-        if (is_null($user->candidate)) {
-            return false;
-        }
-
-        return $user->candidate->id === $candidateProfession->candidate->id;
     }
 }

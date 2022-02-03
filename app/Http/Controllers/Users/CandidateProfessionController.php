@@ -23,9 +23,17 @@ class CandidateProfessionController extends Controller
         // $professions = Profession::whereHas('candidates', function(Builder $builder) use ($candidate) {
         //     $builder->whereIn('candidate_id', [$candidate->id]);
         // })->withoutGlobalScope(WithoutExpiredProfessionsUserScope::class)->get();
+        $candidate_professions = CandidateProfession::where('candidate_id', $candidate->id)
+                                                    ->with('profession') // eager loading
+                                                    ->orderBy('status')
+                                                    ->paginate(10);
+
+        foreach ($candidate_professions as $candidate_profession) {
+            $this->authorize($candidate_profession);
+        }
 
         return view('users.candidates.professions.index', [
-            'professions' => $candidate->professions()->paginate(10),
+            'candidate_professions' => $candidate_professions,
         ]);
     }
 
@@ -105,21 +113,5 @@ class CandidateProfessionController extends Controller
         return redirect()->route('professions.show', [
             'profession' => $profession->id,
         ])->withStatus("You have successfully unapplied '{$profession->title}' profession.");
-    }
-
-    public function results(Candidate $candidate)
-    {
-        $candidate_professions = CandidateProfession::where('candidate_id', $candidate->id)
-                                                    ->where('status', '!=', 'unapplied') // without unapplied
-                                                    ->with('profession') // eager loading
-                                                    ->get();
-
-        foreach ($candidate_professions as $candidate_profession) {
-            $this->authorize($candidate_profession);
-        }
-
-        return view('users.candidates.professions.results', [
-            'candidate_professions' => $candidate_professions,
-        ]);
     }
 }
