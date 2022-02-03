@@ -13,8 +13,11 @@
       @if ($value->trashed())
         </del>
       @endif
+      <x-badge :value="$value->profession->open_date" type="dark"></x-badge>
+      <b> - </b>
+      <x-badge :value="$value->profession->close_date" type="danger"></x-badge>
+      <x-expired-badge :profession="$value->profession"></x-expired-badge>
     </p>
-    <x-expired-badge :profession="$value->profession"></x-expired-badge>
   </div>
   <div class="card-body">
     <table class="table table-responsive table-hover table-striped w-100 d-block d-md-table">
