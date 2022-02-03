@@ -22,12 +22,12 @@
 <x-date-range :profession="$profession"></x-date-range>
 
 @if (Route::is('professions.show'))
-  <p><i class="text-muted">Number of users currently visiting this profession: </i>{{ $counter }}</p>
+  <p class="mt-2"><i class="text-muted">Number of users currently visiting this profession: </i>{{ $counter }}</p>
 @endif
 
 @auth
   @if (Auth::user()->is_admin)
-    <div class="mb-3">
+    <div class="mb-3 mt-3">
       @include('includes._admin-profession-options')
     </div>
   @endif
