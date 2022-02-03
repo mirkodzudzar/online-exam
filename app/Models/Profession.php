@@ -7,7 +7,6 @@ use App\Scopes\NewestScope;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
-use App\Scopes\WithoutExpiredProfessionsUserScope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
@@ -35,7 +34,7 @@ class Profession extends Model
     public function candidates()
     {
         return $this->belongsToMany(Candidate::class)
-                    ->withPivot(['total', 'attempted', 'correct', 'wrong', 'status']);
+                    ->withPivot(['total', 'attempted', 'correct', 'wrong', 'status', 'created_at', 'updated_at']);
     }
 
     public function questions()
