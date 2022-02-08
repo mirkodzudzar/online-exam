@@ -35,16 +35,22 @@ class ExamPolicy
             return false;
         }
 
-        $user_professions = $user->candidate->professions;
-        foreach ($user_professions as $user_profession) {
-            if ($exam->professions->contains($user_profession->id)) {
-                // If status is passed or failed or unapplied, we can not do anything with this profession (only see the results).
-                if ($user_profession->pivot->status === 'applied') {
-                    return true;
-                }
+        // Go through each of candidate exams to see if cadidate already finished the exam.
+        $candidate_exams = $user->candidate->exams;
+        foreach ($candidate_exams as $candidate_exam) {
+            if ($candidate_exam->id === $exam->id) {
+                return false;
             }
         }
-        
+
+        // Another check is to confirm that status of candidate profession is 'applied'.
+        $candidate_professions = $user->candidate->professions;
+        foreach ($candidate_professions as $candidate_profession) {
+            if ($candidate_profession->exam->id === $exam->id && $candidate_profession->pivot->status === 'applied') {
+                return true;
+            }
+        }
+
         return false;
     }
 
@@ -67,42 +73,6 @@ class ExamPolicy
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function update(User $user, Exam $exam)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Exam  $exam
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function delete(User $user, Exam $exam)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Exam  $exam
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function restore(User $user, Exam $exam)
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\Exam  $exam
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function forceDelete(User $user, Exam $exam)
     {
         //
     }

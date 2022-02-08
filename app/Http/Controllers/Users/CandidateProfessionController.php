@@ -58,8 +58,8 @@ class CandidateProfessionController extends Controller
         // TWO listeners will be triggered.
         event(new CandidateProfessionUpdated($candidate_profession));
 
-        return redirect()->route('users.candidates.professions.show', [
-            'candidate' => $candidate->id,
+        return redirect()->route('professions.show', [
+            // 'candidate' => $candidate->id,
             'profession' => $profession->id,
         ])->withStatus('You have finished process of applying for this job. Check your results.');
     }

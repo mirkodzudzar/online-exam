@@ -30,15 +30,15 @@ class ExamController extends Controller
 
     public function results(Candidate $candidate, Profession $profession, Exam $exam)
     {
-        // $this->authorize($exam);
-
         $candidate_profession = CandidateProfession::where('candidate_id', $candidate->id)
                                                    ->where('profession_id', $profession->id)
                                                    ->first();
         $candidate_exam = CandidateExam::where('candidate_id', $candidate->id)
                                        ->where('exam_id', $exam->id)
                                        ->first();
-        
+         
+        $this->authorize($candidate_exam);
+     
         return view('users.candidates.professions.exams.results', [
             'candidate' => $candidate,
             'profession' => $profession,
