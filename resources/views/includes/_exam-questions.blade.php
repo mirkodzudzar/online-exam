@@ -1,6 +1,6 @@
 <h5>To finish application for this profession, please answer correctly on questions below:</h5>
 <form class="d-inline" action="{{ route('users.candidates.professions.update', [
-  'candidate' => $user->candidate->id,
+  'candidate' => $candidate->id,
   'profession' => $profession->id,
 ]) }}" method="POST">
   @csrf

@@ -45,7 +45,7 @@ Route::group([
 
     Route::delete('/candidates/{candidate}/document/destroy', [DocumentController::class, 'destroy'])->name('candidates.documents.destroy');
 
-    Route::get('{user}/professions/{profession}/exams/{exam}', [ExamController::class, 'show'])->name('professions.exams.show');
+    Route::get('candidates/{candidate}/professions/{profession}/exams/{exam}', [ExamController::class, 'show'])->name('candidates.professions.exams.show');
 });
 
 Route::group([

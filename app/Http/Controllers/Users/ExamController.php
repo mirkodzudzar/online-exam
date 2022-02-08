@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Users;
 
 use App\Models\Exam;
-use App\Models\User;
 use App\Models\Profession;
 use App\Http\Controllers\Controller;
+use App\Models\Candidate;
 
 class ExamController extends Controller
 {
@@ -15,21 +15,14 @@ class ExamController extends Controller
      * @param  \App\Models\Exam  $exam
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user, Profession $profession, Exam $exam)
+    public function show(Candidate $candidate, Profession $profession, Exam $exam)
     {
         $this->authorize($exam);
-
-        // if(Auth::check() && Auth::user()->candidate) {
-        //     $candidate_profession = CandidateProfession::where('candidate_id', Auth::user()->candidate->id)
-        //                                                ->where('profession_id', $profession->id)
-        //                                                ->first();
-        // }
         
-        return view('users.professions.exams.show', [
-            'user' => $user,
+        return view('users.candidates.professions.exams.show', [
+            'candidate' => $candidate,
             'profession' => $profession,
             'exam' => $exam,
-            // 'candidate_profession' => $candidate_profession,
         ]);
     }
 }
