@@ -4,7 +4,7 @@
       @if ($value->trashed())
         <del>
       @endif
-      @if (Route::is('users.candidates.professions.show'))
+      @if (Route::is('users.candidates.professions.exams.results'))
         Your
       @else
         <a href="{{ route('admins.candidates.show', ['candidate' => $value->candidate->id]) }}">{{ $value->candidate->user->email }}</a>
@@ -31,17 +31,17 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{ $value->total }}</td>
-          <td>{{ $value->attempted }}</td>
-          <td>{{ $value->correct }}</td>
-          <td>{{ $value->wrong }}</td>
+          <td>{{ $result->total }}</td>
+          <td>{{ $result->attempted }}</td>
+          <td>{{ $result->correct }}</td>
+          <td>{{ $result->wrong }}</td>
         </tr>
       </tbody>
       <tfoot>
         <tr>
           <td colspan="2"></td>
           <td>Percentage</td>
-          <td>{{ $value->percentage }} %</td>
+          <td>{{ $result->percentage }} %</td>
         </tr>
         <tr>
           <td colspan="2"></td>

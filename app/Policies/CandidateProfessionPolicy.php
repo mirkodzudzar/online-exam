@@ -34,27 +34,7 @@ class CandidateProfessionPolicy
      */
     public function view(User $user, CandidateProfession $candidateProfession)
     {
-        // If there are no questions.
-        if ($candidateProfession->profession->exam->questions->count() === 0) {
-            return false;
-        }
-        
-        // Only if status is present, we can visit questions or results.
-        if (!isset($candidateProfession->status)) {
-            return false;
-        }
-
-        // If profession is expired - close_date is older than current date/time,
-        // or if status is just applied then we can not visit the page.
-        if ($candidateProfession->profession->isExpired() && $candidateProfession->status === 'applied') {
-            return false;
-        }
-
-        if ($candidateProfession->status === 'unapplied') {
-            return false;
-        }
-
-        return true;
+        //
     }
 
     /**

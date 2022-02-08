@@ -38,26 +38,6 @@ class CandidateProfessionController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Candidate $candidate, Profession $profession)
-    {
-        $candidate_profession = CandidateProfession::where('candidate_id', $candidate->id)
-                                                   ->where('profession_id', $profession->id)
-                                                   ->first();
-
-        $this->authorize($candidate_profession);
-
-        return view('users.candidates.professions.show', [
-            'profession' => $profession,
-            'candidate_profession' => $candidate_profession,
-        ]);
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request

@@ -54,11 +54,13 @@
 
 @auth
   @if (!Auth::user()->is_admin)
-    @can('view', $candidate_profession)
-      @if ($candidate_profession->status === 'passed' || $candidate_profession->status === 'failed')
-        <a href="{{ route('users.candidates.professions.show', ['candidate' => Auth::user()->candidate->id, 'profession' => $profession->id]) }}" class="btn btn-outline-info">Result</a>
-      @endif
-    @endcan
+    @if ($candidate_profession->status === 'passed' || $candidate_profession->status === 'failed')
+      <a href="{{ route('users.candidates.professions.exams.results', [
+        'candidate' => Auth::user()->candidate->id, 
+        'profession' => $profession->id,
+        'exam' => $profession->exam->id
+        ]) }}" class="btn btn-outline-info">Result</a>
+    @endif
     @if (isset($candidate_profession->status) && $candidate_profession->status === 'unapplied')
       <x-badge value="You have already unapplied from this profession, {{ $candidate_profession->updated_at->diffForHumans() }}" type="danger"></x-badge>
     @endif

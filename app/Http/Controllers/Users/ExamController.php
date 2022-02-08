@@ -6,6 +6,8 @@ use App\Models\Exam;
 use App\Models\Profession;
 use App\Http\Controllers\Controller;
 use App\Models\Candidate;
+use App\Models\CandidateExam;
+use App\Models\CandidateProfession;
 
 class ExamController extends Controller
 {
@@ -23,6 +25,26 @@ class ExamController extends Controller
             'candidate' => $candidate,
             'profession' => $profession,
             'exam' => $exam,
+        ]);
+    }
+
+    public function results(Candidate $candidate, Profession $profession, Exam $exam)
+    {
+        // $this->authorize($exam);
+
+        $candidate_profession = CandidateProfession::where('candidate_id', $candidate->id)
+                                                   ->where('profession_id', $profession->id)
+                                                   ->first();
+        $candidate_exam = CandidateExam::where('candidate_id', $candidate->id)
+                                       ->where('exam_id', $exam->id)
+                                       ->first();
+        
+        return view('users.candidates.professions.exams.results', [
+            'candidate' => $candidate,
+            'profession' => $profession,
+            'exam' => $exam,
+            'candidate_profession' => $candidate_profession,
+            'candidate_exam' => $candidate_exam,
         ]);
     }
 }

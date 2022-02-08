@@ -11,9 +11,10 @@ Visit profession
 @component('mail::panel')
 You could now complete the exam for this profession to have a better chance of success.
 Please visit the profession exam and try to give the best answers to the questions. Good luck!
-@component('mail::button', ['url' => route('users.candidates.professions.show', [
+@component('mail::button', ['url' => route('users.candidates.professions.exams.results', [
   'candidate' => $candidate->id,
   'profession' => $profession->id,
+  'exam' => $profession->exam->id,
 ])])
 Exam
 @endcomponent
