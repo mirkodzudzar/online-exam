@@ -42,7 +42,6 @@ class AppServiceProvider extends ServiceProvider
         view()->composer(['layouts.admin'], CountComposer::class);
         
         // Registering new Observer for Profession model class
-        CandidateProfession::observe(CandidateProfessionObserver::class);
         Location::observe(LocationObserver::class);
         Profession::observe(ProfessionObserver::class);
         Question::observe(QuestionObserver::class);
