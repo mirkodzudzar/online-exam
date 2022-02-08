@@ -30,7 +30,7 @@ class Question extends Model
     public function candidates()
     {
         return $this->belongsToMany(Candidate::class)
-                    ->withPivot(['candidate_asnwer']);
+                    ->withPivot(['candidate_answer']);
     }
 
     public static function boot()
