@@ -24,7 +24,7 @@ class Candidate extends Model
     public function professions()
     {
         return $this->belongsToMany(Profession::class)
-                    ->withPivot(['total', 'attempted', 'correct', 'wrong', 'status', 'created_at', 'updated_at'])
+                    ->withPivot(['status', 'created_at', 'updated_at'])
                     ->orderByPivot('created_at', 'desc');
     }
 
@@ -32,6 +32,12 @@ class Candidate extends Model
     {
         return $this->belongsToMany(Question::class)
                     ->withPivot(['candidate_answer']);
+    }
+
+    public function exams()
+    {
+        return $this->belongsToMany(Exam::class)
+                    ->withPivot(['total', 'attempted', 'correct', 'wrong', 'created_at', 'updated_at']);
     }
 
     public function location()

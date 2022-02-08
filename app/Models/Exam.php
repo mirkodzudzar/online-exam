@@ -22,6 +22,12 @@ class Exam extends Model
         return $this->hasMany(Question::class);
     }
 
+    public function candidates()
+    {
+        return $this->belongsToMany(Candidate::class)
+                    ->withPivot(['total', 'attempted', 'correct', 'wrong', 'created_at', 'updated_at']);
+    }
+
     public static function boot()
     {
         static::addGlobalScope(new NewestScope);

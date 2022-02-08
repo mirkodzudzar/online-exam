@@ -34,7 +34,7 @@ class Profession extends Model
     public function candidates()
     {
         return $this->belongsToMany(Candidate::class)
-                    ->withPivot(['total', 'attempted', 'correct', 'wrong', 'status', 'created_at', 'updated_at']);
+                    ->withPivot(['status', 'created_at', 'updated_at']);
     }
 
     public function questions()
