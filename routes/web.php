@@ -4,15 +4,16 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\ProfessionController;
+use App\Http\Controllers\Users\ExamController;
 use App\Http\Controllers\Users\DocumentController;
 use App\Http\Controllers\Users\CandidateController;
 use App\Http\Controllers\Users\CandidateProfessionController;
+use App\Http\Controllers\Admins\ExamController as AdminExamController;
 use App\Http\Controllers\Admins\UserController as AdminUserController;
 use App\Http\Controllers\Admins\LocationController as AdminLocationController;
 use App\Http\Controllers\Admins\QuestionController as AdminQuestionController;
 use App\Http\Controllers\Admins\CandidateController as AdminCandidateController;
 use App\Http\Controllers\Admins\ProfessionController as AdminProfessionController;
-use App\Http\Controllers\Admins\ExamController as AdminExamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,8 @@ Route::group([
     Route::resource('candidates', CandidateController::class)->only(['show', 'edit', 'update']);
 
     Route::delete('/candidates/{candidate}/document/destroy', [DocumentController::class, 'destroy'])->name('candidates.documents.destroy');
+
+    Route::get('{user}/professions/{profession}/exams/{exam}', [ExamController::class, 'show'])->name('professions.exams.show');
 });
 
 Route::group([
@@ -83,7 +86,6 @@ Route::group([
 
 // This routes does not require authentication.
 Route::get('/', [ProfessionController::class, 'index'])->name('professions.index'); // Home page
-Route::get('professions/{profession}/exam', [ProfessionController::class, 'exam'])->name('professions.exam');
 Route::resource('professions', ProfessionController::class)->only(['show']);
 
 Route::resource('locations', LocationController::class)->only(['index', 'show']);

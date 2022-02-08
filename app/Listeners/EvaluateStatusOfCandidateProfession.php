@@ -4,6 +4,8 @@ namespace App\Listeners;
 
 use App\Models\CandidateQuestion;
 use App\Events\CandidateProfessionUpdated;
+use App\Models\Candidate;
+use App\Models\CandidateExam;
 
 class EvaluateStatusOfCandidateProfession
 {
@@ -58,10 +60,14 @@ class EvaluateStatusOfCandidateProfession
         $correct = count($correct);
         $wrong = count($wrong);
 
-        $candidate_profession->total = $total;
-        $candidate_profession->attempted = $attempted;
-        $candidate_profession->correct = $correct;
-        $candidate_profession->wrong = $wrong;
+        CandidateExam::create([
+            'candidate_id' => $candidate_profession->candidate->id,
+            'exam_id' => $candidate_profession->profession->exam->id,
+            'total' => $total,
+            'attempted' => $attempted,
+            'correct' => $correct,
+            'wrong' => $wrong,
+        ]);
 
         // Failed if we did not answered correctly at least half of the total number of questions.
         if ($total / 2 > $correct) {

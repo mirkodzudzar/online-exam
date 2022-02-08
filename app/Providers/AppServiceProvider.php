@@ -2,20 +2,22 @@
 
 namespace App\Providers;
 
+use App\Models\User;
+use App\Models\Location;
 use App\Models\Question;
+use App\Services\Counter;
 use App\Models\Profession;
+use App\Models\CandidateExam;
+use App\Observers\UserObserver;
+use App\Models\CandidateProfession;
+use App\Observers\LocationObserver;
 use App\Observers\QuestionObserver;
 use Illuminate\Pagination\Paginator;
 use App\Observers\ProfessionObserver;
 use Illuminate\Support\ServiceProvider;
+use App\Observers\CandidateExamObserver;
 use App\Http\ViewComposers\CountComposer;
-use App\Models\CandidateProfession;
-use App\Models\Location;
-use App\Models\User;
 use App\Observers\CandidateProfessionObserver;
-use App\Observers\LocationObserver;
-use App\Observers\UserObserver;
-use App\Services\Counter;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -45,6 +47,7 @@ class AppServiceProvider extends ServiceProvider
         Profession::observe(ProfessionObserver::class);
         Question::observe(QuestionObserver::class);
         User::observe(UserObserver::class);
+        CandidateExam::observe(CandidateExamObserver::class);
 
         // Include bootstrap for paginator styling.
         Paginator::useBootstrap();

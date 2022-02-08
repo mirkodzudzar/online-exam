@@ -1,11 +1,11 @@
 <h5>To finish application for this profession, please answer correctly on questions below:</h5>
 <form class="d-inline" action="{{ route('users.candidates.professions.update', [
-  'candidate' => Auth::user()->candidate->id,
+  'candidate' => $user->candidate->id,
   'profession' => $profession->id,
 ]) }}" method="POST">
   @csrf
   @method('PUT')
-  @foreach ($profession->exam->questions as $question)
+  @foreach ($exam->questions as $question)
     <div class="card mb-3 p-2 bg-light">
       <b>{{ $loop->iteration }}. {{ $question->text }}</b>
       <div class="form-check">

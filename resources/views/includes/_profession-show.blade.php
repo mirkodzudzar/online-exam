@@ -36,8 +36,11 @@
 @can('unapply', $profession)
   @can('view', $candidate_profession)
     @if ($candidate_profession->status === 'applied')
-      <a href="{{ route('professions.exam', ['profession' => $profession->id]) }}" class="btn btn-outline-info">Exam</a>
-      {{--  <a href="{{ route('users.candidates.professions.show', ['candidate' => Auth::user()->candidate->id, 'profession' => $profession->id]) }}" class="btn btn-outline-info">Exam</a>  --}}
+      <a href="{{ route('users.professions.exams.show', [
+        'user' => Auth::user()->id,
+        'profession' => $profession->id, 
+        'exam' => $profession->exam->id
+        ]) }}" class="btn btn-outline-info">Exam</a>
     @endif
   @endcan
   @include('includes._unapply-button')

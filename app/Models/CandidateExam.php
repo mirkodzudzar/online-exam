@@ -9,6 +9,18 @@ class CandidateExam extends Model
 {
     use HasFactory;
 
+    protected $table = 'candidate_exam';
+
+    protected $fillable = [
+        'candidate_id',
+        'exam_id',
+        'total',
+        'attempted',
+        'correct',
+        'wrong',
+        'percentage',
+    ];
+
     public function candidate()
     {
         return $this->belongsTo(Candidate::class);
