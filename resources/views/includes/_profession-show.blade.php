@@ -34,13 +34,15 @@
 @endauth
 
 @can('view', $profession->exam)
-  <a href="{{ route('users.candidates.professions.exams.show', [
-    'candidate' => Auth::user()->candidate->id,
-    'profession' => $profession->id, 
-    'exam' => $profession->exam->id
-    ]) }}" class="btn btn-outline-info">
-    Exam
-  </a>
+  @can('unapply', $profession)
+    <a href="{{ route('users.candidates.professions.exams.show', [
+      'candidate' => Auth::user()->candidate->id,
+      'profession' => $profession->id,
+      'exam' => $profession->exam->id
+      ]) }}" class="btn btn-outline-info">
+      Exam
+    </a>
+  @endcan
 @endcan
 
 @can('results', App\Models\CandidateExam::where('candidate_id', Auth::user()->candidate->id)->where('exam_id', $profession->exam->id)->first())

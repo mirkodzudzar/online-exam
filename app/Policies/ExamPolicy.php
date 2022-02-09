@@ -35,23 +35,12 @@ class ExamPolicy
             return false;
         }
 
-        // Go through each of candidate exams to see if cadidate already finished the exam.
-        $candidate_exams = $user->candidate->exams;
-        foreach ($candidate_exams as $candidate_exam) {
-            if ($candidate_exam->id === $exam->id) {
-                return false;
-            }
+        // Check if candidate already finished the exam.
+        if ($user->candidate->exams->contains($exam->id)) {
+           return false;
         }
 
-        // Another check is to confirm that status of candidate profession is 'applied'.
-        $candidate_professions = $user->candidate->professions;
-        foreach ($candidate_professions as $candidate_profession) {
-            if ($candidate_profession->exam->id === $exam->id && $candidate_profession->pivot->status === 'applied') {
-                return true;
-            }
-        }
-
-        return false;
+        return true;
     }
 
     /**

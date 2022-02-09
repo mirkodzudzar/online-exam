@@ -28,7 +28,10 @@ class ExamController extends Controller
      */
     public function show(Candidate $candidate, Profession $profession, Exam $exam)
     {
+        // If we can unapply some profession, profession exam is also available.
+        // TODO maybe there is some petter solution, but this does prevent to visit this page (same logic will be used inside blade)
         $this->authorize($exam);
+        $this->authorize('unapply', $profession);
         
         return view('users.candidates.professions.exams.show', [
             'candidate' => $candidate,
