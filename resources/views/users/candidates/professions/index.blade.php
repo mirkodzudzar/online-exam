@@ -1,6 +1,6 @@
 @extends('layouts.user')
 
-@section('title', 'Home page')
+@section('title', 'List of your professions')
 
 @section('page_title', 'List of your professions')
     

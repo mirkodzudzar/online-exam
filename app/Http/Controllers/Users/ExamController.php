@@ -11,6 +11,15 @@ use App\Models\CandidateProfession;
 
 class ExamController extends Controller
 {
+    public function index(Candidate $candidate)
+    {
+        $exams = $candidate->exams;
+
+        return view('users.candidates.professions.exams.index', [
+            'exams' => $exams,
+        ]);
+    }
+
     /**
      * Display the specified resource.
      *
