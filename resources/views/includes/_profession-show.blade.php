@@ -46,11 +46,13 @@
 @endcan
 
 @can('results', App\Models\CandidateExam::where('candidate_id', Auth::user()->candidate->id)->where('exam_id', $profession->exam->id)->first())
-  <a href="{{ route('users.candidates.professions.exams.results', [
-    'candidate' => Auth::user()->candidate->id,
-    'profession' => $profession->id,
-    'exam' => $profession->exam->id
-    ]) }}" class="btn btn-outline-info">Result</a>
+  @can('results', $candidate_profession)
+    <a href="{{ route('users.candidates.professions.exams.results', [
+      'candidate' => Auth::user()->candidate->id,
+      'profession' => $profession->id,
+      'exam' => $profession->exam->id
+      ]) }}" class="btn btn-outline-info">Result</a>
+  @endcan
 @endcan
 
 @can('unapply', $profession)
