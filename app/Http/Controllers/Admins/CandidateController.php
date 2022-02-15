@@ -45,7 +45,6 @@ class CandidateController extends Controller
     public function show(Candidate $candidate)
     {
         $candidate_professions = CandidateProfession::where('candidate_id', $candidate->id)
-                                                    ->where('status', '!=', 'unapplied')
                                                     ->with('profession')
                                                     ->get();
 

@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Admins;
 
 use App\Models\Location;
 use App\Models\Profession;
+use Illuminate\Http\Request;
+use App\Services\SearchResult;
+use App\Models\CandidateProfession;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProfession;
-use App\Services\SearchResult;
-use Illuminate\Http\Request;
 
 class ProfessionController extends Controller
 {
@@ -26,7 +27,7 @@ class ProfessionController extends Controller
         }
 
         $professions = $professions->withCount('candidates')
-                                   ->withCount('questions')
+                                   ->with('exam')
                                    ->with('locations')
                                    ->paginate(20);
 
@@ -82,14 +83,14 @@ class ProfessionController extends Controller
      */
     public function show(Profession $profession)
     {
-        // Maybe there is better solution, but this is done just to have less queries.
-        $profession = Profession::where('id', $profession->id)
-                                ->withCount('candidates')
-                                ->withCount('questions')
-                                ->first();
+        $candidate_professions = CandidateProfession::where('profession_id', $profession->id)
+                                                    ->with('candidate')
+                                                    ->with('profession')
+                                                    ->get();
 
         return view('admins.professions.show', [
             'profession' => $profession,
+            'candidate_professions' => $candidate_professions,
         ]);
     }
 

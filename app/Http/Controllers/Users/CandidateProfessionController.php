@@ -2,53 +2,16 @@
 
 namespace App\Http\Controllers\Users;
 
-use App\Events\ProfessionFinished;
 use App\Models\Candidate;
 use App\Models\Profession;
 use Illuminate\Http\Request;
 use App\Events\ProfessionApplied;
 use App\Models\CandidateProfession;
 use App\Http\Controllers\Controller;
+use App\Events\CandidateProfessionUpdated;
 
 class CandidateProfessionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Candidate $candidate)
-    {
-        // Example code
-        // $professions = Profession::whereHas('candidates', function(Builder $builder) use ($candidate) {
-        //     $builder->whereIn('candidate_id', [$candidate->id]);
-        // })->withoutGlobalScope(WithoutExpiredProfessionsUserScope::class)->get();
-
-        return view('users.candidates.professions.index', [
-            'professions' => $candidate->professions()->paginate(10),
-        ]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Candidate $candidate, Profession $profession)
-    {
-        $candidate_profession = CandidateProfession::where('candidate_id', $candidate->id)
-                                                   ->where('profession_id', $profession->id)
-                                                   ->first();
-
-        $this->authorize($candidate_profession);
-
-        return view('users.candidates.professions.show', [
-            'profession' => $profession,
-            'candidate_profession' => $candidate_profession,
-        ]);
-    }
-
     /**
      * Update the specified resource in storage.
      *
@@ -65,49 +28,13 @@ class CandidateProfessionController extends Controller
 
         $this->authorize($candidate_profession);
 
-        $total = count($profession->questions);
-        $attempted = [];
-        $correct = [];
-        $wrong = [];
+        // Calculate how many answers candidate has provided and
+        // notify candidate that he has finished the exam.
+        // TWO listeners will be triggered.
+        event(new CandidateProfessionUpdated($candidate_profession));
 
-        foreach ($profession->questions as $question) {
-            if (isset($request->input("answers")[$question->id])) {
-                $answer = $request->input("answers")[$question->id];
-                // Counting how many answers user provided.
-                $attempted[] = $answer;
-                // Is the answer correct?
-                if ($answer === $question->answer_correct) {
-                    $correct[] = $answer;
-                // Or is it wrong?
-                } else {
-                    $wrong[] = $answer;
-                }
-            }
-        }
-
-        $attempted = count($attempted);
-        $correct = count($correct);
-        $wrong = count($wrong);
-
-        $candidate_profession->total = $total;
-        $candidate_profession->attempted = $attempted;
-        $candidate_profession->correct = $correct;
-        $candidate_profession->wrong = $wrong;
-
-        // Failed if we did not answered correctly at least half of the total number of questions.
-        if ($total / 2 > $correct) {
-            $candidate_profession->status = "failed";
-        // Passed
-        } else {
-            $candidate_profession->status = "passed";
-        }
-
-        $candidate_profession->save();
-
-        event(new ProfessionFinished($candidate_profession));
-
-        return redirect()->route('users.candidates.professions.show', [
-            'candidate' => $candidate->id,
+        return redirect()->route('professions.show', [
+            // 'candidate' => $candidate->id,
             'profession' => $profession->id,
         ])->withStatus('You have finished process of applying for this job. Check your results.');
     }
@@ -141,21 +68,5 @@ class CandidateProfessionController extends Controller
         return redirect()->route('professions.show', [
             'profession' => $profession->id,
         ])->withStatus("You have successfully unapplied '{$profession->title}' profession.");
-    }
-
-    public function results(Candidate $candidate)
-    {
-        $candidate_professions = CandidateProfession::where('candidate_id', $candidate->id)
-                                                    ->where('status', '!=', 'unapplied') // without unapplied
-                                                    ->with('profession') // eager loading
-                                                    ->get();
-
-        foreach ($candidate_professions as $candidate_profession) {
-            $this->authorize($candidate_profession);
-        }
-
-        return view('users.candidates.professions.results', [
-            'candidate_professions' => $candidate_professions,
-        ]);
     }
 }

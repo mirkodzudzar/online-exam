@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Document;
 use App\Models\Location;
 use App\Models\Candidate;
+use App\Models\CandidateProfession;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UpdateCandidate;
@@ -103,5 +104,22 @@ class CandidateController extends Controller
         }
 
         return redirect()->back()->withStatus('You have updated your profile successfully.');
+    }
+
+    public function professions(Candidate $candidate)
+    {
+        $this->authorize($candidate);
+        // Example code
+        // $professions = Profession::whereHas('candidates', function(Builder $builder) use ($candidate) {
+        //     $builder->whereIn('candidate_id', [$candidate->id]);
+        // })->withoutGlobalScope(WithoutExpiredProfessionsUserScope::class)->get();
+        $candidate_professions = CandidateProfession::where('candidate_id', $candidate->id)
+                                                    ->with('profession') // eager loading
+                                                    ->orderBy('status')
+                                                    ->paginate(10);
+
+        return view('users.candidates.professions', [
+            'candidate_professions' => $candidate_professions,
+        ]);
     }
 }

@@ -4,7 +4,7 @@
       <tr>
         <th scope="col">Id</th>
         <th scope="col">Question</th>
-        <th scope="col">Profession</th>
+        <th scope="col">Exam</th>
         <th scope="col">Answer A</th>
         <th scope="col">Answer B</th>
         <th scope="col">Answer C</th>
@@ -20,13 +20,13 @@
             @if ($question->trashed())
               <del>
             @endif
-            <p class="{{ $question->trashed() ? 'text-muted' : '' }}">{{ Str::limit($question->question, 50) }}</p>
+            <p class="{{ $question->trashed() ? 'text-muted' : '' }}">{{ Str::limit($question->text, 50) }}</p>
             @if ($question->trashed())
               </del>
             @endif
           </td>
           <td>
-            <a href="{{ route('admins.professions.show', ['profession' => $question->profession]) }}" class="text-decoration-none">{{ $question->profession->title }}</a>
+            <a href="{{ route('admins.exams.questions', ['exam' => $question->exam ]) }}">{{ $question->exam->title }}</a>
           </td>
           <td class="{{ $question->answer_correct === 'answer_a' ? 'text-success' : '' }}">{{ $question->answer_a }}</td>
           <td class="{{ $question->answer_correct === 'answer_b' ? 'text-success' : '' }}">{{ $question->answer_b }}</td>

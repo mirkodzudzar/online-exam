@@ -6,9 +6,9 @@
     @foreach ($locations as $location)
       {{-- Only for admin routes, link will be to admin location candidates page --}}
       @if (Route::is('admins.*'))
-        <a href="{{ route('admins.locations.candidates', ['location' => $location->id]) }}" class="text-decoration-none">
+        <a href="{{ route('admins.locations.candidates', ['location' => $location->id]) }}">
       @else
-        <a href="{{ route('locations.show', ['location' => $location->id]) }}" class="text-decoration-none">
+        <a href="{{ route('locations.show', ['location' => $location->id]) }}">
       @endif
         {{ $location->name }}
       </a>

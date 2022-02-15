@@ -22,9 +22,10 @@ You have finished the exam for the profession '{{ $candidate_profession->profess
 
 Additionally, you can see the results for this profession on the website.
 
-@component('mail::button', ['url' => route('users.candidates.professions.show', [
+@component('mail::button', ['url' => route('users.candidates.professions.exams.results', [
   'candidate' => $candidate_profession->candidate->id,
   'profession' => $candidate_profession->profession->id,
+  'exam' => $candidate_profession->profession->exam->id,
 ])])
 Visit the result
 @endcomponent

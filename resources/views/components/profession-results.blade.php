@@ -4,19 +4,20 @@
       @if ($value->trashed())
         <del>
       @endif
-      @if (Route::is('admins.candidates.show'))
-        <a href="{{ route('admins.professions.show', ['profession' => $value->profession->id]) }}" class="text-decoration-none">{{ $value->profession->title }}</a>
-      @elseif (Route::is('admins.candidates.professions.results'))
-        <a href="{{ route('admins.candidates.show', ['candidate' => $value->candidate->id]) }}" class="text-decoration-none">{{ $value->candidate->user->email }}</a>
+      @if (Route::is('users.candidates.professions.exams.results'))
+        Your
       @else
-        <a href="{{ route('professions.show', ['profession' => $value->profession->id]) }}" class="text-decoration-none">{{ $value->profession->title }}</a>
+        <a href="{{ route('admins.candidates.show', ['candidate' => $value->candidate->id]) }}">{{ $value->candidate->user->email }}</a>
       @endif
       result, attempted {{ $value->updated_at->diffForHumans() }}.
       @if ($value->trashed())
         </del>
       @endif
+      
+      <x-date-range :profession="$value->profession"></x-date-range>
+
+      <x-expired-badge :profession="$value->profession"></x-expired-badge>
     </p>
-    <x-expired-badge :profession="$value->profession"></x-expired-badge>
   </div>
   <div class="card-body">
     <table class="table table-responsive table-hover table-striped w-100 d-block d-md-table">
@@ -30,17 +31,17 @@
       </thead>
       <tbody>
         <tr>
-          <td>{{ $value->total }}</td>
-          <td>{{ $value->attempted }}</td>
-          <td>{{ $value->correct }}</td>
-          <td>{{ $value->wrong }}</td>
+          <td>{{ $result->total }}</td>
+          <td>{{ $result->attempted }}</td>
+          <td>{{ $result->correct }}</td>
+          <td>{{ $result->wrong }}</td>
         </tr>
       </tbody>
       <tfoot>
         <tr>
           <td colspan="2"></td>
           <td>Percentage</td>
-          <td>{{ $value->percentage }} %</td>
+          <td>{{ $result->percentage }} %</td>
         </tr>
         <tr>
           <td colspan="2"></td>

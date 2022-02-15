@@ -82,8 +82,18 @@
               <x-badge :value="$candidates_count" type="primary"></x-badge>
             </a>
             <div class="dropdown">
-              <a href="#" class="dropdown-toggle list-group-item list-group-item-action bg-light" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">Professions</a>
+              <a href="#" class="dropdown-toggle list-group-item list-group-item-action bg-light" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">Exams</a>
               <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                <li><a class="dropdown-item" href="{{ route('admins.exams.index') }}">
+                  All
+                  <x-badge :value="$exams_count" type="primary"></x-badge>
+                </a></li>
+                <li><a class="dropdown-item" href="{{ route('admins.exams.create') }}">Add new</a></li>
+              </ul>
+            </div>
+            <div class="dropdown">
+              <a href="#" class="dropdown-toggle list-group-item list-group-item-action bg-light" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">Professions</a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
                 <li><a class="dropdown-item" href="{{ route('admins.professions.index') }}">
                   All
                   <x-badge :value="$professions_count" type="primary"></x-badge>
@@ -100,8 +110,8 @@
               </ul>
             </div>
             <div class="dropdown">
-              <a href="#" class="dropdown-toggle list-group-item list-group-item-action bg-light" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">Questions</a>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+              <a href="#" class="dropdown-toggle list-group-item list-group-item-action bg-light" id="dropdownMenuButton4" data-bs-toggle="dropdown" aria-expanded="false">Questions</a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
                 <li><a class="dropdown-item" href="{{ route('admins.questions.index') }}">
                   All
                   <x-badge :value="$questions_count" type="primary"></x-badge>
@@ -114,8 +124,8 @@
               </ul>
             </div>
             <div class="dropdown">
-              <a href="#" class="dropdown-toggle list-group-item list-group-item-action bg-light" id="dropdownMenuButton4" data-bs-toggle="dropdown" aria-expanded="false">Locations</a>
-              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton4">
+              <a href="#" class="dropdown-toggle list-group-item list-group-item-action bg-light" id="dropdownMenuButton5" data-bs-toggle="dropdown" aria-expanded="false">Locations</a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton5">
                 <li><a class="dropdown-item" href="{{ route('admins.locations.index') }}">
                   All
                   <x-badge :value="$locations_count" type="primary"></x-badge>

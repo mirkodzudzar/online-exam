@@ -20,7 +20,7 @@ class CreateQuestionsTable extends Migration
                   ->references('id')
                   ->on('professions')
                   ->onDelete('cascade');
-            $table->string('question');
+            $table->string('text');
             $table->string('answer_a');
             $table->string('answer_b');
             $table->string('answer_c');

@@ -3,10 +3,11 @@
 namespace App\Providers;
 
 use App\Events\ProfessionApplied;
-use App\Events\ProfessionFinished;
-use App\Listeners\NotifyUserProfessionApplied;
 use Illuminate\Auth\Events\Registered;
+use App\Events\CandidateProfessionUpdated;
+use App\Listeners\NotifyUserProfessionApplied;
 use App\Listeners\NotifyUsersProfessionFinished;
+use App\Listeners\EvaluateStatusOfCandidateProfession;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -21,14 +22,15 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
-        
-        ProfessionFinished::class => [
-            NotifyUsersProfessionFinished::class,
-        ],
 
         ProfessionApplied::class => [
             NotifyUserProfessionApplied::class,
-        ]
+        ],
+
+        CandidateProfessionUpdated::class => [
+            EvaluateStatusOfCandidateProfession::class,
+            NotifyUsersProfessionFinished::class,
+        ],
     ];
 
     /**

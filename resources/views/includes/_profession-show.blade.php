@@ -11,33 +11,56 @@
 @endif
 <p>{{ $profession->description }}</p>
 
+@auth
+  @if (Auth::user()->is_admin)
+    <p>Exam: <a href="{{ route('admins.exams.professions', ['exam' => $profession->exam->id]) }}">{{ $profession->exam->title }}</a></p>
+  @endif
+@endauth
+
 <x-location :locations="$profession->locations" :icon="true"></x-location>
 
-<p>
-  <x-badge :value="$profession->open_date" type="dark"></x-badge>
-  <b> - </b>
-  <x-badge :value="$profession->close_date" type="danger"></x-badge>
-</p>
+<x-date-range :profession="$profession"></x-date-range>
 
 @if (Route::is('professions.show'))
-  <p><i class="text-muted">Number of users currently visiting this profession: </i>{{ $counter }}</p>
+  <p class="mt-2"><i class="text-muted">Number of users currently visiting this profession: </i>{{ $counter }}</p>
 @endif
 
 @auth
   @if (Auth::user()->is_admin)
-    <div class="mb-3">
+    <div class="mb-3 mt-3">
       @include('includes._admin-profession-options')
     </div>
   @endif
 @endauth
 
-@can('unapply', $profession)
-  @can('view', $candidate_profession)
-    @if ($candidate_profession->status === 'applied')
-      <a href="{{ route('users.candidates.professions.show', ['candidate' => Auth::user()->candidate->id, 'profession' => $profession->id]) }}" class="btn btn-outline-info">Exam</a>
-    @endif
+@can('view', $profession->exam)
+  @can('unapply', $profession)
+    <a href="{{ route('users.candidates.professions.exams.show', [
+      'candidate' => Auth::user()->candidate->id,
+      'profession' => $profession->id,
+      'exam' => $profession->exam->id
+      ]) }}" class="btn btn-outline-info">
+      Exam
+    </a>
   @endcan
+@endcan
+
+@can('results', $candidate_profession ?? null)
+  @can('results', App\Models\CandidateExam::where('candidate_id', Auth::user()->candidate->id)->where('exam_id', $profession->exam->id)->first())
+    <a href="{{ route('users.candidates.professions.exams.results', [
+      'candidate' => Auth::user()->candidate->id,
+      'profession' => $profession->id,
+      'exam' => $profession->exam->id
+      ]) }}" class="btn btn-outline-info">Result</a>
+  @endcan
+@endcan
+
+@can('unapply', $profession)
   @include('includes._unapply-button')
+  @cannot('view', $profession->exam)
+    {{--  This message will be dispalyed once we applie for some profession, which exam has been finished already on some another profession!  --}}
+    <p class="mt-2">You do not need to attempt the exam, because you have already finished the exam for simillar profession!</p>
+  @endcannot
 @elsecan('apply', $profession)
   @include('includes._apply-button')
 @else
@@ -47,13 +70,8 @@
 @endcan
 
 @auth
-  @if (!Auth::user()->is_admin)
-    @can('view', $candidate_profession)
-      @if ($candidate_profession->status === 'passed' || $candidate_profession->status === 'failed')
-        <a href="{{ route('users.candidates.professions.show', ['candidate' => Auth::user()->candidate->id, 'profession' => $profession->id]) }}" class="btn btn-outline-info">Result</a>
-      @endif
-    @endcan
-    @if (isset($candidate_profession->status) && $candidate_profession->status === 'unapplied')
+  @if (!Auth::user()->is_admin && isset($candidate_profession->status))
+    @if ($candidate_profession->status === 'unapplied')
       <x-badge value="You have already unapplied from this profession, {{ $candidate_profession->updated_at->diffForHumans() }}" type="danger"></x-badge>
     @endif
   @endif

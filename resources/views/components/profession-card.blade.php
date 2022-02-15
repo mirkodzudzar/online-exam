@@ -8,7 +8,7 @@
         <del>
       @endif
       <h5 class="card-title fs-2">
-        <a href="{{ route('professions.show', ['profession' => $profession->id]) }}" class="text-decoration-none {{ $profession->trashed() ? 'text-muted' : '' }}">
+        <a href="{{ route('professions.show', ['profession' => $profession->id]) }}" class="{{ $profession->trashed() ? 'text-muted' : '' }}">
           {{ $profession->title }}
         </a>
       </h5>
@@ -19,11 +19,8 @@
       
       <x-location :locations="$profession->locations" :icon="true"></x-location>
       
-      <p>
-        <x-badge :value="$profession->open_date" type="dark"></x-badge>
-        <b> - </b>
-        <x-badge :value="$profession->close_date" type="danger"></x-badge>
-      </p>
+      <x-date-range :profession="$profession"></x-date-range>
+      
       <x-expired-badge :profession="$profession"></x-expired-badge>
     </div>
   </div>

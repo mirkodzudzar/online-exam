@@ -92,4 +92,13 @@ class CandidatePolicy
     {
         //
     }
+
+    public function professions(User $user, Candidate $candidate)
+    {
+        if (is_null($user->candidate)) {
+            return false;
+        }
+
+        return $user->candidate->id === $candidate->id;
+    }
 }

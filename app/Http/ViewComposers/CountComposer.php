@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Question;
 use App\Models\Candidate;
+use App\Models\Exam;
 use App\Models\Location;
 use Illuminate\View\View;
 use App\Models\Profession;
@@ -23,6 +24,11 @@ class CountComposer
     // Cache will be forgotten once new admin user is created by another admin user.
     $users_count = Cache::tags(['user'])->remember("count", 60, function() {
       return User::onlyAdminUsers()->count();
+    });
+
+    // Cache will be forgotten once new exam is created.
+    $exams_count = Cache::tags(['exam'])->remember("count", 60, function() {
+      return Exam::count();
     });
 
     // Cache will be forgotten once new profession is created or force-deleted.
@@ -58,6 +64,7 @@ class CountComposer
     
     $view->with('candidates_count', $candidates_count)
          ->with('users_count', $users_count)
+         ->with('exams_count', $exams_count)
          ->with('professions_count', $professions_count)
          ->with('professions_expired_count', $professions_expired_count)
          ->with('professions_destroyed_count', $professions_destroyed_count)

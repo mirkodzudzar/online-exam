@@ -14,7 +14,7 @@
       <ul class="list-group list-group-flush fs-4">
         @foreach ($locations as $location)
           <li class="list-group-item {{ $location->enabled ? '' : 'bg-warning' }}">
-            <a href="{{ route('locations.show', ['location' => $location->id]) }}" class="text-decoration-none">
+            <a href="{{ route('locations.show', ['location' => $location->id]) }}">
               {{ $location->name }}
             </a>
             @if (!$location->enabled) <x-badge value="Disabled" type="danger"></x-badge> @endif
