@@ -25,7 +25,8 @@ class QuestionController extends Controller
             $questions = Question::whereNotNull('id');
         }
 
-        $questions = $questions->paginate(20);
+        $questions = $questions->with('exam') // eager loading for less queries.
+                               ->paginate(20);
 
         return view('admins.questions.index', [
             'questions' => $questions,

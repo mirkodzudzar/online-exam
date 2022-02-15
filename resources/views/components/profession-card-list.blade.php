@@ -8,12 +8,12 @@
         {{--  $title value will be used if it is passed, if not, title of profession will be used instead  --}}
         <a href="{{ $route }}" class="{{ $profession->trashed() ? 'text-muted' : '' }}">{{ $title ?? $profession->title }}</a>
         {{--  Get created_at value, time when candidate has applied for profession  --}}
-        profession, applied {{ $profession->candidates()->first()->pivot->created_at->diffForHumans() }}.
+        {{--  profession, applied {{ $profession->candidates->first()->pivot->created_at->diffForHumans() }}.  --}}
         Status:
         {{--  Displaying badge with current status of candidate_profession  --}}
         <x-badge>
-          @slot('value', $profession->candidates()->first()->pivot->status)
-          @switch($profession->candidates()->first()->pivot->status)
+          @slot('value', $profession->candidates->first()->pivot->status)
+          @switch($profession->candidates->first()->pivot->status)
             @case('unapplied')
               @slot('type', 'warning')
               @break

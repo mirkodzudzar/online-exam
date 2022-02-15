@@ -11,21 +11,6 @@ class CandidateProfessionPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view any models.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Auth\Access\Response|bool
-     */
-    public function viewAny(User $user, CandidateProfession $candidateProfession)
-    {
-        if (is_null($user->candidate)) {
-            return false;
-        }
-
-        return $user->candidate->id === $candidateProfession->candidate->id;
-    }
-
-    /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user

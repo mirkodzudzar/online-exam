@@ -39,8 +39,9 @@ Route::group([
     // Additional routes for resource controller
     Route::post('/candidates/{candidate}/professions/{profession}/apply', [CandidateProfessionController::class, 'apply'])->name('candidates.professions.apply');
     Route::post('/candidates/{candidate}/professions/{profession}/unapply', [CandidateProfessionController::class, 'unapply'])->name('candidates.professions.unapply');
-    Route::resource('candidates.professions', CandidateProfessionController::class)->only(['index', 'update']);
+    Route::resource('candidates.professions', CandidateProfessionController::class)->only(['update']);
 
+    Route::get('/candidates/{candidate}/professions', [CandidateController::class, 'professions'])->name('candidates.professions');
     Route::resource('candidates', CandidateController::class)->only(['show', 'edit', 'update']);
 
     Route::delete('/candidates/{candidate}/document/destroy', [DocumentController::class, 'destroy'])->name('candidates.documents.destroy');

@@ -41,6 +41,7 @@ class ExamController extends Controller
      
         $candidate_profession = CandidateProfession::where('candidate_id', $candidate->id)
                                                    ->where('profession_id', $profession->id)
+                                                   ->with('candidate')
                                                    ->first();
 
         $this->authorize($candidate_profession);

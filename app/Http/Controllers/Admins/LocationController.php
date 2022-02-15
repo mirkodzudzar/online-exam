@@ -99,6 +99,7 @@ class LocationController extends Controller
     {
         $professions = $location->professions()
                                 ->with('locations')
+                                ->with('exam')
                                 ->withCount('candidates')
                                 ->paginate(20);
 

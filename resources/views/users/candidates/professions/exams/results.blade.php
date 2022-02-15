@@ -22,10 +22,10 @@
                     'answer_c',
                     'answer_d'];
         $candidate_answer = $question->candidates()
-                                      ->where('candidate_id', $candidate_profession->candidate->id)
-                                      ->first()
-                                      ->pivot
-                                      ->candidate_answer;
+                                     ->where('candidate_id', $candidate_profession->candidate->id)
+                                     ->first()
+                                     ->pivot
+                                     ->candidate_answer;
         @endphp
         <div class="card mb-3 {{ $candidate_answer !== $question->answer_correct ? 'bg-danger' : 'bg-success' }}">
           <div class="card-body bg-white">

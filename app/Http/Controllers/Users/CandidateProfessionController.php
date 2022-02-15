@@ -13,31 +13,6 @@ use App\Events\CandidateProfessionUpdated;
 class CandidateProfessionController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Candidate $candidate)
-    {
-        // Example code
-        // $professions = Profession::whereHas('candidates', function(Builder $builder) use ($candidate) {
-        //     $builder->whereIn('candidate_id', [$candidate->id]);
-        // })->withoutGlobalScope(WithoutExpiredProfessionsUserScope::class)->get();
-        $candidate_professions = CandidateProfession::where('candidate_id', $candidate->id)
-                                                    ->with('profession') // eager loading
-                                                    ->orderBy('status')
-                                                    ->paginate(10);
-
-        foreach ($candidate_professions as $candidate_profession) {
-            $this->authorize($candidate_profession);
-        }
-
-        return view('users.candidates.professions.index', [
-            'candidate_professions' => $candidate_professions,
-        ]);
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
