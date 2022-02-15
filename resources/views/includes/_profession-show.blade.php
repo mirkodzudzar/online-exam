@@ -45,8 +45,8 @@
   @endcan
 @endcan
 
-@can('results', App\Models\CandidateExam::where('candidate_id', Auth::user()->candidate->id)->where('exam_id', $profession->exam->id)->first())
-  @can('results', $candidate_profession)
+@can('results', $candidate_profession ?? null)
+  @can('results', App\Models\CandidateExam::where('candidate_id', Auth::user()->candidate->id)->where('exam_id', $profession->exam->id)->first())
     <a href="{{ route('users.candidates.professions.exams.results', [
       'candidate' => Auth::user()->candidate->id,
       'profession' => $profession->id,

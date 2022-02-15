@@ -8,13 +8,12 @@
   <div class="row">
     <div>
       @forelse ($candidate_professions as $candidate_profession)
-        {{-- Profession table with the applied professions --}}
-        <x-applied-profession-card
+        <x-profession-card-list
           :route="route('professions.show', [
             'profession' => $candidate_profession->profession->id,
           ])"
           :profession="$candidate_profession->profession">
-        </x-applied-profession-card>
+        </x-profession-card-list>
       @empty
         <p>You do not have any results yet.</p>
       @endforelse

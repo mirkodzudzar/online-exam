@@ -1,5 +1,5 @@
-<div class="card mb-3">
-  <div class="card-body {{ $profession->isExpired() ? 'bg-warning' : '' }}">
+<div class="card mb-3 {{ $profession->isExpired() ? 'bg-warning' : '' }}">
+  <div class="card-body">
     <div class="fs-5">
       @if ($profession->trashed())
         <del>
@@ -28,12 +28,11 @@
               @break
           @endswitch
         </x-badge>
-
+        <x-expired-badge :profession="$profession"></x-expired-badge>
       </p>
       @if ($profession->trashed())
         </del>
       @endif  
     </div>
-    <x-expired-badge :profession="$profession"></x-expired-badge>
   </div>
 </div>
