@@ -59,7 +59,7 @@ class UserController extends Controller
         $user = new User();
         $user->name = $validated['name'];
         $user->email = $validated['email'];
-        $user->password = Hash::make($validated['email']);
+        $user->password = Hash::make($validated['password']);
         $user->is_admin = true;
         $user->save();
 

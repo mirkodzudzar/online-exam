@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
-use App\Models\Document;
+use App\Events\CandidateHasRegistered;
 use App\Models\Location;
-use App\Models\Candidate;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Cache;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -76,46 +72,10 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $user =  User::make([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        // Event listener is returning array, access to first element of array to get user.
+        $user = event(new CandidateHasRegistered($data))[0];
 
-        $candidate = Candidate::make([
-            'username' => $data['username'],
-            // 'user_id' => $user->id,
-            'phone_number' => $data['phone_number'],
-            'state' => $data['state'],
-            'city' => $data['city'],
-            'address' => $data['address'],
-        ]);
-
-        $user->save();
-        $candidate->user_id = $user->id;
-        $candidate->save();
-
-        // If value is entered, it will be saved. Otherwise, there will be no value saved.
-        if ($data['location'] != null) {
-            $location = Location::findOrFail($data['location']);
-            $candidate->location()->sync($location);
-        }
-
-        // Uploading CV document.
-        if (isset($data['document'])) {
-            $path = $data['document']->store('documents');
-            $candidate->document()->save(
-                Document::create([
-                    'path' => $path,
-                    'candidate_id' => $candidate->id,
-                ])
-            );
-        }
-
-        // Cache will be forgotten once new user-candidate is registered.
-        Cache::tags(['candidate'])->forget('count');
-
-        session()->flash('status', 'Welcome! Your registration have been completed successfully.');
+        session()->flash('status', 'Welcome! Your registration has been completed successfully.');
 
         return $user;
     }

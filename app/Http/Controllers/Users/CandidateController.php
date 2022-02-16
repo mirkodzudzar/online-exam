@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Users;
 
+use App\Events\CandidateUpdated;
 use App\Models\User;
 use App\Models\Document;
 use App\Models\Location;
@@ -59,49 +60,8 @@ class CandidateController extends Controller
         $this->authorize($candidate);
 
         $validated = $request->validated();
-        //Find user of a candidate.
-        $user = User::findOrFail($candidate->user->id);
-
-        $user->name = $validated['name'];
-        $user->email = $validated['email'];
-        $user->password = Hash::make($validated['password']);
-
-        $candidate->username = $validated['username'];
-        $candidate->phone_number = $validated['phone_number'];
-        $candidate->state = $validated['state'];
-        $candidate->city = $validated['city'];
-        $candidate->address = $validated['address'];
-
-        // Uploading CV document.
-        if ($request->hasFile('document')) {
-            $path = $validated['document']->store('documents');
-            // Updating existing document.
-            if ($candidate->document) {
-                Storage::delete($candidate->document->path);
-                $candidate->document->path = $path;
-                $candidate->document->save();
-            // Or uploading new document.
-            } else {
-                $candidate->document()->save(
-                    Document::create([
-                        'path' => $path,
-                        'candidate_id' => $candidate->id,
-                    ])
-                );
-            }
-        }
-
-        $user->save();
-        $candidate->save();
-
-        // If there is valid value, save it.
-        if ($validated['location'] != null) {
-            $location = Location::findOrFail($validated['location']);
-            $candidate->location()->sync($location);
-        // If there is no value, we will remove the record if it existed before.
-        } else {
-            $candidate->location()->detach();
-        }
+        
+        event(new CandidateUpdated($validated, $candidate));
 
         return redirect()->back()->withStatus('You have updated your profile successfully.');
     }
