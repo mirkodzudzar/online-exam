@@ -20,8 +20,9 @@
       <x-error field="password"></x-error>
     </div>
     
-    <div>
-      <input class="btn btn-primary mt-5" type="submit" value="Login">
+    <div class="mt-3">
+      <input class="btn btn-primary" type="submit" value="Login">
+      <a href="{{ route('password.request') }}" class="ms-3">Forgot your password?</a>
     </div>
   </form>
 @endsection
