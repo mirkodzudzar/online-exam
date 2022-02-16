@@ -96,7 +96,7 @@ class RegisterController extends Controller
         $candidate->save();
 
         // If value is entered, it will be saved. Otherwise, there will be no value saved.
-        if ($data['location'] != null) {
+        if (isset($data['location'])) {
             $location = Location::findOrFail($data['location']);
             $candidate->location()->sync($location);
         }
