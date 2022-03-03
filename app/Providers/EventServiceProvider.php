@@ -6,12 +6,10 @@ use App\Events\CandidateHasRegistered;
 use App\Events\ProfessionApplied;
 use Illuminate\Auth\Events\Registered;
 use App\Events\CandidateProfessionUpdated;
-use App\Events\CandidateUpdated;
 use App\Listeners\NotifyUserProfessionApplied;
 use App\Listeners\NotifyUsersProfessionFinished;
 use App\Listeners\EvaluateStatusOfCandidateProfession;
 use App\Listeners\NotifyCandidateAboutRegistration;
-use App\Listeners\NotifyCandidateProfileIsUpdated;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -38,10 +36,6 @@ class EventServiceProvider extends ServiceProvider
 
         CandidateHasRegistered::class => [
             NotifyCandidateAboutRegistration::class,
-        ],
-
-        CandidateUpdated::class => [
-            NotifyCandidateProfileIsUpdated::class,
         ],
     ];
 

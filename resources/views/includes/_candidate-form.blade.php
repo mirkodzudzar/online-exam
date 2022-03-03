@@ -106,3 +106,9 @@
     </p>
   @endif
 </div>
+
+<div class="form-group">
+  <label for="profile_image">Profile image</label>
+  <input type="file" class="form-control-file" id="profile_image" name="profile_image">
+  <x-error field="profile_image"></x-error>
+</div>
