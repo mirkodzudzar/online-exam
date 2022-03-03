@@ -5,13 +5,12 @@ namespace App\Services;
 use App\Models\Document;
 use App\Models\Location;
 use App\Models\Candidate;
-use App\Contracts\CandidateContract;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
-class CandidateService implements CandidateContract
+class CandidateService
 {
-  public function update(array $data, Candidate $candidate)
+  public static function update(array $data, Candidate $candidate)
   {    
     //Find user of a candidate.
     $user = $candidate->user;

@@ -9,7 +9,6 @@ use App\Services\Counter;
 use App\Models\Profession;
 use App\Models\CandidateExam;
 use App\Observers\UserObserver;
-use App\Services\CandidateService;
 use App\Observers\LocationObserver;
 use App\Observers\QuestionObserver;
 use Illuminate\Pagination\Paginator;
@@ -67,11 +66,6 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(
             'App\Contracts\CounterContract',
             Counter::class,
-        );
-
-        $this->app->bind(
-            'App\Contracts\CandidateContract',
-            CandidateService::class,
         );
 
         // $this->app->when(Counter::class)

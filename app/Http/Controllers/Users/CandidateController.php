@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Users;
 
 use App\Models\Location;
 use App\Models\Candidate;
-use App\Facades\CandidateFacade;
+use App\Services\CandidateService;
 use App\Models\CandidateProfession;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateCandidate;
@@ -57,7 +57,7 @@ class CandidateController extends Controller
 
         $validated = $request->validated();
         
-        CandidateFacade::update($validated, $candidate);
+        CandidateService::update($validated, $candidate);
 
         return redirect()->back()->withStatus('You have updated your profile successfully.');
     }
