@@ -5,7 +5,9 @@ namespace App\Services;
 use App\Models\Document;
 use App\Models\Location;
 use App\Models\Candidate;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
 class CandidateService
@@ -44,9 +46,6 @@ class CandidateService
         }
     }
 
-    $user->save();
-    $candidate->save();
-
     // If there is valid value, save it.
     if (isset($data['location'])) {
         $location = Location::findOrFail($data['location']);
@@ -55,5 +54,23 @@ class CandidateService
     } else {
         $candidate->location()->detach();
     }
+
+    // If there is valid value, save it.
+    if (isset($data['profile_image'])) {
+        $file = $data['profile_image'];
+        $filename = uniqid($user->id . "_") . "." . $file->getClientOriginalExtension();
+        Storage::put($filename, File::get($file));
+        $candidate->profile_image = $filename;  
+
+        // Create thumbnail image
+        $thumbnail = Image::make($file);
+        $thumbnail->fit(200);
+        $thumbnail_jpg = (string) $thumbnail->encode('jpg');
+        $thumbnail_name = pathinfo($filename, PATHINFO_FILENAME) . '-thumbnail.jpg';
+        Storage::put($thumbnail_name, $thumbnail_jpg);
+    }
+
+    $user->save();
+    $candidate->save();
   }
 }
