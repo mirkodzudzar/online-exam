@@ -17,11 +17,6 @@ class Question extends Model
 
     protected $fillable = ['question', 'answer_a', 'answer_b', 'answer_c', 'answer_d', 'answer_correct'];
 
-    public function profession()
-    {
-        return $this->belongsTo(Profession::class);
-    }
-
     public function exam()
     {
         return $this->belongsTo(Exam::class);

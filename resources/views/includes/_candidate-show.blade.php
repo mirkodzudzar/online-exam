@@ -1,5 +1,11 @@
 <table class="table table-responsive table-hover table-striped text-center w-100 d-block d-md-table">
   <tr>
+    <th scope="row">Profile image</th>
+    <td>
+      <img src="{{ Storage::url($candidate->profile_thumbnail) }}">
+    </td>
+  </tr>
+  <tr>
     <th scope="row">Id</th>
     <td>{{ $candidate->id }}</td>
   </tr>

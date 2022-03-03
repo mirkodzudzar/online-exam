@@ -196,7 +196,7 @@ class ProfessionController extends Controller
     {
         $professions = Profession::onlyTrashed()
                                  ->withCount('candidates')
-                                 ->withCount('questions')
+                                //  ->with('exam')
                                  ->with('locations')
                                  ->paginate(20);
 
@@ -214,7 +214,7 @@ class ProfessionController extends Controller
     {
         $professions = Profession::onlyExpiredProfessions()
                                  ->withCount('candidates')
-                                 ->withCount('questions')
+                                 ->with('exam')
                                  ->with('locations')
                                  ->paginate(20);
 

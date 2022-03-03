@@ -9,7 +9,6 @@ use App\Services\Counter;
 use App\Models\Profession;
 use App\Models\CandidateExam;
 use App\Observers\UserObserver;
-use App\Models\CandidateProfession;
 use App\Observers\LocationObserver;
 use App\Observers\QuestionObserver;
 use Illuminate\Pagination\Paginator;
@@ -17,7 +16,6 @@ use App\Observers\ProfessionObserver;
 use Illuminate\Support\ServiceProvider;
 use App\Observers\CandidateExamObserver;
 use App\Http\ViewComposers\CountComposer;
-use App\Observers\CandidateProfessionObserver;
 
 class AppServiceProvider extends ServiceProvider
 {

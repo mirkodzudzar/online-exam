@@ -45,6 +45,7 @@ class UpdateCandidate extends FormRequest
             // Once this value is entered, it needs to be existing id.
             'location' => 'nullable|exists:locations,id',
             'document' => 'nullable|file|mimes:pdf|max:2048',
+            'profile_image' => 'nullable',
         ];
     }
 }

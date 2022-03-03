@@ -16,6 +16,12 @@ class Candidate extends Model
 
     protected $fillable = ['username', 'phone_number', 'state', 'city', 'address'];
 
+    public function getProfileThumbnailAttribute()
+    {
+        $path = pathinfo($this->profile_image);
+        return $path['filename'] . "-thumbnail.jpg";
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

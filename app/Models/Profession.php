@@ -37,11 +37,6 @@ class Profession extends Model
                     ->withPivot(['status', 'created_at', 'updated_at']);
     }
 
-    public function questions()
-    {
-        return $this->hasMany(Question::class);
-    }
-
     public function locations()
     {
         return $this->morphToMany(Location::class, 'locationable');

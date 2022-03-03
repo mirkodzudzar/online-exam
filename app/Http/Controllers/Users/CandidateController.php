@@ -2,16 +2,12 @@
 
 namespace App\Http\Controllers\Users;
 
-use App\Events\CandidateUpdated;
-use App\Models\User;
-use App\Models\Document;
 use App\Models\Location;
 use App\Models\Candidate;
+use App\Services\CandidateService;
 use App\Models\CandidateProfession;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\UpdateCandidate;
-use Illuminate\Support\Facades\Storage;
 
 class CandidateController extends Controller
 {
@@ -61,7 +57,7 @@ class CandidateController extends Controller
 
         $validated = $request->validated();
         
-        event(new CandidateUpdated($validated, $candidate));
+        CandidateService::update($validated, $candidate);
 
         return redirect()->back()->withStatus('You have updated your profile successfully.');
     }
