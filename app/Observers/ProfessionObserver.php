@@ -49,7 +49,6 @@ class ProfessionObserver
 
     public function deleting(Profession $profession)
     {
-        $profession->questions()->delete();
         CandidateProfession::where('profession_id', $profession->id)->delete();
         // Destroyed profession count will increase.
         Cache::tags(['profession'])->forget('destoryed-count');
@@ -68,7 +67,6 @@ class ProfessionObserver
 
     public function restoring(Profession $profession)
     {
-        $profession->questions()->restore();
         CandidateProfession::where('profession_id', $profession->id)->restore();
         // Destroyed profession count will decrease.
         Cache::tags(['profession'])->forget('destoryed-count');
@@ -82,7 +80,6 @@ class ProfessionObserver
      */
     public function forceDeleted(Profession $profession)
     {
-        $profession->questions()->forceDelete();
         $profession->candidates()->detach();
         // Profession count will decrease.
         Cache::tags(['profession'])->forget('count');
