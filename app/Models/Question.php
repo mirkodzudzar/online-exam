@@ -15,7 +15,7 @@ class Question extends Model
         SoftDeletes,
         Searchable;
 
-    protected $fillable = ['question', 'answer_a', 'answer_b', 'answer_c', 'answer_d', 'answer_correct'];
+    protected $fillable = ['text', 'answer_a', 'answer_b', 'answer_c', 'answer_d', 'answer_correct'];
 
     public function exam()
     {

@@ -58,6 +58,7 @@
     </style>   
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <script src="{{ mix('js/app.js') }}" defer></script>
+    @livewireStyles
     <title>Online Exam - @yield('title')</title>
   </head>
   <body>
@@ -185,5 +186,6 @@
       <!-- /#page-content-wrapper -->
     </div>
     <!-- /#wrapper -->
+    @livewireScripts
   </body>
 </html>
