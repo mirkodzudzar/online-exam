@@ -43,15 +43,16 @@ class ExamController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    // public function store(StoreExamWithQuestions $request)
-    public function store(Request $request)
+    public function store(StoreExamWithQuestions $request)
     {
-        $exam = Exam::create([
-            'title' => $request->input(['title']),
-            'description' => $request->input(['description']),
-        ]);
+        $validated = $request->validated();
 
-        foreach ($request->input(['question']) as $question) {
+        
+        $exam = Exam::create([
+            'title' => $validated['exam']['title'],
+            'description' => $validated['exam']['description'],
+        ]);
+        foreach ($validated['questions'] as $question) {
             $question = Question::make([
                 'text' => $question['text'],
                 'answer_a' => $question['answer_a'],

@@ -24,14 +24,14 @@ class StoreExamWithQuestions extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|min:5',
-            'description' => 'required|min:25',
-            'question.*.text' => 'required|min:5',
-            'question.*.answer_a' => 'required|min:5',
-            'question.*.answer_b' => 'required|min:5',
-            'question.*.answer_c' => 'required|min:5',
-            'question.*.answer_d' => 'required|min:5',
-            'question.*.answer_correct' => 'required|in:answer_a,answer_b,answer_c,answer_d',
+            'exam.title' => 'required|min:5|max:255',
+            'exam.description' => 'required|min:25',
+            'questions.*.text' => 'required|min:5|max:255',
+            'questions.*.answer_a' => 'required|min:5|max:255',
+            'questions.*.answer_b' => 'required|min:5|max:255',
+            'questions.*.answer_c' => 'required|min:5|max:255',
+            'questions.*.answer_d' => 'required|min:5|max:255',
+            'questions.*.answer_correct' => 'required|in:answer_a,answer_b,answer_c,answer_d',
         ];
     }
 }
