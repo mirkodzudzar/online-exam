@@ -47,7 +47,7 @@ class LocationController extends Controller
         $location = Location::create($validated);
 
         return redirect()->route('admins.locations.index')
-                         ->withStatus("Location '{$location->name}' has been created successfully.");
+                         ->withSuccessMessage("Location '{$location->name}' has been created successfully.");
     }
 
     /**
@@ -76,7 +76,7 @@ class LocationController extends Controller
         $location->update($validated);
 
         return redirect()->route('admins.locations.index')
-                         ->withStatus("Location '{$location->name}' has been updated successfully.");
+                         ->withSuccessMessage("Location '{$location->name}' has been updated successfully.");
     }
 
     public function candidates(Location $location)
@@ -117,7 +117,7 @@ class LocationController extends Controller
         $location->save();
 
         return redirect()->back()
-                         ->withStatus("Location '{$location->name}' has been enabled successfully.");
+                         ->withSuccessMessage("Location '{$location->name}' has been enabled successfully.");
     }
 
     public function disable(Location $location)
@@ -128,7 +128,7 @@ class LocationController extends Controller
         $location->save();
 
         return redirect()->back()
-                         ->withStatus("Location '{$location->name}' has been disabled successfully.");
+                         ->withSuccessMessage("Location '{$location->name}' has been disabled successfully.");
     }
 }
 

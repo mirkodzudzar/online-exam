@@ -37,14 +37,12 @@ class AddExamIdToQuestionsTable extends Migration
             $table->dropForeign(['exam_id']);
             $table->dropColumn('exam_id');
 
-            // Only if table 'professions' exists, add field and foreign key.
-            if (Schema::hasTable('professions')) {
-                $table->unsignedBigInteger('profession_id');
-                $table->foreign('profession_id')
-                      ->references('id')
-                      ->on('professions')
-                      ->onDelete('cascade');
-            }
+            $table->unsignedBigInteger('profession_id')
+                  ->nullable();
+            $table->foreign('profession_id')
+                    ->references('id')
+                    ->on('professions')
+                    ->onDelete('cascade');
         });
     }
 }

@@ -59,7 +59,7 @@ class CandidateController extends Controller
         
         CandidateService::update($validated, $candidate);
 
-        return redirect()->back()->withStatus('You have updated your profile successfully.');
+        return redirect()->back()->withSuccessMessage('You have updated your profile successfully.');
     }
 
     public function professions(Candidate $candidate)

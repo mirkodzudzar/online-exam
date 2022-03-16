@@ -33,6 +33,9 @@
   </nav>
   </div>
   <div class="container">
+
+    @include('sweetalert::alert')
+    
     @if (session('status'))
       <div class="alert alert-success">
         {{ session('status') }}

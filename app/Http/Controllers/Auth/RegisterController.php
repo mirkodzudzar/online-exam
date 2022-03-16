@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Events\CandidateHasRegistered;
 use App\Models\Location;
 use App\Http\Controllers\Controller;
+use App\Events\CandidateHasRegistered;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -75,7 +75,7 @@ class RegisterController extends Controller
         // Event listener is returning array, access to first element of array to get user.
         $user = event(new CandidateHasRegistered($data))[0];
 
-        session()->flash('status', 'Welcome! Your registration has been completed successfully.');
+        session()->flash('success_message', 'Welcome! Your registration has been completed successfully.');
 
         return $user;
     }

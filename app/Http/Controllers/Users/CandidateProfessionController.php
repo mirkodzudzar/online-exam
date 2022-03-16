@@ -36,7 +36,7 @@ class CandidateProfessionController extends Controller
         return redirect()->route('professions.show', [
             // 'candidate' => $candidate->id,
             'profession' => $profession->id,
-        ])->withStatus('You have finished process of applying for this job. Check your results.');
+        ])->withSuccessMessage('You have finished process of applying for this job. Check your results.');
     }
 
     public function apply(Candidate $candidate, Profession $profession, Request $request)
@@ -50,7 +50,7 @@ class CandidateProfessionController extends Controller
         event(new ProfessionApplied($candidate, $profession));
 
         return redirect()->back()
-                         ->withStatus("You have successfully applied for '{$profession->title}' profession.");
+                         ->withSuccessMessage("You have successfully applied for '{$profession->title}' profession.");
     }
 
     public function unapply(Candidate $candidate, Profession $profession, Request $request)
@@ -67,6 +67,6 @@ class CandidateProfessionController extends Controller
 
         return redirect()->route('professions.show', [
             'profession' => $profession->id,
-        ])->withStatus("You have successfully unapplied '{$profession->title}' profession.");
+        ])->withSuccessMessage("You have successfully unapplied '{$profession->title}' profession.");
     }
 }

@@ -67,7 +67,7 @@ class ExamController extends Controller
         }
 
         return redirect()->route('admins.exams.index')
-                         ->withStatus("Exam {$exam->title} has been created successfully.");
+                         ->withSuccessMessage("Exam {$exam->title} has been created successfully.");
     }
 
     /**
@@ -97,7 +97,7 @@ class ExamController extends Controller
         $exam->update($validated);
 
         return redirect()->route('admins.exams.index')
-                         ->withStatus("Exam {$exam->title} has been updated successfully.");
+                         ->withSuccessMessage("Exam {$exam->title} has been updated successfully.");
     }
 
     public function questions(Exam $exam)

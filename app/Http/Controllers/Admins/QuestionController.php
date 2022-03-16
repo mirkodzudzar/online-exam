@@ -63,7 +63,7 @@ class QuestionController extends Controller
 
         return redirect()->route('admins.exams.questions', [
             'exam' => $question->exam->id,
-        ])->withStatus('You have created new question successfully.');
+        ])->withSuccessMessage('You have created new question successfully.');
     }
 
     /**
@@ -106,7 +106,7 @@ class QuestionController extends Controller
         $question->save();
 
         return redirect()->back()
-                         ->withStatus('You have edited question successfully.');
+                         ->withSuccessMessage('You have edited question successfully.');
     }
 
     /**
@@ -119,7 +119,7 @@ class QuestionController extends Controller
     {
         $question->delete();
 
-        return redirect()->back()->withStatus("Question by id '{$question->id}' has been deleted successfully.");
+        return redirect()->back()->withSuccessMessage("Question by id '{$question->id}' has been deleted successfully.");
     }
 
     /**
@@ -132,7 +132,7 @@ class QuestionController extends Controller
     {
         $question->restore();
 
-        return redirect()->back()->withStatus("Question by id '{$question->id}' has been restored successfully.");
+        return redirect()->back()->withSuccessMessage("Question by id '{$question->id}' has been restored successfully.");
     }
 
     /**
@@ -145,7 +145,7 @@ class QuestionController extends Controller
     {
         $question->forceDelete();
 
-        return redirect()->back()->withStatus("Question by id '{$question->id}' has been deleted permanently.");
+        return redirect()->back()->withSuccessMessage("Question by id '{$question->id}' has been deleted permanently.");
     }
 
     /**

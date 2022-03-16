@@ -9,6 +9,7 @@ use App\Services\SearchResult;
 use App\Models\CandidateProfession;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProfession;
+use App\Models\Exam;
 
 class ProfessionController extends Controller
 {
@@ -44,10 +45,9 @@ class ProfessionController extends Controller
      */
     public function create()
     {
-        $locations = Location::all();
-
         return view('admins.professions.create', [
-            'locations' => $locations
+            'locations' => Location::all(),
+            'exams' => Exam::all(),
         ]);
     }
 
@@ -61,9 +61,11 @@ class ProfessionController extends Controller
     {
         $validated = $request->validated();
         $profession = Profession::create($validated);
+        $profession->exam()->associate($validated['exam']);
+        $profession->save();
 
         // If there is valid value, save it.
-        if ($validated['locations'][0] !== null) {
+        if (isset($validated['locations'][0])) {
             $profession->locations()->sync($validated['locations']);
         // If there is no value, we will remove the record if it existed before.
         } else {
@@ -72,7 +74,7 @@ class ProfessionController extends Controller
 
         return redirect()->route('admins.professions.show', [
             'profession' => $profession->id,
-        ])->withStatus("Profession '{$profession->title}' has been created successfully.");
+        ])->withSuccessMessage("Profession '{$profession->title}' has been created successfully.");
     }
 
     /**
@@ -102,11 +104,10 @@ class ProfessionController extends Controller
      */
     public function edit(Profession $profession)
     {
-        $locations = Location::all();
-
         return view('admins.professions.edit', [
             'profession' => $profession,
-            'locations' => $locations,
+            'locations' => Location::all(),
+            'exams' => Exam::all(),
         ]);
     }
 
@@ -121,18 +122,18 @@ class ProfessionController extends Controller
     {
         $validated = $request->validated();
         $profession->update($validated);
-
-        // dd($validated['locations'][0]);
+        $profession->exam()->associate($validated['exam']);
+        $profession->save();
 
         // If there is valid value, save it.
-        if ($validated['locations'][0] !== null) {
+        if (isset($validated['locations'][0])) {
             $profession->locations()->sync($validated['locations']);
         // If there is no value, we will remove the record if it existed before.
         } else {
             $profession->locations()->detach();
         }
 
-        return redirect()->back()->withStatus("Profession '{$profession->title}' has been updated successfully.");
+        return redirect()->back()->withSuccessMessage("Profession '{$profession->title}' has been updated successfully.");
     }
 
     /**
@@ -145,7 +146,7 @@ class ProfessionController extends Controller
     {
         $profession->delete();
 
-        return redirect()->back()->withStatus("Profession '{$profession->title}' has been deleted successfully.");
+        return redirect()->back()->withSuccessMessage("Profession '{$profession->title}' has been deleted successfully.");
     }
 
     /**
@@ -158,7 +159,7 @@ class ProfessionController extends Controller
     {
         $profession->restore();
 
-        return redirect()->back()->withStatus("Profession '{$profession->title}' has been restored successfully.");
+        return redirect()->back()->withSuccessMessage("Profession '{$profession->title}' has been restored successfully.");
     }
 
     /**
@@ -171,7 +172,7 @@ class ProfessionController extends Controller
     {
         Profession::onlyTrashed()->restore();
 
-        return redirect()->back()->withStatus("All professions have been restored successfully.");
+        return redirect()->back()->withSuccessMessage("All professions have been restored successfully.");
     }
 
     /**
@@ -184,7 +185,7 @@ class ProfessionController extends Controller
     {
         $profession->forceDelete();
 
-        return redirect()->back()->withStatus("Profession '{$profession->title}' has been deleted permanently.");
+        return redirect()->back()->withSuccessMessage("Profession '{$profession->title}' has been deleted permanently.");
     }
 
     /**

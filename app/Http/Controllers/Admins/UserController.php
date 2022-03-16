@@ -64,7 +64,7 @@ class UserController extends Controller
         $user->save();
 
         return redirect()->route('admins.users.index')
-                         ->withStatus("User {$user->name} has been created successfully.");
+                         ->withSuccessMessage("User {$user->name} has been created successfully.");
     }
 
     /**
@@ -96,6 +96,6 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect()->back()->withStatus("You have updated {$user->name} user successfully.");
+        return redirect()->back()->withSuccessMessage("You have updated {$user->name} user successfully.");
     }
 }

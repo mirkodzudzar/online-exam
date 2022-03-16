@@ -12,6 +12,28 @@
 </div>
 
 <div>
+    <label for="exam">Exam</label>
+    <select name="exam" multiple id="exam" class="form-select form-select-sm">
+        @if (Route::is('admins.professions.edit'))
+            <option value="">- none -</option>
+        @else
+            <option value="" {{ is_null(old('exam')) ? 'selected' : '' }}>- none -</option>
+        @endif
+        @forelse ($exams as $exam)
+            <option value="{{ $exam->id }}" 
+                {{-- Select profession exam when there is old exam value. --}}
+                @if (((int)old('exam') === $exam->id) ||
+                    (optional($profession->exam ?? null)->id == $exam->id))) selected @endif
+            >{{ $exam->title }}</option>
+            {{ print_r((optional($profession->exam ?? null)->id)) }}
+        @empty
+            <p>There are no exams yet!</p>
+        @endforelse
+    </select>
+    <x-error field="exam"></x-error>
+</div>
+
+<div>
   <label for="location">Locations</label>
     <select name="locations[]" multiple id="location" class="form-select form-select-sm">
       @if (Route::is('admins.professions.edit'))

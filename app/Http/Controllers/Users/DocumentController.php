@@ -22,6 +22,6 @@ class DocumentController extends Controller
         $candidate->document()->delete();
 
         return redirect()->back()
-                         ->withStatus('You have removed your CV document successfully.');
+                         ->withSuccessMessage('You have removed your CV document successfully.');
     }
 }

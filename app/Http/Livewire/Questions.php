@@ -78,7 +78,7 @@ class Questions extends Component
             $question->save();
         }
 
-        return redirect()->route('admins.exams.index')->with('status', "Exam {$exam->title} has been created successfully.");
+        return redirect()->route('admins.exams.index')->with('success_message', "Exam {$exam->title} has been created successfully.");
     }
 
     public function removeQuestion($index)

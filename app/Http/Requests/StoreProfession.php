@@ -3,6 +3,8 @@
 namespace App\Http\Requests;
 
 use Carbon\Carbon;
+use App\Models\Exam;
+use App\Models\Location;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreProfession extends FormRequest
@@ -29,7 +31,8 @@ class StoreProfession extends FormRequest
             'description' => 'required|min:25',
             'open_date' => 'required|after_or_equal:' . Carbon::today()->format('m/d/Y'),
             'close_date' => 'required|after_or_equal:open_date',
-            'locations.*' => 'nullable|exists:locations,id',
+            'locations.*' => 'nullable|exists:locations,id','locations' => Location::all(),
+            'exam' => 'required|exists:exams,id','exams' => Exam::all(),
         ];
     }
 }
